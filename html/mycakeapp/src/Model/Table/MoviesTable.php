@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -87,6 +88,7 @@ class MoviesTable extends Table
 
         $validator
             ->integer('running_time')
+            ->maxLength('running_time', 3)
             ->requirePresence('running_time', 'create')
             ->notEmptyString('running_time');
 
