@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -39,5 +40,14 @@ class Creditcard extends Entity
         'modified' => true,
         'user' => true,
         'payments' => true,
+    ];
+
+    /**
+     * Fields that are excluded from JSON versions of the entity.
+     *
+     * @var array
+     */
+    protected $_hidden = [
+        'creditcard_number',
     ];
 }
