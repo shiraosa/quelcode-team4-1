@@ -2,3 +2,4 @@ docker/mysql/data
 phpmyadmin
 .env
 .vscode
+html/mycakeapp/config/Migrations/schema-dump-default.lock
