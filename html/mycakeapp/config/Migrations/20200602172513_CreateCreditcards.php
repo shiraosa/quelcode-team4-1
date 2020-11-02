@@ -31,7 +31,7 @@ class CreateCreditcards extends AbstractMigration
             'default' => null,
             'null' => false,
         ]);
-        $table->changeColumn('is_deleted', 'boolean', [
+        $table->addColumn('is_deleted', 'boolean', [
             'default' => 0,
             'null' => false,
         ]);

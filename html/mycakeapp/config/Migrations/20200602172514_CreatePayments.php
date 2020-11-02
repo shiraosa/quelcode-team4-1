@@ -29,7 +29,7 @@ class CreatePayments extends AbstractMigration
             'limit' => 11,
             'null' => false,
         ]);
-        $table->changeColumn('is_deleted', 'boolean', [
+        $table->addColumn('is_deleted', 'boolean', [
             'default' => 0,
             'null' => false,
         ]);

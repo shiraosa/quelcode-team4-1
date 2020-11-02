@@ -24,11 +24,11 @@ class CreateUsers extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ]);
-        $table->changeColumn('is_temporary', 'boolean', [
+        $table->addColumn('is_temporary', 'boolean', [
             'default' => 1,
             'null' => false,
         ]);
-        $table->changeColumn('is_deleted', 'boolean', [
+        $table->addColumn('is_deleted', 'boolean', [
             'default' => 0,
             'null' => false,
         ]);
