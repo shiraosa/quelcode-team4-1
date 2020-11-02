@@ -1,7 +1,8 @@
 <?php
+
 use Migrations\AbstractMigration;
 
-class CreateDiscount_logs extends AbstractMigration
+class CreateDiscountLogs extends AbstractMigration
 {
     /**
      * Change Method.

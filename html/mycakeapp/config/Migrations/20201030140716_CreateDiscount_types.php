@@ -2,7 +2,7 @@
 
 use Migrations\AbstractMigration;
 
-class CreateBasicRates extends AbstractMigration
+class CreateDiscountTypes extends AbstractMigration
 {
     /**
      * Change Method.
@@ -13,13 +13,18 @@ class CreateBasicRates extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('basic_rates');
-        $table->addColumn('ticket_type', 'string', [
+        $table = $this->table('discount_types');
+        $table->addColumn('discount_type', 'string', [
             'default' => null,
             'limit' => 50,
             'null' => false,
         ]);
-        $table->addColumn('basic_rate', 'integer', [
+        $table->addColumn('discount_details', 'string', [
+            'default' => null,
+            'limit' => 300,
+            'null' => false,
+        ]);
+        $table->addColumn('discount_price', 'integer', [
             'default' => null,
             'limit' => 11,
             'null' => false,
@@ -27,6 +32,11 @@ class CreateBasicRates extends AbstractMigration
         $table->addColumn('start_date', 'date', [
             'default' => null,
             'null' => false,
+        ]);
+        $table->addColumn('banner_path', 'string', [
+            'default' => null,
+            'limit' => 100,
+            'null' => true,
         ]);
         $table->addColumn('is_deleted', 'boolean', [
             'default' => 0,
