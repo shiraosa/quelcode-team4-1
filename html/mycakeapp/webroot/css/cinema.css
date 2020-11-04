@@ -1,0 +1,55 @@
+.top-bar {
+    margin-bottom: 83px;
+}
+
+body {
+    background-color: #ebebeb;
+}
+
+.innerHeading {
+    text-align: center;
+    font: normal normal 600 25px/34px Noto Sans;
+    letter-spacing: 0.89px;
+    color: #707070;
+    margin: 0 0 36px 0;
+}
+
+.innerWindow {
+    width: 736px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 108px 0 88px 0;
+}
+
+.innerWindow fieldset {
+    border: none;
+    width: 336px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.innerWindow fieldset input {
+    border: none;
+    border-bottom: 1px solid #707070;
+    box-shadow: none;
+    padding: 10px;
+    margin-bottom: 60px;
+}
+
+.innerWindow fieldset div:last-child input {
+    margin-bottom: 80px;
+}
+
+.innerWindow button {
+    width: 336px;
+    height: 48px;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    box-shadow: 0px 2px 2px #00000015;
+    opacity: 1;
+    margin: 0;
+    padding: 0;
+    font: normal normal bold 16px/22px Noto Sans;
+    letter-spacing: 0.44px;
+    color: #ffffff;
+}
