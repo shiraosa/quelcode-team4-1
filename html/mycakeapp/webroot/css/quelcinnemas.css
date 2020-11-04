@@ -31,7 +31,7 @@ main{
 }
 
 .header-left-box p{
-    padding: 27px 32px 27px 100px;
+    padding: 27px 0px 27px 132px;
     font-weight: bold;
     letter-spacing: 2px;
 }
@@ -90,12 +90,13 @@ main{
 }
 
 .footer-left-box{
-    width: 466px;
+    width: 433px;
 }
 
 .footer-left-box p{
     margin: 76px auto 76px 140px;
-    font-size: 13px;
+    width: 168px;
+    font-size: 15px;
     font-weight: bold;
     letter-spacing: 2px;
 }
@@ -107,7 +108,7 @@ main{
 .footer-right-container li{
     margin-top: 76px;
     padding: 0px 33px;
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 1.12px;
     border-left: #ffffff solid 1px;
 }
