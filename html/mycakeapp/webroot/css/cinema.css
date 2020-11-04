@@ -8,7 +8,7 @@ body {
 
 .innerHeading {
     text-align: center;
-    font: normal normal 600 25px/34px Noto Sans;
+    font: normal normal 600 25px/34px sans-serif;
     letter-spacing: 0.89px;
     color: #707070;
     margin: 0 0 36px 0;
@@ -49,7 +49,7 @@ body {
     opacity: 1;
     margin: 0;
     padding: 0;
-    font: normal normal bold 16px/22px Noto Sans;
+    font: normal normal bold 16px/22px sans-serif;
     letter-spacing: 0.44px;
     color: #ffffff;
 }
