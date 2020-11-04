@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -17,41 +18,77 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
+        QUEL CINNEMAS
     </title>
     <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
+    <?= $this->Html->css('reset.css') ?>
+    <?= $this->Html->css('quelcinnemas.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
+
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
+    <header>
+        <div class="header-container">
+            <div class="header-left-box">
+                <p><span>QUEL</span> CINNEMAS</p>
+            </div>
+            <div class="header-right-box">
+                <nav class="right-container">
+                    <div class="menu-box">
+                        <ul class="link-menu">
+                            <li><a href="#">トップ</a></li>
+                            <li><a href="#">上映スケジュール</a></li>
+                            <li><a href="#">料金・割引</a></li>
+                        </ul>
+                    </div>
+                    <div class="log-box">
+                        <div class="login-logout">
+                            <?php
+                            //ログインログアウトの表示切り替えのテスト用変数。ログイン機能が実装され次第削除
+                            $test = 0;
+                            ?>
+                            <?php if ($test) : ?>
+                                <a href <?= $this->Url->build(['controller' => '', 'action' => '']) ?>>ログアウト</a>
+                            <?php else : ?>
+                                <a href <?= $this->Url->build(['controller' => '', 'action' => '']) ?>>ログイン・新規会員登録</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
+    </header>
+    <main>
+        <div class="container clearfix">
+            <?= $this->fetch('content') ?>
+        </div>
+    </main>
     <footer>
+        <div class="footer-container">
+            <div class="footer-left-box">
+                <p>QUEL CINNEMAS</p>
+            </div>
+            <div class="footer-right-box">
+                <nav>
+                    <div>
+                        <ul class="footer-right-container">
+                            <li><a href="#">トップ</a></li>
+                            <li><a href="#">上映スケジュール</a></li>
+                            <li><a href="#">料金・割引</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
     </footer>
 </body>
+
 </html>
