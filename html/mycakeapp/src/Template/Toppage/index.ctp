@@ -12,9 +12,9 @@
 
     <h2>上映映画一覧</h2>
     <ul class="screening-images">
-        <li><img src="../../../webroot/img/screening/2.png" alt="" /></li>
-        <li><img src="../../../webroot/img/screening/3.png" alt="" /></li>
-        <li><img src="../../../webroot/img/screening/4.png" alt="" /></li>
+        <li><?php echo $this->Html->image('screening/' . $screenings[0]); ?></li>
+        <li><?php echo $this->Html->image('screening/' . $screenings[1]); ?></li>
+        <li><?php echo $this->Html->image('screening/' . $screenings[2]); ?></li>
     </ul>
     <button class="btn-sea-details">詳しく見る</button>
 
