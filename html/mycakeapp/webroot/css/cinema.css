@@ -53,3 +53,7 @@ body {
     letter-spacing: 0.44px;
     color: #ffffff;
 }
+
+.innerWindow button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
