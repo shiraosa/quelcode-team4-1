@@ -7,7 +7,7 @@
 ?>
 <div class="main">
     <h1 class="slideshow">
-        <img src="../../../webroot/img/slideshow/1.png" alt="" />
+        <?php echo $this->Html->image('slideshow/' . $slideshow[0]); ?>
     </h1>
 
     <h2>上映映画一覧</h2>
