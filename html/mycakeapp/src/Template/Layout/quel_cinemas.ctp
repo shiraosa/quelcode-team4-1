@@ -27,7 +27,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('reset.css') ?>
+<<<<<<< HEAD
     <?= $this->Html->css('quel_cinemas.css') ?>
+=======
+    <?= $this->Html->css('quelcinemas.css') ?>
+>>>>>>> 666bef7e1fc48331f2636a03ab47d5cec7af0554
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
