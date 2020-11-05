@@ -1,0 +1,119 @@
+/*フッターを画面下部で固定*/
+body{
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+    font-family: sans-serif;
+}
+
+main{
+    flex: 1;
+}
+
+/*ヘッダー*/
+
+.header-container{
+    width: 100%;
+    height: 72px;
+    display: flex;
+    background-color: #262626;
+}
+
+.header-container a,h1{
+    color: #ffffff;
+}
+
+.header-left-box{
+    width: 400px;
+}
+
+.header-left-box span{
+    color: #ffb100;
+}
+
+.header-left-box h1{
+    padding: 27px 0px 27px 132px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.header-right-box{
+    margin-left: 100px;
+    margin-right: 0;
+    width: 100%;
+}
+
+.right-container{
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.link-menu{
+    display: flex;
+}
+
+.link-menu li:hover{
+    background-color: #505050;
+}
+
+.link-menu li{
+    padding: 27px 32px;
+}
+
+.login-logout{
+    display: block;
+    margin: 15px 20px;
+    margin-right: 120px;
+}
+.login-logout a{
+    display: inline-block;
+    padding: 10px 30px;
+    border: 1px solid;
+    border-color: #ffffff;
+    border-radius: 2px;
+}
+
+.login-logout a:hover{
+    background-color: #505050;
+}
+
+/*フッター*/
+
+.footer-container{
+    width: 100%;
+    height: 168px;
+    display: flex;
+    background-color: #262626;
+}
+
+.footer-container a,p{
+    color: #ffffff;
+}
+
+.footer-left-box{
+    width: 433px;
+}
+
+.footer-left-box p{
+    margin: 76px auto 76px 140px;
+    width: 168px;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.footer-right-container{
+    display: flex;
+}
+
+.footer-right-container li{
+    margin-top: 76px;
+    padding: 0px 33px;
+    font-size: 14px;
+    letter-spacing: 1.12px;
+    border-left: #ffffff solid 1px;
+}
+
+.footer-right-container li:first-child{
+    border: none;
+}
