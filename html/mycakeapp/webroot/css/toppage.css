@@ -13,7 +13,7 @@ body{
 /* スライドショー下のドットの大きさを設定 */
 .slick-dots li button:before {
     font-size: 80px;
-  }
+}
 h1, ul,li {
     list-style: none;
     margin: 0;

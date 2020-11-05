@@ -1,7 +1,8 @@
 $(".slideshow").slick({
   accessibility: true,
   autoplay: true,
-  autoplaySpeed: 3000,
+  autoplaySpeed: 2000,
   dots: true,
   fade: true,
+  arrows: false
 });

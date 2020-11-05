@@ -26,7 +26,7 @@
         <li><?php echo $this->Html->image('screening/' . $screenings[1]); ?></li>
         <li><?php echo $this->Html->image('screening/' . $screenings[2]); ?></li>
     </ul>
-    <button class="btn-sea-details">詳しく見る</button>
+    <button onclick="" class="btn-sea-details">詳しく見る</button>
 
     <h2>お得な割引</h2>
     <ul class="discount-banners">
@@ -35,5 +35,5 @@
         <li><?php echo $this->Html->image('banner/' . $discountsBanner[3]); ?></li>
         <li><?php echo $this->Html->image('banner/' . $discountsBanner[4]); ?></li>
     </ul>
-    <button class="btn-sea-details">詳しく見る</button>
+    <button onclick="" class="btn-sea-details">詳しく見る</button>
 </div>
