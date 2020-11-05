@@ -24,7 +24,6 @@ class ToppageController extends AppController
             $screenings[$x] = $mvImg->screening_img_path;
             $x++;
         }
-        $this->set('screenings', $screenings);
 
         // スライドショーに使う画像を今後のスケジュールで上演回数の多い順3つをDBより取得
         $schedulesTable = TableRegistry::getTableLocator()->get('Schedules');
@@ -47,11 +46,10 @@ class ToppageController extends AppController
             ->where(['id IN' => $top3MoviesId]);
         $z = 0;
         foreach ($top3Slideshow as $slide) {
-            $top3Slideshows[$z] = $slide->slideshow_img_path;
+            $slideshows[$z] = $slide->slideshow_img_path;
             $z++;
         }
 
-        $this->set('slideshow', $top3Slideshows);
 
         // 割引バナーをDBより取得
         $discountTypesTable = TableRegistry::getTableLocator()->get('DiscountTypes')
@@ -61,13 +59,17 @@ class ToppageController extends AppController
 
         $i = 1;
         foreach ($discountTypesTable as $discount) {
-            $discountBanners[$i] = $discount->banner_path;
+            $banners[$i] = $discount->banner_path;
             $i++;
         }
-        $this->set('banners', $discountBanners);
+
+        $this->set(compact('screenings'));
+        $this->set(compact('slideshows'));
+        $this->set(compact('banners'));
 
         // 使用レイアウト変更
         $this->viewBuilder()->setLayout('toppage');
     }
 
 }
+

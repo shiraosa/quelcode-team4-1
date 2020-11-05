@@ -9,13 +9,13 @@
     <div class="container">
         <ul class="slideshow">
             <li class="slide-item">
-                <?php echo $this->Html->image('slideshow/' . $slideshow[0]); ?>
+                <?php echo $this->Html->image('slideshow/' . $slideshows[0]); ?>
             </li>
             <li class="slide-item">
-                <?php echo $this->Html->image('slideshow/' . $slideshow[1]); ?>
+                <?php echo $this->Html->image('slideshow/' . $slideshows[1]); ?>
             </li>
             <li class="slide-item">
-                <?php echo $this->Html->image('slideshow/' . $slideshow[2]); ?>
+                <?php echo $this->Html->image('slideshow/' . $slideshows[2]); ?>
             </li>
         </ul>
     </div>
