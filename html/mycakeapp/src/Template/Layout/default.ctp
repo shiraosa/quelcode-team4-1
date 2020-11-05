@@ -38,7 +38,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <header>
         <div class="header-container">
             <div class="header-left-box">
-                <p><span>QUEL</span> CINNEMAS</p>
+                <h1><span>QUEL</span> CINNEMAS</h1>
             </div>
             <div class="header-right-box">
                 <nav class="right-container">
