@@ -1,7 +1,3 @@
-.top-bar {
-    margin-bottom: 83px;
-}
-
 body {
     background-color: #ebebeb;
 }
@@ -11,7 +7,7 @@ body {
     font: normal normal 600 25px/34px sans-serif;
     letter-spacing: 0.89px;
     color: #707070;
-    margin: 0 0 36px 0;
+    margin: 83px 0 36px 0;
 }
 
 .innerWindow {
@@ -30,6 +26,7 @@ body {
 }
 
 .innerWindow fieldset input {
+    width: 316px;
     border: none;
     border-bottom: 1px solid #707070;
     box-shadow: none;
@@ -52,6 +49,7 @@ body {
     font: normal normal bold 16px/22px sans-serif;
     letter-spacing: 0.44px;
     color: #ffffff;
+    border: none;
 }
 
 .innerWindow button:hover {
