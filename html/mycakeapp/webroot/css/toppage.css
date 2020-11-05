@@ -1,0 +1,63 @@
+body{
+    background: #EBEBEB;
+}
+.main {
+    width: 1088px;
+    margin: auto;
+    padding-top: 88px;
+    padding-bottom: 200px;
+}
+.slide-item img {
+    width: 1088px;
+}
+/* スライドショー下のドットの大きさを設定 */
+.slick-dots li button:before {
+    font-size: 80px;
+}
+h1, ul,li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+h2 {
+    font-size: 16px;
+    margin-top: 104px;
+    border-left: 8px solid #F5AE0B;
+    line-height: 32px;
+    padding-left: 8px;
+}
+
+/* 上映映画一覧 */
+.screening-images {
+    display: flex;
+    justify-content: center;
+}
+.screening-images img {
+    width: 352px;
+    padding: 0px 8px;
+}
+
+/* お得な割引 */
+.discount-banners {
+    display: flex;
+    flex-wrap: wrap;
+}
+.discount-banners img {
+    width: 536px;
+    padding: 4px;
+}
+
+/* 詳しく見るボタン */
+.btn-sea-details {
+    width: 336px;
+    height: 48px;
+    margin: auto;
+    display: block;
+    margin-top: 32px;
+    color: #FFF;
+    background-color: #F5AE0B;
+    border: 3px solid #F5AE0B;
+}
+.btn-sea-details:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
