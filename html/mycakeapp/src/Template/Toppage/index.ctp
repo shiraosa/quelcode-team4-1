@@ -6,9 +6,19 @@
 
 ?>
 <div class="main">
-    <h1 class="slideshow">
-        <?php echo $this->Html->image('slideshow/' . $slideshow[0]); ?>
-    </h1>
+    <div class="container">
+        <ul class="slideshow">
+            <li class="slide-item">
+                <?php echo $this->Html->image('slideshow/' . $slideshow[0]); ?>
+            </li>
+            <li class="slide-item">
+                <?php echo $this->Html->image('slideshow/' . $slideshow[1]); ?>
+            </li>
+            <li class="slide-item">
+                <?php echo $this->Html->image('slideshow/' . $slideshow[2]); ?>
+            </li>
+        </ul>
+    </div>
 
     <h2>上映映画一覧</h2>
     <ul class="screening-images">

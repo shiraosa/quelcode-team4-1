@@ -12,6 +12,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('title') ?>
     </title>
 
+    <?= $this->Html->css('slick-theme.css') ?>
+    <?= $this->Html->css('slick.css') ?>
     <?= $this->Html->css('toppage.css') ?>
 
     <?= $this->fetch('meta') ?>
@@ -23,4 +25,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('content') ?>
     </div>
 </body>
+    <?= $this->Html->script('jquery-3.5.1.min.js') ?>
+    <?= $this->Html->script('slick/slick.min.js') ?>
+    <?= $this->Html->script('toppage.js') ?>
 </html>

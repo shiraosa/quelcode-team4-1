@@ -7,9 +7,13 @@ body{
     padding-top: 88px;
     padding-bottom: 200px;
 }
-.slideshow img {
+.slide-item img {
     width: 1088px;
 }
+/* スライドショー下のドットの大きさを設定 */
+.slick-dots li button:before {
+    font-size: 80px;
+  }
 h1, ul,li {
     list-style: none;
     margin: 0;
