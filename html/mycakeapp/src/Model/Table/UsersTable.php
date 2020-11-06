@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -65,13 +66,50 @@ class UsersTable extends Table
             ->scalar('mailaddress')
             ->maxLength('mailaddress', 100)
             ->requirePresence('mailaddress', 'create')
-            ->notEmptyString('mailaddress');
+            ->notEmptyString('mailaddress', '空白になっています')
+            ->add('mailaddress', 'custom', [
+                'rule' => 'email',
+                'message' => 'メールアドレスが間違っているようです'
+            ]);
 
         $validator
             ->scalar('password')
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->notEmptyString('password', '空白になっています')
+            ->add('password', [
+                'alphaNumeric' => [
+                    'rule' => 'alphaNumeric',
+                    'last' => true,
+                    'message' => 'パスワードに使えない文字が入力されています',
+                ],
+                'ascii' => [
+                    'rule' => 'ascii',
+                    'message' => 'パスワードに使えない文字が入力されています',
+                ]
+            ])
+            ->lengthBetween('password', [4, 13], 'パスワードは4文字以上、13文字以下にしてください');
+
+        $validator
+            ->scalar('passwordConfirming')
+            ->requirePresence('passwordConfirming', 'create')
+            ->notEmptyString('passwordConfirming', '空白になっています')
+            ->add('passwordConfirming', [
+                'compareWith' => [
+                    'rule' => ['compareWith', 'password'],
+                    'last' => true,
+                    'message' => 'パスワードが一致していません',
+                ],
+                'alphaNumeric' => [
+                    'rule' => 'alphaNumeric',
+                    'message' => 'パスワードに使えない文字が入力されています',
+                ],
+                'ascii' => [
+                    'rule' => 'ascii',
+                    'message' => 'パスワードに使えない文字が入力されています',
+                ]
+            ])
+            ->lengthBetween('passwordConfirming', [4, 13], 'パスワードは4文字以上、13文字以下にしてください');
 
         $validator
             ->boolean('is_temporary')
