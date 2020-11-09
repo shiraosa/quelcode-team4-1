@@ -6,7 +6,7 @@
         <?php
         echo $this->Form->control('mailaddress', ['placeholder' => 'メールアドレス', 'label' => false, 'error' => false]);
         echo ($this->Form->isFieldError('mailaddress')) ? $this->Form->error('mailaddress') : '';
-        echo $this->Form->control('password', ['placeholder' => 'パスワード', 'label' => false, 'error' => false]);
+        echo $this->Form->control('password', ['placeholder' => 'パスワード（半角英数字のみ可）', 'label' => false, 'error' => false]);
         echo ($this->Form->isFieldError('password')) ? $this->Form->error('password') : '';
         echo $this->Form->control('passwordConfirming', ['placeholder' => 'パスワード（確認用）', 'label' => false, 'type' => 'password', 'error' => false]);
         echo ($this->Form->isFieldError('passwordConfirming')) ? $this->Form->error('passwordConfirming') : '';
