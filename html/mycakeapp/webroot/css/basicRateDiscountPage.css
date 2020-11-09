@@ -1,0 +1,58 @@
+body {
+    background-color: #ebebeb;
+}
+
+.main {
+    width: 528px;
+    margin: 88px calc(100%*2/3 - 528px*2/3) 168px calc(100%*1/3 - 528px*1/3);
+    color: #242424;
+}
+
+h2 {
+    font-size: 16px;
+    margin-top: 104px;
+    border-left: 8px solid #ADADAD;
+    line-height: 32px;
+    padding-left: 8px;
+    font-weight: bold;
+}
+
+.main li {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: #ADADAD dotted thin;
+    margin-top: 10px;
+}
+
+.discountLeft {
+    display: flex;
+    flex-direction: column;
+}
+
+.type, .rate .price, .details {
+    padding: 8px 16px;
+}
+
+.details {
+    padding-top: 0;
+}
+
+.discount .price {
+    padding: 24px 16px 9px;
+}
+
+.type {
+    font: normal normal 600 14px/19px sans-serif;
+    letter-spacing: 1.12px;
+    color: #242424;
+}
+
+.price {
+    font: normal normal 600 14px/19px sans-serif;
+    letter-spacing: 1.12px;
+    color: #242424;
+}
+
+.details {
+    font: normal normal normal 10px/14px sans-serif;
+}
