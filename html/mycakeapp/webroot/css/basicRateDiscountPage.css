@@ -18,7 +18,6 @@ h2 {
 }
 
 .main li {
-    margin-left: 18px;
     display: flex;
     justify-content: space-between;
     border-bottom: #ADADAD dotted thin;
