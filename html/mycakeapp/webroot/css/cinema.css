@@ -1,7 +1,3 @@
-.top-bar {
-    margin-bottom: 83px;
-}
-
 body {
     background-color: #ebebeb;
 }
@@ -11,7 +7,7 @@ body {
     font: normal normal 600 25px/34px sans-serif;
     letter-spacing: 0.89px;
     color: #707070;
-    margin: 0 0 36px 0;
+    margin: 83px 0 36px 0;
 }
 
 .innerWindow {
@@ -30,6 +26,7 @@ body {
 }
 
 .innerWindow fieldset input {
+    width: 316px;
     border: none;
     border-bottom: 1px solid #707070;
     box-shadow: none;
@@ -52,8 +49,83 @@ body {
     font: normal normal bold 16px/22px sans-serif;
     letter-spacing: 0.44px;
     color: #ffffff;
+    border: none;
 }
 
 .innerWindow button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.error-message {
+    position: relative;
+    top: -50px;
+    text-align: left;
+    font: normal 14px sans-serif;
+    color: red;
+}
+
+.innerHeading-done {
+    font: normal normal 600 25px/34px sans-serif;
+    letter-spacing: 0.69px;
+    color: #707070;
+    margin: 0 0 30px 0;
+}
+
+.innerWindow-done {
+    width: 736px;
+    margin: 144px auto 0;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 121px 0 120px 0;
+}
+
+.innerWindow-done .innerParagraphs {
+    width: 348px;
+    margin: 0 auto 50px;
+}
+
+.innerWindow-done .innerParagraph {
+    text-align: center;
+    font: normal normal normal 14px/24px sans-serif;
+    letter-spacing: 0px;
+    color: #707070;
+    opacity: 1;
+    margin: 0;
+}
+
+.innerWindow-done button {
+    width: 336px;
+    height: 48px;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    box-shadow: 0px 2px 2px #00000015;
+    opacity: 1;
+    margin: 0;
+    padding: 0;
+    font: normal normal bold 16px/22px sans-serif;
+    letter-spacing: 0.44px;
+    color: #ffffff;
+    border: none;
+}
+
+.innerWindow-done button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.innerWindow-done a {
+    width: 336px;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    box-shadow: 0px 2px 2px #00000015;
+    opacity: 1;
+    margin: 0;
+    padding: 0;
+    font: normal normal bold 16px/22px sans-serif;
+    letter-spacing: 0.44px;
+    color: #ffffff;
+    border: none;
+    display: inline-block;
+    padding: 16px 0;
+}
+
+.innerWindow-done a:hover {
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
 }
