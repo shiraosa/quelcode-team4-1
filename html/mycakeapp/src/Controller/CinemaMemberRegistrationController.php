@@ -16,10 +16,26 @@ class CinemaMemberRegistrationController extends AppController
         parent::initialize();
         $this->loadComponent('Paginator');
         $this->loadModel('Users');
-        $this->viewBuilder()->setLayout('cinema');
+        $this->viewBuilder()->setLayout('quel_cinemas');
     }
 
     public function index()
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['action' => 'done']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+    }
+
+    public function done()
     {
     }
 }
