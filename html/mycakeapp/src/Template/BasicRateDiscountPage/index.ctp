@@ -8,7 +8,7 @@
         <?php foreach($rateInfos as $rate) : ?>
             <li>
                 <div class="type"><?= $rate->ticket_type ?></div>
-                <div class="price"><?= $rate->basic_rate ?>円</div>
+                <div class="price"><?= number_format($rate->basic_rate) ?>円</div>
             </li>
         <?php endforeach; ?>
     </ul>
@@ -22,9 +22,9 @@
                     <div class="details"><?= $discount->discount_details?></div>
                 </div>
                 <?php if ($discount->discount_price > 0) : ?>
-                    <div class="price"><?= $discount->discount_price ?>円</div>
+                    <div class="price"><?= number_format($discount->discount_price) ?>円</div>
                 <?php else : ?>
-                    <div class="price"><?= abs($discount->discount_price) ?>円引き</div>
+                    <div class="price"><?= number_format(abs($discount->discount_price)) ?>円引き</div>
                 <?php endif; ?>
             </li>
                 <?php endforeach; ?>
