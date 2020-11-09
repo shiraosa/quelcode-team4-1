@@ -10,6 +10,7 @@
         echo ($this->Form->isFieldError('password')) ? $this->Form->error('password') : '';
         echo $this->Form->control('passwordConfirming', ['placeholder' => 'パスワード（確認用）', 'label' => false, 'type' => 'password', 'error' => false]);
         echo ($this->Form->isFieldError('passwordConfirming')) ? $this->Form->error('passwordConfirming') : '';
+        echo $this->Form->hidden('is_deleted', ['value' => 0]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('会員登録')) ?>

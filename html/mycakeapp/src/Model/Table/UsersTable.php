@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\Rule\IsUnique;
 
 /**
  * Users Model
@@ -120,5 +121,15 @@ class UsersTable extends Table
             ->notEmptyString('is_deleted');
 
         return $validator;
+    }
+
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(
+            ['mailaddress', 'is_deleted'],
+            'このメールアドレスは既に使用されています'
+        ));
+
+        return $rules;
     }
 }
