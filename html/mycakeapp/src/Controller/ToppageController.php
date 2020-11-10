@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\Table;
+use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
-class ToppageController extends AppController
+class ToppageController extends CinemabaseController
 {
     public function index()
     {
@@ -17,7 +19,7 @@ class ToppageController extends AppController
             ->find()
             ->select(['screening_img_path'])
             ->where([
-                'OR' => [['end_date IS' => NULL],['end_date >=' => $todayDate]]
+                'OR' => [['end_date IS' => NULL], ['end_date >=' => $todayDate]]
             ]);
         $x = 0;
         foreach ($screeningMovies as $mvImg) {
@@ -71,5 +73,9 @@ class ToppageController extends AppController
         $this->viewBuilder()->setLayout('toppage');
     }
 
+    //ログアウト状態でも閲覧可能
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index']);
+    }
 }
-
