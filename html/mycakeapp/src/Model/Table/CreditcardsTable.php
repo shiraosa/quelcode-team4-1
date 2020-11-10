@@ -66,18 +66,23 @@ class CreditcardsTable extends Table
             ->scalar('owner_name')
             ->maxLength('owner_name', 100)
             ->requirePresence('owner_name', 'create')
-            ->notEmptyString('owner_name');
+            ->notEmptyString('owner_name', 'クレジットカード名義が入力されたいません。');
 
         $validator
             ->scalar('creditcard_number')
             ->maxLength('creditcard_number', 100)
             ->requirePresence('creditcard_number', 'create')
-            ->notEmptyString('creditcard_number');
+            ->notEmptyString('creditcard_number', '不正なクレジットカード番号です。')
+            ->lengthBetween('creaditcard_number', [13, 16]);
 
         $validator
             ->date('expiration_date')
             ->requirePresence('expiration_date', 'create')
-            ->notEmptyDate('expiration_date');
+            ->notEmptyDate('expiration_date', '有効期限が入力されていません。');
+
+        $validator
+            ->integer('code')
+            ->notEmptyString('code', 'セキュリティコードが入力されていません。');
 
         $validator
             ->boolean('is_deleted')
