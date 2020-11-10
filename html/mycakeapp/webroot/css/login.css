@@ -85,3 +85,12 @@ body {
 .login .innerWindow fieldset div:last-child input {
     margin-bottom: 60px;
 }
+
+/*エラーメッセージ*/
+.error-message{
+    position: relative;
+    top: -60px;
+    left: -20%;
+    color: #ff0000;
+    font-size: 11px;
+}

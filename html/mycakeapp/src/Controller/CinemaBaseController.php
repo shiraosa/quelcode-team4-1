@@ -30,5 +30,49 @@ class CinemaBaseController extends AppController
         $this->viewBuilder()->setLayout('quel_cinemas');
 
         $this->loadComponent('Flash');
+
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'mailaddress',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Login',
+                'action' => 'index'
+            ],
+            'logoutAction' => [
+                'controller' => 'Login',
+                'action' => 'logout'
+            ],
+            'loginRedirect' => [
+                'controller' => 'Mypage',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Toppage',
+                'action' => 'index'
+            ],
+            'authorize' => ['Controller'],
+            'authError' => 'ログインしてください。',
+            'unauthorizedRedirect' => $this->referer()
+        ]);
+        $this->set('auth', $this->Auth->user());
+    }
+
+    public function logout()
+    {
+        // セッションを破棄
+        $session = $this->getRequest()->getSession();
+        $session->destroy();
+        return $this->redirect($this->Auth->logout());
+    }
+    // 認証時のロールの処理
+    public function isAuthorized($user = null)
+    {
+        return true;
     }
 }
