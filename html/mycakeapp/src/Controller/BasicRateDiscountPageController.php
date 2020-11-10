@@ -42,6 +42,7 @@ class BasicRateDiscountPageController extends CinemaBaseController
         $this->viewBuilder()->setLayout('toppage');
     }
 
+    //ログインなしで閲覧を許可
     public function beforeFilter(Event $event)
     {
         $this->Auth->allow(['index']);
