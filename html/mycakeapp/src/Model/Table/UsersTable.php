@@ -132,4 +132,13 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+    //削除されたユーザーはログイン不可
+    public function findAuth(Query $query)
+    {
+        $query->where([
+            'Users.is_deleted' => 0
+        ]);
+        return $query;
+    }
 }

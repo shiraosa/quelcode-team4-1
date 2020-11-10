@@ -34,6 +34,7 @@ class CinemaBaseController extends AppController
         $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
+                    'finder' => 'auth',
                     'fields' => [
                         'username' => 'mailaddress',
                         'password' => 'password'
