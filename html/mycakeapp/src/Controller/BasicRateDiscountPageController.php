@@ -38,7 +38,7 @@ class BasicRateDiscountPageController extends CinemaBaseController
         $this->set(compact('rateInfos'));
         $this->set(compact('discountInfos'));
 
-        // baseController読み込んだら削除予定
+        // ログイン中はマイページを右上に表示
         $this->viewBuilder()->setLayout('toppage');
     }
 

@@ -43,8 +43,5 @@ class MypageController extends CinemaBaseController
 
         $this->set(compact('cardNumLast4'));
         $this->set(compact('point'));
-
-        // baseController読み込んだら削除予定
-        $this->viewBuilder()->setLayout('quel_cinemas');
     }
 }

@@ -21,6 +21,7 @@ class LoginController extends CinemaBaseController
         $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
+                    'finder' => 'auth',
                     'fields' => [
                         'username' => 'mailaddress',
                         'password' => 'password'
