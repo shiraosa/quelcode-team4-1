@@ -7,7 +7,7 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Exception;
 
-class CinemaMemberRegistrationController extends AppController
+class CinemaMemberRegistrationController extends CinemaBaseController
 {
     public $useTable = false;
 
@@ -37,5 +37,11 @@ class CinemaMemberRegistrationController extends AppController
 
     public function done()
     {
+    }
+
+    //ログインなしで閲覧を許可
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index', 'done']);
     }
 }

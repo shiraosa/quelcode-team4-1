@@ -44,21 +44,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <nav class="right-container">
                     <div class="menu-box">
                         <ul class="link-menu">
-                            <li><a href="#">トップ</a></li>
+                            <li><a href="/Toppage">トップ</a></li>
                             <li><a href="#">上映スケジュール</a></li>
-                            <li><a href="#">料金・割引</a></li>
+                            <li><a href="/BasicRateDiscountPage">料金・割引</a></li>
                         </ul>
                     </div>
                     <div class="log-box">
                         <div class="login-logout">
-                            <?php
-                            //ログインログアウトの表示切り替えのテスト用変数。ログイン機能が実装され次第削除
-                            $test = 0;
-                            ?>
-                            <?php if ($test) : ?>
-                                <a href <?= $this->Url->build(['controller' => '', 'action' => '']) ?>>ログアウト</a>
+                            <?php if (!empty($auth)) : ?>
+                                <a href=<?= $this->Url->build(['controller' => 'Login', 'action' => 'logout']) ?>>ログアウト</a>
                             <?php else : ?>
-                                <a href <?= $this->Url->build(['controller' => '', 'action' => '']) ?>>ログイン・新規会員登録</a>
+                                <a href="/Login">ログイン・新規会員登録</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -80,9 +76,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <nav>
                     <div>
                         <ul class="footer-right-container">
-                            <li><a href="#">トップ</a></li>
+                            <li><a href="/Toppage">トップ</a></li>
                             <li><a href="#">上映スケジュール</a></li>
-                            <li><a href="#">料金・割引</a></li>
+                            <li><a href="/BasicRateDiscountPage">料金・割引</a></li>
                         </ul>
                     </div>
                 </nav>

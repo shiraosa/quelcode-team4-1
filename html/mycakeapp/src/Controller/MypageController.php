@@ -1,14 +1,15 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\Table;
 use Cake\Utility\Security;
 
-class MypageController extends AppController
+class MypageController extends CinemaBaseController
 {
     public function initialize()
-     {
+    {
         // baseControllerで読み込んでたら削除
         parent::initialize();
         $this->loadModel('Creditcards');
@@ -25,8 +26,8 @@ class MypageController extends AppController
         // クレジットカード情報をDBより取得
         $todayDate = date('Y-m-d');
         $encryptedCardNum = $this->Creditcards->find('all', [
-            'conditions' => ['AND' => [['user_id' => $userId],['is_deleted' => 0],['expiration_date >=' => $todayDate]]]
-            ])
+            'conditions' => ['AND' => [['user_id' => $userId], ['is_deleted' => 0], ['expiration_date >=' => $todayDate]]]
+        ])
             ->select('creditcard_number')
             ->first();
 
@@ -42,8 +43,5 @@ class MypageController extends AppController
 
         $this->set(compact('cardNumLast4'));
         $this->set(compact('point'));
-
-        // baseController読み込んだら削除予定
-        $this->viewBuilder()->setLayout('quel_cinemas');
     }
 }
