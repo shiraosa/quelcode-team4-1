@@ -30,7 +30,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('quel_cinemas.css') ?>
     <?= $this->Html->css('slick-theme.css') ?>
     <?= $this->Html->css('slick.css') ?>
-    <?= $this->Html->css('toppage.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
