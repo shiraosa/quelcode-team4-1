@@ -20,13 +20,10 @@ class MypageController extends CinemaBaseController
         // ポイント機能は任意課題のため、仮定0pt
         $point = 0;
 
-        // 認証情報よりユーザーIDを取得、仮でuser_id = 1を使用
-        $userId = 1;
-
         // クレジットカード情報をDBより取得
         $todayDate = date('Y-m-d');
         $encryptedCardNum = $this->Creditcards->find('all', [
-            'conditions' => ['AND' => [['user_id' => $userId], ['is_deleted' => 0], ['expiration_date >=' => $todayDate]]]
+            'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0], ['expiration_date >=' => $todayDate]]]
         ])
             ->select('creditcard_number')
             ->first();
