@@ -75,17 +75,22 @@ label {
 .bigBtn {
     width: 336px;
     height: 48px;
-}
-a .bigBtn {
     line-height: 48px;
 }
 
 .error-message {
-    position: relative;
-    top: -50px;
     text-align: left;
-    font: normal 14px sans-serif;
+    font: normal 10px sans-serif;
     color: red;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 44px;
+}
+.box input {
+    margin-bottom: 0;
 }
 
 .completed {

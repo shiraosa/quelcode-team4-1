@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -66,23 +67,40 @@ class CreditcardsTable extends Table
             ->scalar('owner_name')
             ->maxLength('owner_name', 100)
             ->requirePresence('owner_name', 'create')
-            ->notEmptyString('owner_name', 'クレジットカード名義が入力されたいません。');
+            ->notEmptyString('owner_name', 'クレジットカード名義が入力されたいません。')
+            ->add('owner_name', 'alphaNumeric', [
+                'rule' => 'alphaNumeric',
+                'message' => '不正なクレジットカード名義です。'
+            ]);
 
         $validator
             ->scalar('creditcard_number')
             ->maxLength('creditcard_number', 100)
             ->requirePresence('creditcard_number', 'create')
-            ->notEmptyString('creditcard_number', '不正なクレジットカード番号です。')
-            ->lengthBetween('creaditcard_number', [13, 16]);
+            ->notEmptyString('creditcard_number', 'クレジットカード番号を入力してください。')
+            ->add('creditcard_number', 'creditCard', [
+                'rule' => ['creditCard', 'all'],
+                'message' => '不正なクレジットカード番号です。',
+            ]);
 
         $validator
             ->date('expiration_date')
             ->requirePresence('expiration_date', 'create')
-            ->notEmptyDate('expiration_date', '有効期限が入力されていません。');
+            ->notEmptyDate('expiration_date', '有効期限が入力されていません。')
+            ->add('expiration_date', 'date', [
+                'rule' => ['date', 'my'],
+                'message' => 'mm/yyで入力してください',
+            ]);
 
         $validator
-            ->integer('code')
-            ->notEmptyString('code', 'セキュリティコードが入力されていません。');
+            ->integer('code', '半角数字で入力してください')
+            ->notEmptyString('code', 'セキュリティコードが入力されていません。')
+            ->add('code', [
+                'lengthBetween' => [
+                    'rule' => ['lengthBetween', 3, 4],
+                    'message' => '不正なセキュリティコードです。',
+                ]
+            ]);
 
         $validator
             ->boolean('is_deleted')

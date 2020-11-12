@@ -8,20 +8,31 @@
         <?= $this->Form->create($creditcard) ?>
         <fieldset>
             <div class="oneLine">
-                <?= $this->Form->control('creditcard_number', ['class' => 'cardNum', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false]); ?>
+                <div class="box">
+                    <?= $this->Form->input('creditcard_number', ['type' => 'integer', 'class' => 'cardNum', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false]); ?>
+                    <?= ($this->Form->isFieldError('creditcard_number')) ? $this->Form->error('creditcard_number') : '' ?>
+                </div>
                 <!-- クレジットカードアイコン -->
                 <i class="fab fa-cc-visa fa-2x cardIcon"></i><i class="fab fa-cc-mastercard fa-2x cardIcon"></i>
             </div>
-            <!-- クレジットカード名義人名 -->
-            <?= $this->Form->input('owner_name', ['class' => 'name', 'placeholder' => 'クレジットカード名義', 'label' => false, 'error' => false]); ?>
-            <?= ($this->Form->isFieldError('owner_name')) ? $this->Form->error('owner_name') : '' ?>
+            <div class="oneLine">
+                <!-- クレジットカード名義人名 -->
+                <div class="box">
+                    <?= $this->Form->input('owner_name', ['class' => 'name', 'placeholder' => 'クレジットカード名義', 'label' => false, 'error' => false]); ?>
+                    <?= ($this->Form->isFieldError('owner_name')) ? $this->Form->error('owner_name') : '' ?>
+                </div>
+            </div>
             <div class="oneLine">
                 <!-- 有効期限 -->
-                <?= $this->Form->input('expiration_date', ['class' => 'limit', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false]); ?>
-                <?= ($this->Form->isFieldError('expiration_date')) ? $this->Form->error('expiration_date') : '' ?>
+                <div class="box">
+                    <?= $this->Form->input('expiration_date', ['class' => 'limit', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false]); ?>
+                    <?= ($this->Form->isFieldError('expiration_date')) ? $this->Form->error('expiration_date') : '' ?>
+                </div>
                 <!-- セキュリティコード -->
-                <?= $this->Form->input('code', ['class' => 'code', 'type' => 'text', 'placeholder' => 'セキュリティコード', 'label' => false, 'error' => false, 'required' => 'required']); ?>
-                <?= ($this->Form->isFieldError('code')) ? $this->Form->error('code') : '' ?>
+                <div class="box">
+                    <?= $this->Form->input('code', ['class' => 'code', 'type' => 'password', 'placeholder' => 'セキュリティコード', 'label' => false, 'error' => false, 'required' => 'required']); ?>
+                    <?= ($this->Form->isFieldError('code')) ? $this->Form->error('code') : '' ?>
+                </div>
             </div>
             <?= $this->Form->hidden('is_deleted', ['value' => 0]); ?>
             <!-- 同意チェックボックス -->

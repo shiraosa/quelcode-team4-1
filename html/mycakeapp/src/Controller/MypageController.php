@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\ORM\Table;
-use Cake\Utility\Security;
+use Cake\I18n\Time;
+use Cake\ORM\Entity;
 
 class MypageController extends CinemaBaseController
 {
@@ -21,21 +21,15 @@ class MypageController extends CinemaBaseController
         $point = 0;
 
         // クレジットカード情報をDBより取得
-        $todayDate = date('Y-m-d');
-        $encryptedCardNum = $this->Creditcards->find('all', [
-            'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0], ['expiration_date >=' => $todayDate]]]
+        $cardNum = $this->Creditcards->find('all', [
+            'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0], ['expiration_date >=' => Time::now()->year . '-' . Time::now()->month . '-1']]]
         ])
             ->select('creditcard_number')
             ->first();
 
         $cardNumLast4 = 0;
-        if (!empty($encryptedCardNum)) {
-            $cardNum = $encryptedCardNum->creditcard_number;
-            // 暗号化機能が実装されたときに下記を実装
-            // $key = '暗号キー';
-            // $cardNum = Security::decrypt($encryptedCardNum->creditcard_number, $key);
-
-            $cardNumLast4 = substr($cardNum, -4);
+        if (!empty($cardNum)) {
+            $cardNumLast4 = substr($cardNum->decryptCreditcard_number($cardNum->creditcard_number), -4);
         }
 
         $this->set(compact('cardNumLast4'));
