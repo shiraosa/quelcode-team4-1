@@ -1,0 +1,100 @@
+body {
+    background-color: #ebebeb;
+}
+.main {
+    margin: 83px auto 266px;
+    text-align: center;
+}
+.innerHeading {
+    font: normal normal 600 25px/34px sans-serif;
+    letter-spacing: 0.89px;
+    color: #707070;
+}
+
+.innerWindow {
+    width: 736px;
+    margin: 36px auto 27px;
+    background-color: #ffffff;
+    padding-top: 92px;
+    padding-bottom: 88px;
+}
+
+.innerWindow fieldset {
+    border: none;
+}
+.innerWindow input {
+    border: none;
+    border-bottom: 1px solid rgba(112, 112, 112, 0.3);
+    padding: 10px;
+    margin-bottom: 44px;
+}
+
+.cardNum {
+    width: 234px;
+}
+.cardIcon {
+    padding-right: 8px;
+    opacity: 0.3;
+}
+.oneLine {
+    display: flex;
+    justify-content: center;
+}
+
+.name {
+    width: 316px;
+}
+
+.limit {
+    margin-right: 19px;
+    width: 132px;
+}
+
+label {
+    font: normal normal 600 11px/15px sans-serif;
+    color: #707070;
+}
+
+.innerWindow .checkBox {
+    opacity: 1;
+    margin-right: 5px;
+    vertical-align: -2px;
+}
+
+.button {
+    display: block;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    box-shadow: 0px 2px 2px #00000015;
+    border: #f5ae0b;
+    color: #ffffff;
+    margin: 0 auto;
+}
+.button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+.bigBtn {
+    width: 336px;
+    height: 48px;
+    line-height: 48px;
+}
+
+.error-message {
+    text-align: left;
+    font: normal 10px sans-serif;
+    color: red;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 44px;
+}
+.box input {
+    margin-bottom: 0;
+}
+
+.completed {
+    color: #707070;
+    font-size: 16px;
+    padding-bottom: 40px;
+}

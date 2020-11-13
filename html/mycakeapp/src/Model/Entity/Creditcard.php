@@ -50,4 +50,24 @@ class Creditcard extends Entity
     protected $_hidden = [
         'creditcard_number',
     ];
+
+    // クレジットカード番号の暗号化
+    protected function _setCreditcard_number($encryptItem)
+    {
+        $key = 'HOGEhogeHOGEhogeHOGEhogeHOGEhoge';
+        return openssl_encrypt($encryptItem, 'aes-256-ecb', $key);
+    }
+    // クレジットカード番号の復号化
+    public function decryptCreditcard_number($decryptItem)
+    {
+        $key = 'HOGEhogeHOGEhogeHOGEhogeHOGEhoge';
+        return openssl_decrypt($decryptItem, 'aes-256-ecb', $key);
+    }
+
+    // 有効期限mm/yyからdate型yyyy/mm/01に変換
+    protected function _setExpiration_date($cardDate)
+    {
+        $expiration_date = '20' . substr($cardDate, -2) . '/' . substr($cardDate, 0, 2) . '/01';
+        return $expiration_date;
+    }
 }
