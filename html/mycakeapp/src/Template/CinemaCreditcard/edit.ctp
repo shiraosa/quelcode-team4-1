@@ -1,15 +1,15 @@
 <?php
-    $this->Html->css('paymentRegistration', ['block' => true]);
+$this->Html->css('cinemaCreditcard', ['block' => true]);
 ?>
 
 <div class="main">
     <h2 class="innerHeading">決済情報</h2>
     <div class="innerWindow">
-        <?= $this->Form->create($creditcard) ?>
+        <?= $this->Form->create($creditcard, ['type' => 'post']) ?>
         <fieldset>
             <div class="oneLine">
                 <div class="box">
-                    <?= $this->Form->input('creditcard_number', ['type' => 'integer', 'class' => 'cardNum', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false]); ?>
+                    <?= $this->Form->input('creditcard_number', ['type' => 'integer', 'class' => 'cardNum', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false, 'value' => $cardNumber]); ?>
                     <?= ($this->Form->isFieldError('creditcard_number')) ? $this->Form->error('creditcard_number') : '' ?>
                 </div>
                 <!-- クレジットカードアイコン -->
@@ -25,7 +25,7 @@
             <div class="oneLine">
                 <!-- 有効期限 -->
                 <div class="box">
-                    <?= $this->Form->input('expiration_date', ['class' => 'limit', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false]); ?>
+                    <?= $this->Form->input('expiration_date', ['class' => 'limit', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false, 'value' => $cardDate]); ?>
                     <?= ($this->Form->isFieldError('expiration_date')) ? $this->Form->error('expiration_date') : '' ?>
                 </div>
                 <!-- セキュリティコード -->
@@ -34,11 +34,13 @@
                     <?= ($this->Form->isFieldError('code')) ? $this->Form->error('code') : '' ?>
                 </div>
             </div>
-            <?= $this->Form->hidden('is_deleted', ['value' => 0]); ?>
             <!-- 同意チェックボックス -->
             <?= $this->Form->input('agree', ['class' => 'checkBox', 'type' => 'checkbox', 'label' => '利用規約・プライバシーポリシーに同意の上、ご確認ください。', 'required' => 'required']); ?>
         </fieldset>
-        <?= $this->Form->button(__('登録'), ['class' => 'button bigBtn', 'type' => 'submit']) ?>
+        <div class="oneLine">
+            <?= $this->Form->button(__('削除'), ['class' => 'button delete']) ?>
+            <?= $this->Form->button(__('編集'), ['class' => 'button edit', 'type' => 'submit']) ?>
+        </div>
         <?= $this->Form->end() ?>
     </div>
 </div>

@@ -70,4 +70,10 @@ class Creditcard extends Entity
         $expiration_date = '20' . substr($cardDate, -2) . '/' . substr($cardDate, 0, 2) . '/01';
         return $expiration_date;
     }
+    // 有効期限date型yyyy/mm/01からmm/yyに変換
+    public function changeCardDate($ymd)
+    {
+        $myDate = date('m/y', strtotime($ymd));
+        return $myDate;
+    }
 }

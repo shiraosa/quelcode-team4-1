@@ -2,7 +2,7 @@ body {
     background-color: #ebebeb;
 }
 .main {
-    margin: 83px auto 266px;
+    margin: 78px auto 266px;
     text-align: center;
 }
 .innerHeading {
@@ -97,4 +97,50 @@ label {
     color: #707070;
     font-size: 16px;
     padding-bottom: 40px;
+}
+
+.delete {
+    width: 128px;
+    height: 48px;
+    background-color: #EFEFEF;
+    color: #707070;
+    font-size: 16px;
+    line-height: 48px;
+    margin: 0 8px;
+    text-align: center;
+}
+.return {
+    width: 336px;
+    height: 40px;
+    background-color: #EFEFEF;
+    color: #707070;
+    font-size: 16px;
+    line-height: 40px;
+    margin-top: 32px;
+}
+.edit, .deleteCancel {
+    width: 192px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 48px;
+    margin: 0 8px;
+}
+
+/* モーダルウィンドウ */
+#modalContent {
+    display: none;
+    z-index: 10;
+    margin: 200px auto;
+}
+#modalOverlay {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba( 0,0,0, 0.75 ) ;
 }
