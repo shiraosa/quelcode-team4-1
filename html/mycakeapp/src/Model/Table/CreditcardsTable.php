@@ -68,9 +68,12 @@ class CreditcardsTable extends Table
             ->scalar('owner_name')
             ->maxLength('owner_name', 100)
             ->requirePresence('owner_name', 'create')
-            ->notEmptyString('owner_name', 'クレジットカード名義が入力されたいません。')
-            ->add('owner_name', 'alphaNumeric', [
-                'rule' => 'alphaNumeric',
+            ->notEmptyString('owner_name', 'クレジットカード名義が入力されていません。')
+            ->add('owner_name', 'custom', [
+                'rule' => function ($value) {
+                    // 名義（大文字半角アルファベット 姓名の間にスペース
+                    return (1 === preg_match('/^[A-Z]+\s[A-Z]+\z/', $value));
+                },
                 'message' => '不正なクレジットカード名義です。'
             ]);
 
@@ -94,7 +97,7 @@ class CreditcardsTable extends Table
                     'message' => 'mm/yyで入力してください',
                 ],
                 'custom' => [
-                    'rule' => function($value){
+                    'rule' => function ($value) {
                         $thisMonth = Time::now()->year . '/' . Time::now()->month;
                         $cardDate = '20' . substr($value, -2) . '/' . substr($value, 0, 2);
                         return ($cardDate >= $thisMonth);
