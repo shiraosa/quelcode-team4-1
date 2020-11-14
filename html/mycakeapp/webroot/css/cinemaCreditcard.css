@@ -6,35 +6,35 @@ body {
     text-align: center;
 }
 .innerHeading {
+    color: #707070;
     font: normal normal 600 25px/34px sans-serif;
     letter-spacing: 0.89px;
-    color: #707070;
 }
 
 .innerWindow {
     width: 736px;
-    margin: 36px auto 27px;
-    background-color: #ffffff;
     padding-top: 92px;
     padding-bottom: 88px;
+    margin: 36px auto 27px;
+    background-color: #ffffff;
 }
 
 .innerWindow fieldset {
     border: none;
 }
 .innerWindow input {
-    border: none;
-    border-bottom: 1px solid rgba(112, 112, 112, 0.3);
     padding: 10px;
     margin-bottom: 44px;
+    border: none;
+    border-bottom: 1px solid rgba(112, 112, 112, 0.3);
 }
 
 .cardNum {
     width: 234px;
 }
 .cardIcon {
-    padding-right: 8px;
     opacity: 0.3;
+    padding-right: 8px;
 }
 .oneLine {
     display: flex;
@@ -46,28 +46,28 @@ body {
 }
 
 .limit {
-    margin-right: 19px;
     width: 132px;
+    margin-right: 19px;
 }
 
 label {
-    font: normal normal 600 11px/15px sans-serif;
     color: #707070;
+    font: normal normal 600 11px/15px sans-serif;
 }
 
 .innerWindow .checkBox {
-    opacity: 1;
     margin-right: 5px;
+    opacity: 1;
     vertical-align: -2px;
 }
 
 .button {
     display: block;
-    background: #f5ae0b 0% 0% no-repeat padding-box;
-    box-shadow: 0px 2px 2px #00000015;
-    border: #f5ae0b;
-    color: #ffffff;
     margin: 0 auto;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    border: #f5ae0b;
+    box-shadow: 0px 2px 2px #00000015;
+    color: #ffffff;
 }
 .button:hover {
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
@@ -79,31 +79,31 @@ label {
 }
 
 .error-message {
-    text-align: left;
-    font: normal 10px sans-serif;
     color: red;
+    font: normal 10px sans-serif;
+    text-align: left;
 }
 
 .box {
     display: flex;
-    flex-direction: column;
     margin-bottom: 44px;
+    flex-direction: column;
 }
 .box input {
     margin-bottom: 0;
 }
 
 .completed {
+    padding-bottom: 40px;
     color: #707070;
     font-size: 16px;
-    padding-bottom: 40px;
 }
 
 .delete {
     width: 128px;
     height: 48px;
-    background-color: #EFEFEF;
     color: #707070;
+    background-color: #EFEFEF;
     font-size: 16px;
     line-height: 48px;
     margin: 0 8px;
@@ -112,35 +112,35 @@ label {
 .return {
     width: 336px;
     height: 40px;
+    margin-top: 32px;
     background-color: #EFEFEF;
     color: #707070;
     font-size: 16px;
     line-height: 40px;
-    margin-top: 32px;
 }
 .edit, .deleteCancel {
     width: 192px;
     height: 48px;
+    margin: 0 8px;
     font-size: 16px;
     line-height: 48px;
-    margin: 0 8px;
 }
 
 /* モーダルウィンドウ */
 #modalContent {
     display: none;
-    z-index: 10;
     margin: 200px auto;
+    z-index: 10;
 }
 #modalOverlay {
+    display: none;
+    width: 100vw;
+    height: 100vh;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 5;
-    display: none;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
     background-color: rgba( 0,0,0, 0.75 ) ;
+    position: fixed;
+    z-index: 5;
 }
