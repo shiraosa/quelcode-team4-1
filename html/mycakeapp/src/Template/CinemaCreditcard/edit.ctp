@@ -2,6 +2,16 @@
 $this->Html->css('cinemaCreditcard', ['block' => true]);
 ?>
 
+<div id="modalOverlay">
+    <div id="modalContent" class="innerWindow">
+        <p>本当にこの決済情報を削除しますか？</p>
+        <div class="oneLine">
+            <button id="modalClose" class="button deleteCancel">戻る</button>
+            <a class="button delete" href="<?= $this->Url->build(['action' => 'delete']) ?>">削除</a>
+        </div>
+    </div>
+</div>
+
 <div class="main">
     <h2 class="innerHeading">決済情報</h2>
     <div class="innerWindow">
@@ -38,7 +48,7 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
             <?= $this->Form->input('agree', ['class' => 'checkBox', 'type' => 'checkbox', 'label' => '利用規約・プライバシーポリシーに同意の上、ご確認ください。', 'required' => 'required']); ?>
         </fieldset>
         <div class="oneLine">
-            <?= $this->Form->button(__('削除'), ['class' => 'button delete']) ?>
+            <?= $this->Form->button(__('削除'), ['class' => 'button delete', 'id' => 'modalOpen', 'type' => 'button']) ?>
             <?= $this->Form->button(__('編集'), ['class' => 'button edit', 'type' => 'submit']) ?>
         </div>
         <?= $this->Form->end() ?>
@@ -46,5 +56,6 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
 </div>
 <script src="https://kit.fontawesome.com/2ec4549c57.js" crossorigin="anonymous"></script>
 <?= $this->Html->script('jquery-3.5.1.min.js') ?>
+<?= $this->Html->script('modal.js') ?>
 <?= $this->Html->script('cardNumberHelp.js') ?>
 <?= $this->Html->script('cardDateHelp.js') ?>
