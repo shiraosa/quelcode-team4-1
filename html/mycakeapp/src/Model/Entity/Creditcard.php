@@ -54,8 +54,9 @@ class Creditcard extends Entity
     // クレジットカード番号の暗号化
     protected function _setCreditcard_number($encryptItem)
     {
+        $encryptItem = str_replace(array(" ", "　"), "", $encryptItem);
         $key = 'HOGEhogeHOGEhogeHOGEhogeHOGEhoge';
-        return openssl_encrypt($encryptItem, 'aes-256-ecb', $key);
+        return openssl_encrypt(($encryptItem), 'aes-256-ecb', $key);
     }
     // クレジットカード番号の復号化
     public function decryptCreditcard_number($decryptItem)

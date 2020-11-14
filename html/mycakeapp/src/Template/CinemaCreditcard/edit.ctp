@@ -9,7 +9,7 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
         <fieldset>
             <div class="oneLine">
                 <div class="box">
-                    <?= $this->Form->input('creditcard_number', ['type' => 'integer', 'class' => 'cardNum', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false, 'value' => $cardNumber]); ?>
+                    <?= $this->Form->input('creditcard_number', ['type' => 'integer', 'class' => 'cardNum', 'id' => 'cardNumber', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false, 'value' => $cardNumber, 'maxlength' => '19']); ?>
                     <?= ($this->Form->isFieldError('creditcard_number')) ? $this->Form->error('creditcard_number') : '' ?>
                 </div>
                 <!-- クレジットカードアイコン -->
@@ -25,12 +25,12 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
             <div class="oneLine">
                 <!-- 有効期限 -->
                 <div class="box">
-                    <?= $this->Form->input('expiration_date', ['class' => 'limit', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false, 'value' => $cardDate]); ?>
+                    <?= $this->Form->input('expiration_date', ['class' => 'limit', 'id' => 'cardDate', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false, 'value' => $cardDate, 'maxlength' => '5']); ?>
                     <?= ($this->Form->isFieldError('expiration_date')) ? $this->Form->error('expiration_date') : '' ?>
                 </div>
                 <!-- セキュリティコード -->
                 <div class="box">
-                    <?= $this->Form->input('code', ['class' => 'code', 'type' => 'password', 'placeholder' => 'セキュリティコード', 'label' => false, 'error' => false, 'required' => 'required']); ?>
+                    <?= $this->Form->input('code', ['class' => 'code', 'type' => 'password', 'placeholder' => 'セキュリティコード', 'label' => false, 'error' => false, 'required' => 'required', 'maxlength' => '4']); ?>
                     <?= ($this->Form->isFieldError('code')) ? $this->Form->error('code') : '' ?>
                 </div>
             </div>
@@ -45,3 +45,6 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
     </div>
 </div>
 <script src="https://kit.fontawesome.com/2ec4549c57.js" crossorigin="anonymous"></script>
+<?= $this->Html->script('jquery-3.5.1.min.js') ?>
+<?= $this->Html->script('cardNumberHelp.js') ?>
+<?= $this->Html->script('cardDateHelp.js') ?>
