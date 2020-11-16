@@ -23,7 +23,7 @@ class CinemaCreditcardController extends CinemaBaseController
             ])->first()
         ) {
             // クレジットカード登録済みのユーザーを決済情報確認画面へリダイレクト
-            return $this->redirect(['action' => 'check']);
+            return $this->redirect(['action' => 'index']);
         }
 
         $creditcard = $this->Creditcards->newEntity();
