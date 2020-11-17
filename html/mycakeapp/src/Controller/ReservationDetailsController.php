@@ -6,10 +6,11 @@ use App\Controller\AppController;
 use Cake\ORM\Table;
 use Cake\Event\Event;
 
-class ToppageController extends CinemabaseController
+class ReservationDetailsController extends CinemabaseController
 {
     public function index()
     {
+        
     }
 
     public function delete()

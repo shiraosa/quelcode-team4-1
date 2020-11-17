@@ -18,41 +18,16 @@ body {
     margin: 36px auto 27px;
     background-color: #ffffff;
 }
-
-.innerWindow fieldset {
-    border: none;
+.innerWindow p {
+    padding-bottom: 40px;
+    color: #707070;
 }
-.innerWindow input {
-    padding: 10px;
-    margin-bottom: 44px;
-    border: none;
-    border-bottom: 1px solid rgba(112, 112, 112, 0.3);
-}
-
-.cardNum {
-    width: 234px;
-}
-.cardIcon {
-    opacity: 0.3;
-    padding-right: 8px;
+.detail {
+    padding-bottom: 70px;
 }
 .oneLine {
     display: flex;
     justify-content: center;
-}
-
-.name {
-    width: 316px;
-}
-
-.limit {
-    width: 132px;
-    margin-right: 19px;
-}
-
-label {
-    color: #707070;
-    font: normal normal 600 11px/15px sans-serif;
 }
 
 .button {
@@ -72,21 +47,6 @@ label {
     line-height: 48px;
 }
 
-.error-message {
-    color: red;
-    font: normal 10px sans-serif;
-    text-align: left;
-}
-
-.box {
-    display: flex;
-    margin-bottom: 44px;
-    flex-direction: column;
-}
-.box input {
-    margin-bottom: 0;
-}
-
 .completed {
     padding-bottom: 40px;
     color: #707070;
@@ -103,19 +63,34 @@ label {
     margin: 0 8px;
     text-align: center;
 }
-.return {
-    width: 336px;
-    height: 40px;
-    margin-top: 32px;
-    background-color: #EFEFEF;
-    color: #707070;
-    font-size: 16px;
-    line-height: 40px;
-}
-.edit, .deleteCancel {
+.deleteCancel {
     width: 192px;
     height: 48px;
     margin: 0 8px;
     font-size: 16px;
     line-height: 48px;
+}
+
+/* モーダルウィンドウ */
+#modalContent {
+    display: none;
+    margin: 200px auto;
+    z-index: 10;
+}
+#modalOverlay {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba( 0,0,0, 0.75 ) ;
+    position: fixed;
+    z-index: 5;
+}
+#modalContent p {
+    padding-bottom: 60px;
+    color: #707070;
+    text-align: center;
 }
