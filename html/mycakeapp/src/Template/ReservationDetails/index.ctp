@@ -15,9 +15,19 @@ $this->Html->css('reservationDetails', ['block' => true]);
 <div class="main">
     <h2 class="innerHeading">予約詳細</h2>
     <div class="innerWindow">
-        <p>現在予約はありません</p>
-        <div class="detail">
-        </div>
+        <? if (empty($reservations)) : ?>
+            <p>現在予約はありません</p>
+        <? else : ?>
+            <div class="detail">
+            <? foreach ($reservations as $reservation) : ?>
+                <div class="oneTicket">
+                    <?= $this->Html->image($reservation['Movies.thumbnail_path']) ?>
+                    <?= $reservation['Movies.title'] ?>
+                    <?= $this->Form->button('キャンセル',['class' => 'cancel', 'type' => 'button']) ?>
+                </div>
+            <? endforeach; ?>
+            </div>
+        <? endif; ?>
         <a class="button bigBtn" href="<?= $this->Url->build(['controller' => 'Mypage']) ?>">マイページへ戻る</a>
     </div>
 
