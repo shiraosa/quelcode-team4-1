@@ -25,6 +25,7 @@ class ReservationDetailsController extends CinemabaseController
         $reservations = $this->Reservations->find('all', [
             'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['Reservations.is_deleted' => 0], ['Schedules.end_datetime >' => $todayDatetime]]],
             'contain' => ['Seats', 'Movies', 'DiscountLogs', 'DiscountLogs.DiscountTypes', 'Schedules', 'Payments'],
+            'order' => (['Schedules.start_datetime' => 'asc', 'Movies.title' => 'asc', 'Seats.seat_number' => 'asc'])
         ])
             ->toArray();
 
@@ -33,7 +34,7 @@ class ReservationDetailsController extends CinemabaseController
         foreach ($reservations as $reservation) {
             $tickets[$i]['thumbnail_path'] = $reservation['movie']['thumbnail_path'];
             $tickets[$i]['title'] = $reservation['movie']['title'];
-            $tickets[$i]['start_date'] = $reservation['schedule']['start_datetime']->format('m月d日');
+            $tickets[$i]['start_date'] = $this->__getDayOfTheWeek($reservation['schedule']['start_datetime']);
             $tickets[$i]['start_time'] = $reservation['schedule']['start_datetime']->format('H:i');
             $tickets[$i]['end_time'] = $reservation['schedule']['end_datetime']->format('H:i');
             $tickets[$i]['seat'] = $reservation['seat']['seat_number'];
@@ -55,5 +56,14 @@ class ReservationDetailsController extends CinemabaseController
 
     public function deleted()
     {
+    }
+
+    private function __getDayOfTheWeek($day)
+    {
+        $weekday = ['日', '月', '火', '水', '木', '金', '土'];
+        $w = $weekday[$day->format('w')];
+        $day = $day->format("m月d日($w)");
+
+        return $day;
     }
 }

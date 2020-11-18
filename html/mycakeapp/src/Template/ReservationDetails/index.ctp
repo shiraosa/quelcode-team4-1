@@ -21,7 +21,7 @@ $this->Html->css('reservationDetails', ['block' => true]);
         <div class="detail">
             <? $i = -1; ?>
             <? foreach ($tickets as $ticket) : ?>
-            <? if (($i === -1) || ((($i >= 0) && $tickets[$i]['title'] === $ticket['title']) && ($tickets[$i]['start_date'] === $ticket['start_date']) && ($tickets[$i]['start_time'] === $ticket['start_time']))) : ?>
+            <? if (($i === -1) || (($tickets[$i]['title'] === $ticket['title']) && ($tickets[$i]['start_date'] === $ticket['start_date']) && ($tickets[$i]['start_time'] === $ticket['start_time']))) : ?>
             <div class="oneTicket">
                 <? else : ?>
                 <div class="oneTicket anotherMovie">
@@ -30,11 +30,7 @@ $this->Html->css('reservationDetails', ['block' => true]);
                     <div class="center">
                         <div class="title"><?= $ticket['title'] ?></div>
                         <div class="dateAndSeat">
-                            <?= $ticket['start_date'] ?>
-                            <?= $ticket['start_time'] ?>
-                            <span>〜</span>
-                            <?= $ticket['end_time'] ?>
-                            <?= $ticket['seat'] ?>
+                            <?= $ticket['start_date'] ?><?= $ticket['start_time'] ?><span>〜</span><?= $ticket['end_time'] ?><?= '　' . $ticket['seat'] ?>
                         </div>
                         <div class="feeAndDiscount">
                             <div class="fee"><?= '￥' . number_format($ticket['fee']) ?></div>
