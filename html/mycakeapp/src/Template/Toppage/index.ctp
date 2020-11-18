@@ -1,10 +1,10 @@
 <?php
-    // 割引を追加したときに表示されるように配列の後ろから(新しい順に)バナーを4つ選択
-    for ($i = 4; $i >= 1; $i--) {
-        $discountsBanner[$i] = array_pop($banners);
-    }
-
+// 割引を追加したときに表示されるように配列の後ろから(新しい順に)バナーを4つ選択
+for ($i = 4; $i >= 1; $i--) {
+    $discountsBanner[$i] = array_pop($banners);
+}
 ?>
+<?php $this->Html->css('toppage.css', ['block' => true]) ?>
 <div class="main">
     <div class="container">
         <ul class="slideshow">

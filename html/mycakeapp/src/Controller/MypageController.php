@@ -1,14 +1,14 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\ORM\Table;
-use Cake\Utility\Security;
+use Cake\I18n\Time;
 
-class MypageController extends AppController
+class MypageController extends CinemaBaseController
 {
     public function initialize()
-     {
+    {
         // baseControllerで読み込んでたら削除
         parent::initialize();
         $this->loadModel('Creditcards');
@@ -19,31 +19,32 @@ class MypageController extends AppController
         // ポイント機能は任意課題のため、仮定0pt
         $point = 0;
 
-        // 認証情報よりユーザーIDを取得、仮でuser_id = 1を使用
-        $userId = 1;
+        // 削除されていない認証ユーザーのクレジットカード情報をDBより取得
+        $query = $this->Creditcards->find('all', [
+            'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0]]]
+        ])
+            ->select('creditcard_number');
 
-        // クレジットカード情報をDBより取得
-        $todayDate = date('Y-m-d');
-        $encryptedCardNum = $this->Creditcards->find('all', [
-            'conditions' => ['AND' => [['user_id' => $userId],['is_deleted' => 0],['expiration_date >=' => $todayDate]]]
-            ])
-            ->select('creditcard_number')
-            ->first();
+        $cardNum = $query->first();
 
         $cardNumLast4 = 0;
-        if (!empty($encryptedCardNum)) {
-            $cardNum = $encryptedCardNum->creditcard_number;
-            // 暗号化機能が実装されたときに下記を実装
-            // $key = '暗号キー';
-            // $cardNum = Security::decrypt($encryptedCardNum->creditcard_number, $key);
+        if (!empty($cardNum)) {
+            // 有効期限が切れたクレジットカードの処理
+            $oldCard = $query->find('all', [
+                'conditions' => ['expiration_date <' => Time::now()->year . '-' . Time::now()->month . '-1']
+            ])
+                ->first();
 
-            $cardNumLast4 = substr($cardNum, -4);
+            // 有効期限がまだ来ていないクレジットカードの処理
+            if (empty($oldCard)) {
+                // クレジットカードの復号化
+                $cardNumLast4 = substr($cardNum->decryptCreditcard_number($cardNum->creditcard_number), -4);
+            } else {
+                $cardNumLast4 = '有効期限が切れています';
+            }
         }
 
         $this->set(compact('cardNumLast4'));
         $this->set(compact('point'));
-
-        // baseController読み込んだら削除予定
-        $this->viewBuilder()->setLayout('quel_cinemas');
     }
 }

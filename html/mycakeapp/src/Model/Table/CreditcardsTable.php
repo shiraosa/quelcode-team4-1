@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\I18n\Time;
 
 /**
  * Creditcards Model
@@ -66,18 +68,53 @@ class CreditcardsTable extends Table
             ->scalar('owner_name')
             ->maxLength('owner_name', 100)
             ->requirePresence('owner_name', 'create')
-            ->notEmptyString('owner_name');
+            ->notEmptyString('owner_name', 'クレジットカード名義が入力されていません。')
+            ->add('owner_name', 'custom', [
+                'rule' => function ($value) {
+                    // 名義（大文字半角アルファベット 姓名の間にスペース
+                    return (1 === preg_match('/^[A-Z]+\s[A-Z]+\z/', $value));
+                },
+                'message' => '不正なクレジットカード名義です。'
+            ]);
 
         $validator
             ->scalar('creditcard_number')
             ->maxLength('creditcard_number', 100)
             ->requirePresence('creditcard_number', 'create')
-            ->notEmptyString('creditcard_number');
+            ->notEmptyString('creditcard_number', 'クレジットカード番号を入力してください。')
+            ->add('creditcard_number', 'creditCard', [
+                'rule' => ['creditCard', 'all'],
+                'message' => '不正なクレジットカード番号です。',
+            ]);
 
         $validator
             ->date('expiration_date')
             ->requirePresence('expiration_date', 'create')
-            ->notEmptyDate('expiration_date');
+            ->notEmptyDate('expiration_date', '有効期限が入力されていません。')
+            ->add('expiration_date', [
+                'date' => [
+                    'rule' => ['date', 'my'],
+                    'message' => 'mm/yyで入力してください',
+                ],
+                'custom' => [
+                    'rule' => function ($value) {
+                        $thisMonth = Time::now()->year . '/' . Time::now()->month;
+                        $cardDate = '20' . substr($value, -2) . '/' . substr($value, 0, 2);
+                        return ($cardDate >= $thisMonth);
+                    },
+                    'message' => '未来の有効期限を入力してください'
+                ]
+            ]);
+
+        $validator
+            ->integer('code', '半角数字で入力してください')
+            ->notEmptyString('code', 'セキュリティコードが入力されていません。')
+            ->add('code', [
+                'lengthBetween' => [
+                    'rule' => ['lengthBetween', 3, 4],
+                    'message' => '不正なセキュリティコードです。',
+                ]
+            ]);
 
         $validator
             ->boolean('is_deleted')
@@ -85,6 +122,19 @@ class CreditcardsTable extends Table
 
         return $validator;
     }
+
+    // 入力されたクレジットカードの有効期限が今月以降の未来であれば1を返す
+    // public function is_futureDate($expiration_date)
+    // {
+    //     $cardDate = '20' . substr($expiration_date, -2) . '/' . substr($expiration_date, 0, 2) . '/01';
+    //     $nowDate = Time::now()->year . '-' . Time::now()->month . '-1';
+    //     if ($cardDate >= $nowDate) {
+    //         return 1;
+    //     } else {
+    //         return 0;
+    //     }
+    // }
+
 
     /**
      * Returns a rules checker object that will be used for validating

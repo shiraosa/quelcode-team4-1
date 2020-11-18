@@ -1,18 +1,29 @@
 <?php
-    // ポイント機能は任意のため、仮定0pt
-    $this->Html->css('mypage',['block' => true]);
+$this->Html->css('mypage', ['block' => true]);
 ?>
 
 <div class="main">
     <h2 class="innerHeading">マイページ</h2>
     <div class="innerWindow">
         <table class="mypageTable">
-            <tr><th class="tableFont">ポイント</th><td class="tableFont"><?= $point . 'pt' ?></td></tr>
-            <tr><th class="tableFont">予約確認</th><td><button onclick="" class="reservationCheckBtn button">詳細</button></td></tr>
-            <?php if (empty($cardNumLast4)): ?>
-                <tr><th class="tableFont">決済情報</th><td><button onclick="" class="cardInputBtn button">登録する</button></td></tr>
-            <?php else: ?>
-                <tr><th class="tableFont">決済情報</th><td><span class="tableFont cardNumLast4"><?= $cardNumLast4 ?></span> <button onclick="" class="cardChangeBtn button">変更</button></td></tr>
+            <tr>
+                <th class="tableFont">ポイント</th>
+                <td class="tableFont"><?= $point . 'pt' ?></td>
+            </tr>
+            <tr>
+                <th class="tableFont">予約確認</th>
+                <td><a href="#" class="reservationCheckBtn button">詳細</a></td>
+            </tr>
+            <?php if (0 === $cardNumLast4) : ?>
+                <tr>
+                    <th class="tableFont">決済情報</th>
+                    <td><a href="<?= $this->Url->build(['controller' => 'CinemaCreditcard', 'action' => 'add']) ?>" class="cardInputBtn button">登録する</a></td>
+                </tr>
+            <?php else : ?>
+                <tr>
+                    <th class="tableFont">決済情報</th>
+                    <td><span class="tableFont cardNumLast4"><?= $cardNumLast4 ?></span><a href="<?= $this->Url->build(['controller' => 'CinemaCreditcard', 'action' => 'index']) ?>" class="cardChangeBtn button">変更</a></td>
+                </tr>
             <?php endif; ?>
         </table>
     </div>
