@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Controller\AppController;
 use Cake\Chronos\Chronos;
+use Cake\Event\Event;
 
-class CinemaSchedulesController extends AppController
+class CinemaSchedulesController extends CinemaBaseController
 {
     public $useTable = false;
 
@@ -14,6 +14,11 @@ class CinemaSchedulesController extends AppController
         parent::initialize();
         $this->loadModel('Schedules');
         $this->viewBuilder()->setLayout('quel_cinemas');
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index']);
     }
 
     public function index()
