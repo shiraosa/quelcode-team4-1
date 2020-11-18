@@ -132,14 +132,11 @@ class CinemaCreditcardController extends CinemaBaseController
             ])->first()
         ) {
             $creditcard->is_deleted = 1;
-            // dd($creditcard);
             if ($this->Creditcards->save(($creditcard))) {
-                // dd("saveのあと");
                 $this->Flash->success(__('The creditcard has been saved.'));
 
                 return $this->redirect(['action' => 'deleted']);
             }
-            // dd('saveされてない');
 
             $this->Flash->error(__('The creditcard could not be saved. Please, try again.'));
         } else {
