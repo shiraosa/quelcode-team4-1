@@ -15,20 +15,45 @@ $this->Html->css('reservationDetails', ['block' => true]);
 <div class="main">
     <h2 class="innerHeading">予約詳細</h2>
     <div class="innerWindow">
-        <? if (empty($reservations)) : ?>
-            <p>現在予約はありません</p>
+        <? if (empty($tickets)) : ?>
+        <p>現在予約はありません</p>
         <? else : ?>
-            <div class="detail">
-            <? foreach ($reservations as $reservation) : ?>
-                <div class="oneTicket">
-                    <?= $this->Html->image($reservation['Movies.thumbnail_path']) ?>
-                    <?= $reservation['Movies.title'] ?>
-                    <?= $this->Form->button('キャンセル',['class' => 'cancel', 'type' => 'button']) ?>
+        <div class="detail">
+            <? $i = -1; ?>
+            <? foreach ($tickets as $ticket) : ?>
+            <? if (($i === -1) || ((($i >= 0) && $tickets[$i]['title'] === $ticket['title']) && ($tickets[$i]['start_date'] === $ticket['start_date']) && ($tickets[$i]['start_time'] === $ticket['start_time']))) : ?>
+            <div class="oneTicket">
+                <? else : ?>
+                <div class="oneTicket anotherMovie">
+                    <? endif; ?>
+                    <?= $this->Html->image('thumbnail/' . $ticket['thumbnail_path']) ?>
+                    <div class="center">
+                        <div class="title"><?= $ticket['title'] ?></div>
+                        <div class="dateAndSeat">
+                            <?= $ticket['start_date'] ?>
+                            <?= $ticket['start_time'] ?>
+                            <span>〜</span>
+                            <?= $ticket['end_time'] ?>
+                            <?= $ticket['seat'] ?>
+                        </div>
+                        <div class="feeAndDiscount">
+                            <div class="fee"><?= '￥' . number_format($ticket['fee']) ?></div>
+                            <? if (!empty($ticket['discount_type'])) : ?>
+                            <div class="discount"><?= $ticket['discount_type'] ?></div>
+                            <? endif; ?>
+                        </div>
+                    </div>
+                    <div class="cancel">
+                        <?= $this->Form->button('キャンセル', ['id' => 'modalOpen', 'class' => 'cancel-btn', 'type' => 'button']) ?>
+                    </div>
                 </div>
-            <? endforeach; ?>
+                <? $i ++ ; ?>
+                <? endforeach; ?>
             </div>
-        <? endif; ?>
-        <a class="button bigBtn" href="<?= $this->Url->build(['controller' => 'Mypage']) ?>">マイページへ戻る</a>
-    </div>
+            <? endif; ?>
+            <a class="button bigBtn" href="<?= $this->Url->build(['controller' => 'Mypage']) ?>">マイページへ戻る</a>
+        </div>
 
-</div>
+    </div>
+    <?= $this->Html->script('jquery-3.5.1.min.js') ?>
+    <?= $this->Html->script('modal.js') ?>

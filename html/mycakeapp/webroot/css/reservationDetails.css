@@ -94,3 +94,63 @@ body {
     color: #707070;
     text-align: center;
 }
+
+/* チケット欄 */
+.oneTicket {
+    display: flex;
+    width: 528px;
+    height: 128px;
+    margin: 8px auto 0;
+    background-color: #F2F2F2;
+}
+.anotherMovie {
+    margin-top: 32px;
+}
+.oneTicket img {
+    width: 96px;
+    height: 128px;
+}
+
+.oneTicket .center {
+    padding-top: 19px;
+    padding-left: 24px;
+}
+.oneTicket .title {
+    padding-bottom: 4px;
+    color: #707070;
+    font-size: 20px;
+    text-align: left;
+}
+.oneTicket .dateAndSeat {
+    padding-bottom: 8px;
+    color: #707070;
+    font-size: 16px;
+}
+.oneTicket .feeAndDiscount {
+    display: flex;
+    flex-direction: row;
+}
+.oneTicket .fee {
+    padding-right: 15px;
+    color: #707070;
+    font-size: 18px;
+    font-weight: 600;
+}
+.oneTicket .discount {
+    padding: 2px 3px;
+    color: #B7B7B7;
+    border: 1px solid #B7B7B7;
+    font-size: 14px;
+}
+.oneTicket .cancel {
+    height: 128px;
+    padding-left: 43px;
+    display: flex;
+    align-items: center;
+}
+.cancel-btn {
+    width: 96px;
+    height: 32px;
+    color: #AFAFAF;
+    border: 1.5px solid #AFAFAF;
+}
