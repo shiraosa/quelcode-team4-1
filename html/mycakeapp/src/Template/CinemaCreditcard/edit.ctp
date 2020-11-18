@@ -48,7 +48,7 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
             <?= $this->Form->input('agree', ['class' => 'checkBox', 'type' => 'checkbox', 'label' => '利用規約・プライバシーポリシーに同意の上、ご確認ください。', 'required' => 'required']); ?>
         </fieldset>
         <div class="oneLine">
-            <?= $this->Form->button(__('削除'), ['class' => 'button delete', 'id' => 'modalOpen', 'type' => 'button']) ?>
+            <?= $this->Form->button(__('削除'), ['class' => 'modalOpen button delete','type' => 'button']) ?>
             <?= $this->Form->button(__('編集'), ['class' => 'button edit', 'type' => 'submit']) ?>
         </div>
         <?= $this->Form->end() ?>

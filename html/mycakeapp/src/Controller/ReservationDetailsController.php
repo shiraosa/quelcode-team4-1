@@ -32,6 +32,7 @@ class ReservationDetailsController extends CinemabaseController
         // データをindex.ctpへ渡すためにまとめる
         $i = 0;
         foreach ($reservations as $reservation) {
+            $tickets[$i]['id'] = $reservation['id'];
             $tickets[$i]['thumbnail_path'] = $reservation['movie']['thumbnail_path'];
             $tickets[$i]['title'] = $reservation['movie']['title'];
             $tickets[$i]['start_date'] = $this->__getDayOfTheWeek($reservation['schedule']['start_datetime']);
@@ -52,6 +53,25 @@ class ReservationDetailsController extends CinemabaseController
 
     public function delete()
     {
+        if ($this->request->is('get')) {
+            $reservation_id = $this->request->getQuery('id');
+            $reservation = $this->Reservations->find('all', [
+                'contains' => ['AND' => ['user_id' => $this->Auth->user('id')], ['id' =>$reservation_id]],
+                'contain' => ['Seats', 'Movies', 'DiscountLogs', 'DiscountLogs.DiscountTypes', 'Schedules', 'Payments']
+            ])->toArray();
+            $reservation['is_deleted'] = 1;
+            $reservation['seat']['is_deleted'] = 1;
+            $reservation['payment']['is_deleted'] = 1;
+            $reservation['discount_log']['is_deleted'] = 1;
+            dd($reservation);
+            if ($this->Reservations->save(($reservation))) {
+                $this->Flash->success(__('The reservation has been saved.'));
+
+                return $this->redirect(['action' => 'deleted']);
+            }
+
+            $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+        }
     }
 
     public function deleted()

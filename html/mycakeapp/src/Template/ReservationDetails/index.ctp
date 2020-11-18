@@ -40,7 +40,7 @@ $this->Html->css('reservationDetails', ['block' => true]);
                         </div>
                     </div>
                     <div class="cancel">
-                        <?= $this->Form->button('キャンセル', ['id' => 'modalOpen', 'class' => 'cancel-btn', 'type' => 'button']) ?>
+                        <?= $this->Form->button('キャンセル', ['class' => 'modalOpen cancel-btn takeId', 'data-id' => $ticket['id'], 'type' => 'button']) ?>
                     </div>
                 </div>
                 <? $i ++ ; ?>
@@ -53,3 +53,10 @@ $this->Html->css('reservationDetails', ['block' => true]);
     </div>
     <?= $this->Html->script('jquery-3.5.1.min.js') ?>
     <?= $this->Html->script('modal.js') ?>
+
+<script type="text/javascript">
+    $('.takeId').on('click', function() {
+        var click = $(this).data('id');
+        // console.log(click);
+    })
+</script>

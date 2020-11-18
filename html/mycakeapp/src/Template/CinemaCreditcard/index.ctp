@@ -17,7 +17,7 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
         <p class="completed"><?= $creditcard->owner_name ?></p>
         <p class="completed"><?= $cardBrand . '　************' . $cardNumLast4 ?></p>
         <div class="oneLine">
-            <button id="modalOpen" class="button delete">削除</button>
+            <button class="modalOpen button delete">削除</button>
             <a class="button edit" href="<?= $this->Url->build(['action' => 'edit']) ?>">編集</a>
         </div>
         <a class="button return" href="<?= $this->Url->build(['controller' => 'Mypage']) ?>">戻る</a>
