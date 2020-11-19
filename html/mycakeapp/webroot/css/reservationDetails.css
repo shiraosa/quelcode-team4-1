@@ -143,14 +143,14 @@ body {
     font-size: 14px;
 }
 .oneTicket .cancel {
+    display: flex;
     height: 128px;
     padding-left: 43px;
-    display: flex;
     align-items: center;
 }
 .cancel-btn {
     width: 96px;
     height: 32px;
-    color: #AFAFAF;
     border: 1.5px solid #AFAFAF;
+    color: #AFAFAF;
 }
