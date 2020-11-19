@@ -15,7 +15,7 @@ $this->Html->css('reservationDetails', ['block' => true]);
 <div class="main">
     <h2 class="innerHeading">予約詳細</h2>
     <div class="innerWindow">
-        <? if (empty($tickets)) : ?>
+        <? if ($tickets === 0) : ?>
         <p>現在予約はありません</p>
         <? else : ?>
         <div class="detail">

@@ -21,6 +21,7 @@ class ReservationDetailsController extends CinemabaseController
 
     public function index()
     {
+        $tickets = 0;
         // DBよりデータを取得
         $todayDatetime = date('Y-m-d H:i:s');
         $reservations = $this->Reservations->find('all', [
