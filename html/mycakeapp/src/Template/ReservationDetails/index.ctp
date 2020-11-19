@@ -30,7 +30,7 @@ $this->Html->css('reservationDetails', ['block' => true]);
                     <div class="center">
                         <div class="title"><?= $ticket['title'] ?></div>
                         <div class="dateAndSeat">
-                            <?= $ticket['start_date'] ?><?= $ticket['start_time'] ?><span>〜</span><?= $ticket['end_time'] ?><?= '　' . $ticket['seat'] ?>
+                            <?= $ticket['start_date'] ?><?= ' ' . $ticket['start_time'] ?><span>〜</span><?= $ticket['end_time'] ?><?= ' ' . $ticket['seat'] ?>
                         </div>
                         <div class="feeAndDiscount">
                             <div class="fee"><?= '￥' . number_format($ticket['fee']) ?></div>
