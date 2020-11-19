@@ -15,7 +15,7 @@ $this->Html->css('reservationDetails', ['block' => true]);
 <div class="main">
     <h2 class="innerHeading">予約詳細</h2>
     <div class="innerWindow">
-        <? if ($tickets === 0) : ?>
+        <? if (empty($tickets)) : ?>
         <p>現在予約はありません</p>
         <? else : ?>
         <div class="detail">
@@ -53,16 +53,4 @@ $this->Html->css('reservationDetails', ['block' => true]);
     </div>
     <?= $this->Html->script('jquery-3.5.1.min.js') ?>
     <?= $this->Html->script('modal.js') ?>
-
-    <script type="text/javascript">
-        var cancelTicket = 0;
-        $('.takeId').on('click', function() {
-            // 最後にクリックしたキャンセルボタンの予約IDを保持
-            cancelTicket = $(this).data('id');
-
-            $('#delete').on('click', function() {
-                // console.log(cancelTicket);
-                $('#delete').attr("href", "ReservationDetails/delete?id=" + cancelTicket)
-            });
-        })
-    </script>
+    <?= $this->Html->script('cancelTicket.js') ?>
