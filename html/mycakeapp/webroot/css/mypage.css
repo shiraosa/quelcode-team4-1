@@ -66,3 +66,72 @@ body {
     font-size: 14px;
     letter-spacing: 0.5px;
 }
+
+.bigBtn {
+    display: block;
+    margin: 0 auto;
+    width: 336px;
+    height: 48px;
+    line-height: 48px;
+}
+.completed {
+    padding-bottom: 40px;
+    color: #707070;
+    font-size: 16px;
+}
+
+.oneLine {
+    display: flex;
+    justify-content: center;
+}
+
+.delete {
+    width: 128px;
+    height: 48px;
+    color: #707070;
+    background-color: #EFEFEF;
+    font-size: 16px;
+    line-height: 48px;
+    margin: 0 8px;
+    text-align: center;
+}
+.return {
+    width: 336px;
+    height: 40px;
+    margin-top: 32px;
+    background-color: #EFEFEF;
+    color: #707070;
+    font-size: 16px;
+    line-height: 40px;
+}
+.deleteCancel {
+    width: 192px;
+    height: 48px;
+    margin: 0 8px;
+    font-size: 16px;
+    line-height: 48px;
+}
+
+/* モーダルウィンドウ */
+#modalContent {
+    display: none;
+    margin: 200px auto;
+    z-index: 10;
+}
+#modalOverlay {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba( 0,0,0, 0.75 ) ;
+    position: fixed;
+    z-index: 5;
+}
+#modalContent p {
+    padding-bottom: 60px;
+    color: #707070;
+    text-align: center;
+}

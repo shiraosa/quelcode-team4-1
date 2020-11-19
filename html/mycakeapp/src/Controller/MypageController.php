@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 use Cake\I18n\Time;
 
 class MypageController extends CinemaBaseController
 {
     public function initialize()
     {
-        // baseControllerで読み込んでたら削除
         parent::initialize();
         $this->loadModel('Creditcards');
+        $this->loadModel('Users');
+        $this->loadModel('Reservations');
     }
 
     public function index()
@@ -47,4 +49,19 @@ class MypageController extends CinemaBaseController
         $this->set(compact('cardNumLast4'));
         $this->set(compact('point'));
     }
+
+    // アカウント削除
+    public function delete()
+    {
+    }
+    // アカウント削除完了
+    public function deleted()
+    {
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['deleted']);
+    }
+
 }
