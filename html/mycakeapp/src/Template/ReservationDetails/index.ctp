@@ -7,7 +7,7 @@ $this->Html->css('reservationDetails', ['block' => true]);
         <p>本当にこの予約をキャンセルしますか？</p>
         <div class="oneLine">
             <button id="modalClose" class="button deleteCancel">戻る</button>
-            <a class="button delete" href="<?= $this->Url->build(['action' => 'delete']) ?>">削除</a>
+            <a id="delete" class="button delete" href="">削除</a>
         </div>
     </div>
 </div>
@@ -54,9 +54,15 @@ $this->Html->css('reservationDetails', ['block' => true]);
     <?= $this->Html->script('jquery-3.5.1.min.js') ?>
     <?= $this->Html->script('modal.js') ?>
 
-<script type="text/javascript">
-    $('.takeId').on('click', function() {
-        var click = $(this).data('id');
-        // console.log(click);
-    })
-</script>
+    <script type="text/javascript">
+        var cancelTicket = 0;
+        $('.takeId').on('click', function() {
+            // 最後にクリックしたキャンセルボタンの予約IDを保持
+            cancelTicket = $(this).data('id');
+
+            $('#delete').on('click', function() {
+                // console.log(cancelTicket);
+                $('#delete').attr("href", "ReservationDetails/delete?id=" + cancelTicket)
+            });
+        })
+    </script>

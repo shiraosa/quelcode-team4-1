@@ -16,6 +16,7 @@ class ReservationDetailsController extends CinemabaseController
         $this->loadModel('DiscountLogs');
         $this->loadModel('DiscountTypes');
         $this->loadModel('Schedules');
+        $this->loadModel('Payments');
     }
 
     public function index()
@@ -53,24 +54,38 @@ class ReservationDetailsController extends CinemabaseController
 
     public function delete()
     {
-        if ($this->request->is('get')) {
-            $reservation_id = $this->request->getQuery('id');
+        $reservation_id = $this->request->getQuery('id');
+        if (!empty($reservation_id)) {
             $reservation = $this->Reservations->find('all', [
-                'contains' => ['AND' => ['user_id' => $this->Auth->user('id')], ['id' =>$reservation_id]],
-                'contain' => ['Seats', 'Movies', 'DiscountLogs', 'DiscountLogs.DiscountTypes', 'Schedules', 'Payments']
-            ])->toArray();
-            $reservation['is_deleted'] = 1;
-            $reservation['seat']['is_deleted'] = 1;
-            $reservation['payment']['is_deleted'] = 1;
-            $reservation['discount_log']['is_deleted'] = 1;
-            dd($reservation);
-            if ($this->Reservations->save(($reservation))) {
+                'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['Reservations.id' => $reservation_id]]],
+                'contain' => ['DiscountLogs']
+            ])->first();
+            $reservation->is_deleted = 1;
+            // 座席レコードに削除フラグを設定
+            $seat = $this->Seats->get($reservation->seat_id);
+            $seat->is_deleted = 1;
+            // 決済レコードに削除フラグを設定
+            $payment = $this->Payments->get($reservation->payment_id);
+            $payment->is_deleted = 1;
+            // 割引があれば割引テーブルに削除フラグを設定
+            if (!empty($reservation->discount_logs)) {
+                $discountLog = $this->DiscountLogs->find('all', [
+                    'conditions' => ['reservation_id' => $reservation->id]
+                ])->first();
+                $discountLog->is_deleted = 1;
+            }
+            if (($this->Reservations->save($reservation)) && ($this->Seats->save($seat)) && ($this->Payments->save($payment))) {
+                if (!empty($reservation->discount_logs)) {
+                    $this->DiscountLogs->save($discountLog);
+                }
                 $this->Flash->success(__('The reservation has been saved.'));
 
                 return $this->redirect(['action' => 'deleted']);
             }
 
             $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+        } else {
+            return $this->redirect(['action' => 'index']);
         }
     }
 
