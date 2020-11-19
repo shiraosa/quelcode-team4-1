@@ -53,6 +53,35 @@ class MypageController extends CinemaBaseController
     // アカウント削除
     public function delete()
     {
+        // キャンセルしてない予約情報を確認
+        $todayDatetime = date('Y-m-d H:i:s');
+        if (
+            $reservation = $this->Reservations->find('all', [
+                'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['Reservations.is_deleted' => 0], ['Schedules.end_datetime >' => $todayDatetime]]],
+                'contain' => ['Schedules']
+            ])->first()
+        ) {
+        } else {
+            // ユーザーレコードに予約情報がなければ削除フラグを立てる
+            $myAccount = $this->Users->get($this->Auth->user('id'));
+            $myAccount->is_deleted = 1;
+            // 削除してないクレジットカードがあればレコードに削除フラグを立てる
+            if (
+                $creditcard = $this->Creditcards->find('all', ['conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0]]]])->first()
+            ) {
+                $creditcard->is_deleted = 1;
+            }
+            if ($this->Users->save($myAccount)) {
+                if (!empty($creditcard)) {
+                    $this->Creditcards->save($creditcard);
+                }
+                $this->Flash->success(__('The creditcard & user has been saved.'));
+
+                return $this->redirect(['action' => 'deleted']);
+            }
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
     // アカウント削除完了
     public function deleted()
@@ -63,5 +92,4 @@ class MypageController extends CinemaBaseController
     {
         $this->Auth->allow(['deleted']);
     }
-
 }
