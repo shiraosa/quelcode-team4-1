@@ -5,6 +5,7 @@ $this->Html->css('mypage', ['block' => true]);
 <div id="modalOverlay">
     <div id="modalContent" class="innerWindow">
         <p>本当にこのアカウントを削除しますか？</p>
+        <p>予約された映画がある場合、アカウントは削除されません。</p>
         <div class="oneLine">
             <button id="modalClose" class="button deleteCancel">戻る</button>
             <a class="button delete" href="<?= $this->Url->build(['action' => 'delete']) ?>">削除</a>

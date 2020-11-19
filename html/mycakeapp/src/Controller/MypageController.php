@@ -56,11 +56,12 @@ class MypageController extends CinemaBaseController
         // キャンセルしてない予約情報を確認
         $todayDatetime = date('Y-m-d H:i:s');
         if (
-            $reservation = $this->Reservations->find('all', [
+            $this->Reservations->find('all', [
                 'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['Reservations.is_deleted' => 0], ['Schedules.end_datetime >' => $todayDatetime]]],
                 'contain' => ['Schedules']
             ])->first()
         ) {
+            return $this->redirect(['controller' => 'ReservationDetails', 'action' => 'index']);
         } else {
             // ユーザーレコードに予約情報がなければ削除フラグを立てる
             $myAccount = $this->Users->get($this->Auth->user('id'));
