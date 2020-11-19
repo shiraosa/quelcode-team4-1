@@ -37,8 +37,8 @@ $this->Html->css('mypage', ['block' => true]);
             <?php endif; ?>
         </table>
     </div>
-    
-    <a href="#" id="modalOpen" class="modalOpen deleteLink">アカウントを削除</a>
+
+    <a href="#" class="modalOpen deleteLink">アカウントを削除</a>
 </div>
 
 <?= $this->Html->script('jquery-3.5.1.min.js') ?>
