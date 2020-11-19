@@ -1,0 +1,159 @@
+body {
+    background-color: #ebebeb;
+}
+.main {
+    margin: 78px auto 266px;
+    text-align: center;
+}
+.innerHeading {
+    color: #707070;
+    font: normal normal 600 25px/34px sans-serif;
+    letter-spacing: 0.89px;
+}
+
+.innerWindow {
+    width: 736px;
+    padding-top: 92px;
+    padding-bottom: 88px;
+    margin: 36px auto 27px;
+    background-color: #ffffff;
+}
+.innerWindow p {
+    padding-bottom: 40px;
+    color: #707070;
+}
+.detail {
+    padding-bottom: 70px;
+}
+.oneLine {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    display: block;
+    margin: 0 auto;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    border: #f5ae0b;
+    box-shadow: 0px 2px 2px #00000015;
+    color: #ffffff;
+}
+.button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+.bigBtn {
+    width: 336px;
+    height: 48px;
+    line-height: 48px;
+}
+
+.completed {
+    padding-bottom: 40px;
+    color: #707070;
+    font-size: 16px;
+}
+
+.delete {
+    width: 128px;
+    height: 48px;
+    color: #707070;
+    background-color: #EFEFEF;
+    font-size: 16px;
+    line-height: 48px;
+    margin: 0 8px;
+    text-align: center;
+}
+.deleteCancel {
+    width: 192px;
+    height: 48px;
+    margin: 0 8px;
+    font-size: 16px;
+    line-height: 48px;
+}
+
+/* モーダルウィンドウ */
+#modalContent {
+    display: none;
+    margin: 200px auto;
+    z-index: 10;
+}
+#modalOverlay {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba( 0,0,0, 0.75 ) ;
+    position: fixed;
+    z-index: 5;
+}
+#modalContent p {
+    padding-bottom: 60px;
+    color: #707070;
+    text-align: center;
+}
+
+/* チケット欄 */
+.oneTicket {
+    display: flex;
+    width: 528px;
+    height: 128px;
+    margin: 8px auto 0;
+    background-color: #F2F2F2;
+}
+.anotherMovie {
+    margin-top: 32px;
+}
+.oneTicket img {
+    width: 96px;
+    height: 128px;
+}
+
+.oneTicket .center {
+    padding-top: 19px;
+    padding-left: 24px;
+}
+.oneTicket .title {
+    padding-bottom: 4px;
+    color: #707070;
+    font-size: 20px;
+    text-align: left;
+}
+.oneTicket .dateAndSeat {
+    padding-bottom: 8px;
+    color: #707070;
+    font-size: 16px;
+}
+.oneTicket .feeAndDiscount {
+    display: flex;
+    flex-direction: row;
+}
+.oneTicket .fee {
+    padding-right: 15px;
+    color: #707070;
+    font-size: 18px;
+    font-weight: 600;
+}
+.oneTicket .discount {
+    padding: 2px 3px;
+    color: #B7B7B7;
+    border: 1px solid #B7B7B7;
+    font-size: 14px;
+}
+.oneTicket .cancel {
+    display: flex;
+    height: 128px;
+    padding-left: 43px;
+    align-items: center;
+}
+.cancel-btn {
+    width: 96px;
+    height: 32px;
+    border: 1.5px solid #AFAFAF;
+    color: #AFAFAF;
+}
+.cancel-btn:hover {
+    background-color: #FFF;
+}
