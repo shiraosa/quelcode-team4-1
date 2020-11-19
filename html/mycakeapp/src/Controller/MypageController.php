@@ -78,6 +78,8 @@ class MypageController extends CinemaBaseController
                 }
                 $this->Flash->success(__('The creditcard & user has been saved.'));
 
+                $session = $this->getRequest()->getSession();
+                $session->destroy();
                 return $this->redirect(['action' => 'deleted']);
             }
         }
