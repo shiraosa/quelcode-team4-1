@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 use Cake\I18n\Time;
 
 class MypageController extends CinemaBaseController
 {
     public function initialize()
     {
-        // baseControllerで読み込んでたら削除
         parent::initialize();
         $this->loadModel('Creditcards');
+        $this->loadModel('Users');
+        $this->loadModel('Reservations');
     }
 
     public function index()
@@ -46,5 +48,51 @@ class MypageController extends CinemaBaseController
 
         $this->set(compact('cardNumLast4'));
         $this->set(compact('point'));
+    }
+
+    // アカウント削除
+    public function delete()
+    {
+        // キャンセルしてない予約情報を確認
+        $todayDatetime = date('Y-m-d H:i:s');
+        if (
+            $this->Reservations->find('all', [
+                'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['Reservations.is_deleted' => 0], ['Schedules.end_datetime >' => $todayDatetime]]],
+                'contain' => ['Schedules']
+            ])->first()
+        ) {
+            return $this->redirect(['controller' => 'ReservationDetails', 'action' => 'index']);
+        } else {
+            // ユーザーレコードに予約情報がなければ削除フラグを立てる
+            $myAccount = $this->Users->get($this->Auth->user('id'));
+            $myAccount->is_deleted = 1;
+            // 削除してないクレジットカードがあればレコードに削除フラグを立てる
+            if (
+                $creditcard = $this->Creditcards->find('all', ['conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0]]]])->first()
+            ) {
+                $creditcard->is_deleted = 1;
+            }
+            if ($this->Users->save($myAccount)) {
+                if (!empty($creditcard)) {
+                    $this->Creditcards->save($creditcard);
+                }
+                $this->Flash->success(__('The creditcard & user has been saved.'));
+
+                $session = $this->getRequest()->getSession();
+                $session->destroy();
+                return $this->redirect(['action' => 'deleted']);
+            }
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+    // アカウント削除完了
+    public function deleted()
+    {
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['deleted']);
     }
 }

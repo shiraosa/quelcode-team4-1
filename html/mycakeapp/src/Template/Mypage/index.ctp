@@ -2,6 +2,17 @@
 $this->Html->css('mypage', ['block' => true]);
 ?>
 
+<div id="modalOverlay">
+    <div id="modalContent" class="innerWindow">
+        <p>本当にこのアカウントを削除しますか？</p>
+        <p>予約された映画がある場合、アカウントは削除されません。</p>
+        <div class="oneLine">
+            <button id="modalClose" class="button deleteCancel">戻る</button>
+            <a class="button delete" href="<?= $this->Url->build(['action' => 'delete']) ?>">削除</a>
+        </div>
+    </div>
+</div>
+
 <div class="main">
     <h2 class="innerHeading">マイページ</h2>
     <div class="innerWindow">
@@ -27,6 +38,9 @@ $this->Html->css('mypage', ['block' => true]);
             <?php endif; ?>
         </table>
     </div>
-    <!-- 仕様によりアカウント削除ページなしのためリンクなし -->
-    <a href="#" class="deleteLink">アカウントを削除</a>
+
+    <a href="#" class="modalOpen deleteLink">アカウントを削除</a>
 </div>
+
+<?= $this->Html->script('jquery-3.5.1.min.js') ?>
+<?= $this->Html->script('modal.js') ?>
