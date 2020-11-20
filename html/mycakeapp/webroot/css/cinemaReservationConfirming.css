@@ -125,7 +125,7 @@ fieldset div:nth-child(3) {
     margin: 0 auto;
 }
 
-.innerWindow button.cancel {
+.innerWindow a.cancel {
     width: 128px;
     background: #efefef 0% 0% no-repeat padding-box;
     box-shadow: 0px 2px 2px #00000014;
@@ -133,6 +133,7 @@ fieldset div:nth-child(3) {
     font: normal normal normal 16px/22px sans-serif;
     letter-spacing: 0.44px;
     color: #707070;
+    line-height: 48px;
 }
 
 .innerWindow button.submit {
@@ -145,8 +146,10 @@ fieldset div:nth-child(3) {
     letter-spacing: 0.44px;
     color: #ffffff;
     border: none;
+    cursor: pointer;
 }
 
+.innerWindow a:hover,
 .innerWindow button:hover {
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
 }
