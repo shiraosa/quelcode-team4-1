@@ -24,8 +24,8 @@ class CinemaReservationConfirmingController extends CinemaBaseController
 
                 return $this->redirect(['action' => 'confirm']);
             }
+            $this->set(compact('errors'));
         }
-        $this->set(compact('errors'));
     }
 
     public function confirm()
