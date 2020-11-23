@@ -52,6 +52,9 @@ class CinemaReservationConfirmingController extends CinemaBaseController
     public function confirm()
     {
         $session = $this->request->getSession();
+        $schedule = $session->read('schedule');
+
+        $this->set(compact('schedule'));
     }
 
     private function __validateProfile($data)

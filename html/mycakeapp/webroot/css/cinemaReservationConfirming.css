@@ -10,6 +10,19 @@ body {
     padding: 108px 0 88px 0;
 }
 
+.innerWindow-confirm {
+    width: 736px;
+    margin: 230px auto 100px;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 108px 0 88px 0;
+}
+
+.innerWindow,
+.innerWindow-confirm {
+    box-shadow: 0px 0px 6px #00000029;
+}
+
 .innerWindow fieldset {
     border: none;
     width: 336px;
@@ -49,8 +62,48 @@ body {
     line-height: 37px;
 }
 
-.innerWindow {
-    box-shadow: 0px 0px 6px #00000029;
+.beingConfirmed-confirm {
+    margin: 0 0 73px;
+}
+
+.beingConfirmed-confirm p {
+    text-align: center;
+    color: #707070;
+}
+
+.beingConfirmed-confirm .title {
+    font: normal normal bold 18px/24px Noto Sans;
+    letter-spacing: 1.44px;
+    margin: 0 0 22px;
+}
+
+.beingConfirmed-confirm .date {
+    font: normal normal bold 17px/23px Noto Sans;
+    letter-spacing: 1.36px;
+    margin: 0 0 24px;
+}
+
+.beingConfirmed-confirm .endTime {
+    font: normal normal bold 15px/20px sans-serif;
+    letter-spacing: 1.2px;
+}
+
+.beingConfirmed-confirm .seat {
+    font: normal normal bold 19px/26px sans-serif;
+    letter-spacing: 1.52px;
+    margin: 0 0 22px;
+}
+
+.beingConfirmed-confirm .price {
+    font: normal normal bold 20px/27px sans-serif;
+    letter-spacing: 1.6px;
+    margin: 0 0 23px;
+}
+
+.beingConfirmed-confirm .discount {
+    font: normal normal bold 13px/18px Noto Sans;
+    letter-spacing: 1.04px;
+    color: #f5aa00;
 }
 
 .inner-box {
@@ -151,5 +204,43 @@ fieldset div:nth-child(3) {
 
 .innerWindow a:hover,
 .innerWindow button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.innerWindow-confirm .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 336px;
+    height: 48px;
+    margin: 0 auto;
+}
+
+.innerWindow-confirm a.cancel {
+    width: 128px;
+    background: #efefef 0% 0% no-repeat padding-box;
+    box-shadow: 0px 2px 2px #00000014;
+    border: none;
+    font: normal normal normal 16px/22px sans-serif;
+    letter-spacing: 0.44px;
+    color: #707070;
+    line-height: 48px;
+}
+
+.innerWindow-confirm button.submit {
+    width: 192px;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    box-shadow: 0px 2px 2px #00000015;
+    margin: 0;
+    padding: 0;
+    font: normal normal normal 16px/22px sans-serif;
+    letter-spacing: 0.44px;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.innerWindow-confirm a:hover,
+.innerWindow-confirm button:hover {
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
 }
