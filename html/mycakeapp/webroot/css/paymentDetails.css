@@ -164,7 +164,7 @@ body {
     letter-spacing: 1.44px;
     text-align: right;
 }
-.ticketFeeTh {
+.ticketFeeTr {
     color: #707070;
 }
 .details .orange {
@@ -177,4 +177,5 @@ body {
     padding-top: 19px;
     padding-bottom: 54px;
     border-top: 1px solid #ADADAD;
+    color: #707070;
 }

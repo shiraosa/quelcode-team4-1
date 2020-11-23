@@ -8,8 +8,8 @@ $this->Html->css('paymentDetails', ['block' => true]);
         <div class="windowContent">
             <table class="details">
                 <tr class="ticketFeeTr">
-                    <th class="ticketFeeTh">チケット金額</th>
-                    <td class="ticketFeeTd"><?= '￥' . $ticketFee ?></td>
+                    <th>チケット金額</th>
+                    <td><?= '￥' . $ticketFee ?></td>
                 </tr>
                 <tr class="orange">
                     <th>ご利用ポイント</th>
