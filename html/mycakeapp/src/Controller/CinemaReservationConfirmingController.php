@@ -9,11 +9,24 @@ class CinemaReservationConfirmingController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
+        $this->loadModel('Schedules');
         $this->viewBuilder()->setLayout('quel_cinemas');
+        $this->loadComponent('Days');
     }
 
     public function index()
     {
+        // * プレビュー用の暫定的なParameter
+        $scheduleId = 19; // GoPro
+        $seatNo = 'A-1';
+        // * ここまで
+
+        $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
+        $start = $schedule['start_datetime'];
+        $schedule['start_datetime'] = $this->Days->__getDayOfTheWeek($start) . $start->format('H:i');
+        $end = $schedule['end_datetime'];
+        $schedule['end_datetime'] = $end->format('H:i');
+
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $errors = $this->__validateProfile($data);
@@ -26,6 +39,8 @@ class CinemaReservationConfirmingController extends CinemaBaseController
             }
             $this->set(compact('errors'));
         }
+
+        $this->set(compact('schedule', 'seatNo'));
     }
 
     public function confirm()

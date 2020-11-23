@@ -1,9 +1,9 @@
 <?php $this->Html->css('cinemaReservationConfirming.css', ['block' => true]) ?>
 
 <div class="beingConfirmed">
-    <p>映画タイトル</p>
-    <p>00月00日(月)00:00~<span class="endTime">00:00</span></p>
-    <p class="seat">座席：A-1</p>
+    <p><?= $schedule['movie']['title'] ?></p>
+    <p><?= $schedule['start_datetime'] ?>~<span class="endTime"><?= $schedule['end_datetime'] ?></span></p>
+    <p class="seat">座席：<?= $seatNo ?></p>
 </div>
 <div class="innerWindow">
     <?= $this->Form->create() ?>
