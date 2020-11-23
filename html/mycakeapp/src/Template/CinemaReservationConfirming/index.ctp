@@ -11,14 +11,14 @@
         <div class="inner-box">
             <p class="input-p">性別</p>
             <div class="input-radio">
-                <?= $this->Form->radio('sex', ['男性', '女性'], ['required']); ?>
+                <?= $this->Form->radio('sex', ['male' => '男性', 'female' => '女性'], ['required']); ?>
             </div>
             <p class="error-message"><?= isset($errors['sex']) ? array_pop($errors['sex']) : '' ?></p>
         </div>
         <div class="inner-box">
             <p class="input-p">種類</p>
             <div class="input-select">
-                <?= $this->Form->select('type', ['一般', '大学生', '高校生', '小中学生', '幼児（3歳以上）']); ?>
+                <?= $this->Form->select('type', $type); ?>
             </div>
             <p class="error-message"><?= isset($errors['type']) ? array_pop($errors['type']) : '' ?></p>
         </div>

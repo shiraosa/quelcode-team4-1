@@ -9,6 +9,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
+        $this->loadModel('BasicRates');
         $this->loadModel('Schedules');
         $this->viewBuilder()->setLayout('quel_cinemas');
         $this->loadComponent('Days');
@@ -33,6 +34,8 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $schedule['end'] = $end->format('H:i');
         $schedule['seatNo'] = $seatNo;
 
+        $type = $this->BasicRates->find('list', ['valueField' => 'ticket_type'])->toArray();
+
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $errors = $this->__validateProfile($data);
@@ -46,7 +49,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
             $this->set(compact('errors'));
         }
 
-        $this->set(compact('schedule'));
+        $this->set(compact('schedule', 'type'));
     }
 
     public function confirm()
