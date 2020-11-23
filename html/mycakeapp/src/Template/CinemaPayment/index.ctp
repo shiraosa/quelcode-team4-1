@@ -17,7 +17,7 @@ $this->Html->css('paymentDetails', ['block' => true]);
             <p>ご利用ポイント</p>
             <?= $this->Form->create(null, ['url' => ['action' => 'index']]) ?>
             <div class="point oneLine">
-                <?= $this->Form->select('useTypes', ['利用しない', '一部使う', '全部使う'], ['empty' => '選択してください']) ?>
+                <?= $this->Form->select('useTypes', ['利用しない', '一部使う', '全部使う'], ['empty' => '選択してください', 'id' => 'useTypes', 'onChange' => 'checkUseInput()']) ?>
                 <?= $this->Form->input('usePoint', ['class' => 'usePoint', 'maxlength' => '5', 'type' => 'tel', 'label' => false]) ?><div class="pt"><span>pt</span></div>
             </div>
             <div class="oneLine">
@@ -27,3 +27,5 @@ $this->Html->css('paymentDetails', ['block' => true]);
         </div>
     </div>
 </div>
+<?= $this->Html->script('jquery-3.5.1.min.js') ?>
+<?= $this->Html->script('checkUseInput.js') ?>

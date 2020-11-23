@@ -122,7 +122,7 @@ body {
 }
 
 .usePoint {
-    /* display: none; */
+    display: none;
     width: 100px;
     height: 45px;
     border-left: 0.5px solid #ADADAD;
@@ -133,7 +133,7 @@ body {
     font-size: 16px;
 }
 .pt {
-    /* display: none; */
+    display: none;
     width: 44px;
     height: 47px;
     border-right: 0.5px solid #ADADAD;
