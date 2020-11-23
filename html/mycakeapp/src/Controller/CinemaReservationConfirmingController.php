@@ -21,6 +21,10 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $seatNo = 'A-1';
         // * ここまで
 
+        if (empty($scheduleId) || empty($seatNo)) {
+            return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
+        }
+
         $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
         $start = $schedule['start_datetime'];
         $schedule['start_datetime'] = $this->Days->__getDayOfTheWeek($start) . $start->format('H:i');
