@@ -11,14 +11,18 @@ $this->Html->css('paymentDetails', ['block' => true]);
                     <th>チケット金額</th>
                     <td><?= '￥' . $ticketFee ?></td>
                 </tr>
-                <tr class="orange">
-                    <th>ご利用ポイント</th>
-                    <td><?= $point . 'pt' ?></td>
-                </tr>
-                <tr class="orange">
-                    <th><?= $discountType ?></th>
-                    <td><?= '￥' . $discountPrice ?></td>
-                </tr>
+                <?php if (!($point === 0)) : ?>
+                    <tr class="orange">
+                        <th>ご利用ポイント</th>
+                        <td><?= $point . 'pt' ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if (!($discountPrice === 0)) : ?>
+                    <tr class="orange">
+                        <th><?= $discountType ?></th>
+                        <td><?= '￥' . $discountPrice ?></td>
+                    </tr>
+                <?php endif; ?>
                 <tr class="totalPayment">
                     <th>小計</th>
                     <td><?= '￥' . $totalPayment ?></td>
