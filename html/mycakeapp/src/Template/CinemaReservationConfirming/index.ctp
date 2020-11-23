@@ -2,8 +2,8 @@
 
 <div class="beingConfirmed">
     <p><?= $schedule['movie']['title'] ?></p>
-    <p><?= $schedule['start_datetime'] ?>~<span class="endTime"><?= $schedule['end_datetime'] ?></span></p>
-    <p class="seat">座席：<?= $seatNo ?></p>
+    <p><?= $schedule['start'] ?>~<span class="endTime"><?= $schedule['end'] ?></span></p>
+    <p class="seat">座席：<?= $schedule['seatNo'] ?></p>
 </div>
 <div class="innerWindow">
     <?= $this->Form->create() ?>

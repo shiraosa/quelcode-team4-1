@@ -25,11 +25,13 @@ class CinemaReservationConfirmingController extends CinemaBaseController
             return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
         }
 
+        // scheduleにまとめる
         $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
         $start = $schedule['start_datetime'];
-        $schedule['start_datetime'] = $this->Days->__getDayOfTheWeek($start) . $start->format('H:i');
+        $schedule['start'] = $this->Days->__getDayOfTheWeek($start) . $start->format('H:i');
         $end = $schedule['end_datetime'];
-        $schedule['end_datetime'] = $end->format('H:i');
+        $schedule['end'] = $end->format('H:i');
+        $schedule['seatNo'] = $seatNo;
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -37,14 +39,14 @@ class CinemaReservationConfirmingController extends CinemaBaseController
 
             if (empty($errors)) {
                 $session = $this->request->getSession();
-                $session->write('profile', $data);
+                $session->write(['profile' => $data, 'schedule' => $schedule]);
 
                 return $this->redirect(['action' => 'confirm']);
             }
             $this->set(compact('errors'));
         }
 
-        $this->set(compact('schedule', 'seatNo'));
+        $this->set(compact('schedule'));
     }
 
     public function confirm()
