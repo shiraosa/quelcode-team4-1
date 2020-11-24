@@ -1,0 +1,22 @@
+body {
+    background-color: #ebebeb;
+}
+.main {
+    margin: 78px auto 266px;
+    text-align: center;
+}
+.innerHeading {
+    color: #707070;
+    font: normal normal 600 25px/34px sans-serif;
+    letter-spacing: 0.89px;
+}
+
+.innerWindow {
+    width: 736px;
+    padding-top: 92px;
+    padding-bottom: 88px;
+    margin: 36px auto 27px;
+    background-color: #ffffff;
+}
+
+
