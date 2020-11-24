@@ -41,6 +41,8 @@ class CinemaPaymentController extends CinemaBaseController
             $point = 0;
             $this->set(compact('cardNumLast4', 'cardBrand', 'cardDate', 'cardOwner', 'point'));
         } else {
+            $session = $this->request->getSession();
+            $session->write('creditcard', 'registration');
             return $this->redirect(['controller' => 'CinemaCreditcard', 'action' => 'add']);
         }
     }

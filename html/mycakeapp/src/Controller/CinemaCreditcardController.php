@@ -36,6 +36,11 @@ class CinemaCreditcardController extends CinemaBaseController
             if ($this->Creditcards->save(($creditcard))) {
                 $this->Flash->success(__('The creditcard has been saved.'));
 
+                $session = $this->request->getSession();
+                if (!empty($session->consume('creditcard'))) {
+                    return $this->redirect(['controller' => 'CinemaPayment', 'action' => 'index']);
+                }
+
                 return $this->redirect(['action' => 'completed']);
             }
 
