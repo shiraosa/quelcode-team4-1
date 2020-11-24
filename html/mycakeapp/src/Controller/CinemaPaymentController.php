@@ -5,16 +5,17 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\I18n\Time;
+use Cake\Datasource\ConnectionManager;
 
 class CinemaPaymentController extends CinemaBaseController
 {
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel(('BasicRates'));
+        $this->loadModel('BasicRates');
         $this->loadModel('Creditcards');
         $this->loadModel('DiscountLogs');
-        $this->loadModel(('DiscountTypes'));
+        $this->loadModel('DiscountTypes');
         $this->loadModel('Movies');
         $this->loadModel('Payments');
         $this->loadModel('Reservations');
@@ -60,6 +61,8 @@ class CinemaPaymentController extends CinemaBaseController
     }
     public function save()
     {
+
+
         $payment = $this->Payments->newEntity();
         $reservation = $this->Reservations->newEntity();
         $discountLog = $this->DiscountLogs->newEntity();
@@ -79,7 +82,9 @@ class CinemaPaymentController extends CinemaBaseController
         // $payment->total_payment =
         $payment->is_deleted = 0;
 
-
+        $connection = ConnectionManager::get('default');
+        // dd($connection);
+        $connection->begin();
         if (($this->Payments->save($payment))) {
 
             // 予約情報を取得し保存
@@ -98,13 +103,18 @@ class CinemaPaymentController extends CinemaBaseController
                     $discountLog->payment_id = $this->Reservations->getLastInsertID();
                     // $discountLog->discount_type_id =
                     $discountLog->is_deleted = 0;
-                    $this->DiscountLogs->save($discountLog);
+                    if ($this->DiscountLogs->save($discountLog)) {
+                    } else {
+                        $connection->rollback();
+                        return $this->redirect(['action' => 'details']);
+                    }
                 }
                 $this->Flash->success(__('The payment has been saved.'));
-
+                $connection->commit();
                 return $this->redirect(['action' => 'completed']);
             }
         }
+        $connection->rollback();
         $this->redirect(['action' => 'details']);
     }
     public function cancel()
