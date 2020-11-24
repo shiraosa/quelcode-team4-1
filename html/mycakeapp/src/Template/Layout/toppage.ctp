@@ -47,7 +47,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <div class="menu-box">
                         <ul class="link-menu">
                             <li><a href="/Toppage">トップ</a></li>
-                            <li><a href="#">上映スケジュール</a></li>
+                            <li><a href="/CinemaSchedules">上映スケジュール</a></li>
                             <li><a href="/BasicRateDiscountPage">料金・割引</a></li>
                         </ul>
                     </div>
@@ -79,7 +79,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <div>
                         <ul class="footer-right-container">
                             <li><a href="/Toppage">トップ</a></li>
-                            <li><a href="#">上映スケジュール</a></li>
+                            <li><a href="/CinemaSchedules">上映スケジュール</a></li>
                             <li><a href="/BasicRateDiscountPage">料金・割引</a></li>
                         </ul>
                     </div>

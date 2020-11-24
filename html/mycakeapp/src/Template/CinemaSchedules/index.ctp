@@ -36,7 +36,7 @@
                             <p>
                                 <?= $start . '~' . '<span class="end-time">' . $end . '</span>' ?>
                             </p>
-                            <?= $this->Html->link('予約購入', ['controller' => 'CinemaSchedules', 'action' => 'index', '?' => ['schedule-id' => $id]]); ?>
+                            <?= $this->Html->link('予約購入', ['controller' => 'CinemaSeatsReservations', 'action' => 'index', $id]); ?>
                         </li>
                     <?php endforeach; ?>
                 <?php endforeach; ?>
