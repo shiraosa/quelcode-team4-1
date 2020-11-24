@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Cake\Validation\Validator;
+use Cake\Chronos\Chronos;
 
 class CinemaReservationConfirmingController extends CinemaBaseController
 {
@@ -55,9 +56,47 @@ class CinemaReservationConfirmingController extends CinemaBaseController
     public function confirm()
     {
         $session = $this->request->getSession();
+
+        if (!($session->check('profile')) || !($session->check('schedule'))) {
+            return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
+        }
+
+        $profile = $session->read('profile');
         $schedule = $session->read('schedule');
 
-        $this->set(compact('schedule'));
+        // 基本料金を取得する
+        $price = $this->BasicRates->get($profile['type'])['basic_rate'];
+
+        // 割引種類を取得して計算する
+        $day = $schedule['start_datetime'];
+        $age = Chronos::createFromDate($profile['year'], $profile['month'], $profile['day'])->age;
+
+        if ($day->day === 1) {
+            $discountType = 'ファーストデイ割引';
+            $discountTypeId = 3;
+        } elseif ($day->isWednesday() && (($profile['sex'] === 'female') || ($age <= 15) || ($age >= 70))) {
+            $discountType = '子供女性シニア割引';
+            $discountTypeId = 2;
+        } else {
+            $discountType = null;
+            $discountTypeId = null;
+        }
+
+        if (!is_null($discountTypeId)) {
+            $price += $this->DiscountTypes->get($discountTypeId)['discount_price'];
+        }
+
+        // 決済方法へ遷移する
+        if ($this->request->is('post')) {
+            $session->write(['price' => $price]);
+
+            // TODO:遷移先の変更
+            return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
+        }
+
+        $price = '&yen;' . number_format($price);
+
+        $this->set(compact('schedule', 'price', 'discountType'));
     }
 
     private function __validateProfile($data)
