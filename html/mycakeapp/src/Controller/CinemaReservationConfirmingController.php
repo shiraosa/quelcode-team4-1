@@ -70,7 +70,9 @@ class CinemaReservationConfirmingController extends CinemaBaseController
 
         // 割引種類を取得して計算する
         $day = $schedule['start_datetime'];
-        $age = Chronos::createFromDate($profile['year'], $profile['month'], $profile['day'])->age;
+        $born = Chronos::createFromDate($profile['year'], $profile['month'], $profile['day'])->startOfDay();
+        $current = Chronos::parse($schedule['start_datetime']);
+        $age = $born->diffInYears($current);
 
         if ($day->day === 1) {
             $discountType = 'ファーストデイ割引';
