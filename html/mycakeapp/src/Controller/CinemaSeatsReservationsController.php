@@ -43,20 +43,9 @@ class CinemaSeatsReservationsController extends CinemaBaseController
             $splitSeat = preg_split("/-/", $seatNumber);
             $gridSeatNumber = ord($splitSeat[0]) - 64; //アルファベットを数値に変換
             $gridRowId = $splitSeat[1];
-
-            for ($i = 0; $i < count($layoutData['seatLayout']['colAreas']['objArea'][0]['objRow']); $i++) {
-                if ($layoutData['seatLayout']['colAreas']['objArea'][0]['objRow'][$i]['GridRowId'] == $gridRowId) {
-                    for ($j = 0; $j < count($layoutData['seatLayout']['colAreas']['objArea'][0]['objRow'][$i]['objSeat']); $j++) {
-                        if ($layoutData['seatLayout']['colAreas']['objArea'][0]['objRow'][$i]['objSeat'][$j]['GridSeatNum'] == $gridSeatNumber) {
-                            $layoutData['seatLayout']['colAreas']['objArea'][0]['objRow'][$i]['objSeat'][$j]['SeatStatus'] = "1";
-                        }
-                    }
-                }
-                $reservedSeatsLayout = $layoutData;
-            }
+            $layoutData['seatLayout']['colAreas']['objArea'][0]['objRow'][$gridRowId - 1]['objSeat'][$gridSeatNumber - 1]['SeatStatus'] = "1";
         }
-
-
-        $this->set(compact('reservedSeats', 'layoutData', 'reservedSeatsLayout'));
+        $reservedSeatsLayout = $layoutData;
+        $this->set(compact('reservedSeatsLayout'));
     }
 }
