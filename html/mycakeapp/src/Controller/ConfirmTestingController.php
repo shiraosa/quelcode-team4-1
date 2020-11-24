@@ -15,8 +15,9 @@ class ConfirmTestingController extends AppController
 
     public function index()
     {
-        // GoPro, 11月19日(木)05:00~06:40
-        $scheduleId = 19;
+        // 11月24日(火)00:00~01:40
+        // 2000で20歳, '05で15. '1950で70.
+        $scheduleId = 61;
         $seatNo = 'A-1';
 
         $this->__testSubmit($scheduleId, $seatNo);
@@ -24,15 +25,24 @@ class ConfirmTestingController extends AppController
 
     public function wed()
     {
-        // 11月18日(水)00:00~01:40
-        // 2000-11-11.で20歳, '05で15. '1950で70.
-        $scheduleId = 1;
-        // TODO:年齢は今日じゃなくてその日やで.
-        // TODO:フォームの値が保持されていない
+        // 11月25日(水)00:00~01:40
+        // 子供女性シニア割引, ... 'female') || ($age <= 15) || ($age >= 70)
+        $scheduleId = 62;
         $seatNo = 'B-1';
 
         $this->__testSubmit($scheduleId, $seatNo);
     }
+
+    public function first()
+    {
+        // 12月01日(水)00:00~01:40
+        // ファーストデイ割引, 誰でも500yenオフ
+        $scheduleId = 63;
+        $seatNo = 'C-1';
+
+        $this->__testSubmit($scheduleId, $seatNo);
+    }
+
 
     private function __testSubmit($scheduleId, $seatNo)
     {
