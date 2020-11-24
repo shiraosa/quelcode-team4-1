@@ -12,20 +12,21 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         parent::initialize();
         $this->loadModel('BasicRates');
         $this->loadModel('Schedules');
+        $this->loadModel('DiscountTypes');
         $this->viewBuilder()->setLayout('quel_cinemas');
         $this->loadComponent('Days');
     }
 
     public function index()
     {
-        // * プレビュー用の暫定的なParameter
-        $scheduleId = 19; // GoPro
-        $seatNo = 'A-1';
-        // * ここまで
-
-        if (empty($scheduleId) || empty($seatNo)) {
+        // Sessionから値を取得する. ない場合はスケジュールへリダイレクトする
+        $session = $this->request->getSession();
+        if (!($session->check('schedule'))) {
             return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
         }
+        $schedule = $session->read('schedule');
+        $scheduleId = $schedule['id'];
+        $seatNo = $schedule['seatNo'];
 
         // scheduleにまとめる
         $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
