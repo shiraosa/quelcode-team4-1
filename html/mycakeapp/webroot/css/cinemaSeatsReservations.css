@@ -32,3 +32,18 @@ body {
     color: #ffffff;
     background-color:#626573;
 }
+.seat-chr{
+    display: flex;
+    width: 396px;
+    margin: 0 auto 0 auto;
+    position: relative;
+    top: 20px;
+
+}
+.seat-chr li{
+    width: 18px;
+    height: 18px;
+    margin: 9px;
+    font-size: 13px;
+    color: #99918C;
+}

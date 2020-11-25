@@ -14,8 +14,23 @@ $reservedSeatsJson = json_encode($reservedSeatsLayout);
     </div>
     <div class="innerWindow">
         <p class="screen">SCREEN</p>
+        <ul class="seat-chr">
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>D</li>
+            <li>E</li>
+            <li>F</li>
+            <li>G</li>
+            <li>H</li>
+            <li>I</li>
+            <li>J</li>
+            <li>K</li>
+        </ul>
         <form method="POST">
-            <div class="selectMove"></div>
+            <div class="selectMove">
+            </div>
+
             <script type="text/javascript">
                 var scheduleId = '<?php echo $scheduleId ?>';
                 var seatData = JSON.parse('<?php echo $reservedSeatsJson; ?>'); //jsonをparseしてJavaScriptの変数に代入
