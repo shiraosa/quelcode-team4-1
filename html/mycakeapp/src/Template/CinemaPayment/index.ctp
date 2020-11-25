@@ -17,7 +17,11 @@ $this->Html->css('paymentDetails', ['block' => true]);
             <p>ご利用ポイント</p>
             <?= $this->Form->create(null, ['url' => ['action' => 'index']]) ?>
             <div class="point oneLine">
+            <?php if ($havePoint === 0) : ?>
+                <?= $this->Form->select('useTypes', ['利用しない'], ['id' => 'useTypes', 'onChange' => 'checkUseInput()', 'required' => true]) ?>
+            <?php else : ?>
                 <?= $this->Form->select('useTypes', ['利用しない', '一部使う', '全部使う'], ['empty' => '選択してください', 'id' => 'useTypes', 'onChange' => 'checkUseInput()']) ?>
+            <?php endif; ?>
                 <?= $this->Form->input('usePoint', ['class' => 'usePoint', 'maxlength' => '5', 'type' => 'tel', 'label' => false]) ?><div class="pt"><span>pt</span></div>
             </div>
             <div class="oneLine">
