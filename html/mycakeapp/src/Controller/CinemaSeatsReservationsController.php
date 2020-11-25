@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use Cake\Chronos\Chronos;
-use Cake\Event\Event;
 
 class CinemaSeatsReservationsController extends CinemaBaseController
 {
@@ -23,6 +21,8 @@ class CinemaSeatsReservationsController extends CinemaBaseController
 
     public function index($scheduleId = null)
     {
+
+
         // scheduleにまとめる
         $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
         $start = $schedule['start_datetime'];
@@ -57,7 +57,7 @@ class CinemaSeatsReservationsController extends CinemaBaseController
     public function done($scheduleId = null)
     {
         //複数予約は未対応
-        $this->Flash->success('ajax');
+
         if ($this->request->is('post')) {
             $selectedSeat = $this->request->getData();
 
@@ -80,18 +80,14 @@ class CinemaSeatsReservationsController extends CinemaBaseController
                 return $this->redirect(['action' => 'index', $scheduleId]);
             }
             if ($this->Seats->save($seats)) {
-                $this->Flash->success(__('保存しました。'));
                 //セッションにscheduleを保存
                 $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
                 $schedule['seatNo'] = $seat_number;
                 $session = $this->request->getSession();
                 $session->write(['schedule' => $schedule]);
-
-                return $this->redirect([
-                    'controller' => 'CinemaReservationConfirming', 'action' => 'index'
-                ]);
             }
         }
+        //不正なアクセスがあった場合
         return $this->redirect([
             'controller' => 'CinemaSchedules', 'action' => 'index'
         ]);

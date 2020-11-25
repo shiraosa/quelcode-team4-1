@@ -33,7 +33,14 @@ $(document).ready(function () {
                     },
                     data: _array,
                     dataType: 'json'
-                })
+                }).then(
+                    // 1つめは通信成功時のコールバック
+                    window.location.href = '/CinemaReservationConfirming/index'
+                    ,
+                    // 2つめは通信失敗時のコールバック
+                    function () {
+                        alert("読み込みに失敗しました");
+                    });
                 console.log(_array);
             },
             cancel: function () {
