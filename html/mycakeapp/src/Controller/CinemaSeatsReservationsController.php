@@ -117,7 +117,7 @@ class CinemaSeatsReservationsController extends CinemaBaseController
                 //セッションにscheduleを保存
                 $schedule['seatNo'] = $seat_number;
                 $session = $this->request->getSession();
-                $session->write(['schedule' => $schedule]);
+                $session->write(['schedule' => $schedule, 'seat_id' => $seats['id']]);
             }
         }
         //不正なアクセスがあった場合
