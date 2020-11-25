@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use DateTime;
+use Exception; // added.
 
 class CinemaSeatsReservationsController extends CinemaBaseController
 {
@@ -22,14 +24,31 @@ class CinemaSeatsReservationsController extends CinemaBaseController
     public function index($scheduleId = null)
     {
 
+        try {
+            $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
+        } catch (Exception $e) {
+            return $this->redirect([
+                'controller' => 'CinemaSchedules', 'action' => 'index'
+            ]);
+        }
 
         // scheduleにまとめる
-        $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
         $start = $schedule['start_datetime'];
         $schedule['start'] = $this->Days->__getDayOfTheWeek($start) . $start->format('H:i');
         $end = $schedule['end_datetime'];
         $schedule['end'] = $end->format('H:i');
 
+
+        //映画の開始時間が過ぎていないか
+        $startDatetime = new DateTime($start);
+        $now = new DateTime();
+        if ($startDatetime < $now) {
+            return $this->redirect([
+                'controller' => 'CinemaSchedules', 'action' => 'index'
+            ]);
+        }
+
+        //座席情報を取得
         $query = $this->Seats->find('all')
             ->where(['schedule_id' => $scheduleId, 'is_deleted' => false]);
         $query->enableHydration(false); // エンティティーの代わりに配列を返す
@@ -54,13 +73,28 @@ class CinemaSeatsReservationsController extends CinemaBaseController
         $this->set(compact('reservedSeatsLayout', 'schedule', 'scheduleId'));
     }
 
+    //複数予約は未対応
     public function done($scheduleId = null)
     {
-        //複数予約は未対応
+        try {
+            $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
+        } catch (Exception $e) {
+            return $this->redirect([
+                'controller' => 'CinemaSchedules', 'action' => 'index'
+            ]);
+        }
+
+        //映画の開始時間が過ぎていないか
+        $startDatetime = new DateTime($schedule['start_datetime']);
+        $now = new DateTime();
+        if ($startDatetime < $now) {
+            return $this->redirect([
+                'controller' => 'CinemaSchedules', 'action' => 'index'
+            ]);
+        }
 
         if ($this->request->is('post')) {
             $selectedSeat = $this->request->getData();
-
             //数値をアルファベット化
             $gridSeatChr = chr($selectedSeat['selected'][0]['GridSeatNum'] + 64);
             $gridRowId = $selectedSeat['selected'][0]['GridRowId'];
@@ -81,7 +115,6 @@ class CinemaSeatsReservationsController extends CinemaBaseController
             }
             if ($this->Seats->save($seats)) {
                 //セッションにscheduleを保存
-                $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
                 $schedule['seatNo'] = $seat_number;
                 $session = $this->request->getSession();
                 $session->write(['schedule' => $schedule]);
