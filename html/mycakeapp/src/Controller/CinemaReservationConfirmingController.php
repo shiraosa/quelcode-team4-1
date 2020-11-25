@@ -84,6 +84,8 @@ class CinemaReservationConfirmingController extends CinemaBaseController
             $discountType = null;
             $discountTypeId = null;
         }
+        
+        $session->write(['discountTypeId' => $discountTypeId]);
 
         if (!is_null($discountTypeId)) {
             $price += $this->DiscountTypes->get($discountTypeId)['discount_price'];
@@ -94,7 +96,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
             $session->write(['price' => $price]);
 
             // TODO:遷移先の変更
-            return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
+            return $this->redirect(['controller' => 'CinemaPayment', 'action' => 'index']);
         }
 
         $price = '&yen;' . number_format($price);

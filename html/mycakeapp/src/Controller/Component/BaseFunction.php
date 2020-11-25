@@ -3,6 +3,7 @@
 namespace App\Controller\Component;
 
 use Cake\Controller\Component;
+use Cake\ORM\TableRegistry;
 
 class BaseFunction extends Component
 {
@@ -23,5 +24,11 @@ class BaseFunction extends Component
         if ($session->check('totalPayment')) {
             $session->delete('totalPayment');
         }
+
+        // 座席テーブルに削除フラグを立てる
+        $seatsTable = TableRegistry::getTableLocator()->get('Seat');
+        $seat = $seatsTable->get($session->read('seatId'));
+        $seat->is_deleted = 1;
+        $seatsTable->save($seat);
     }
 }

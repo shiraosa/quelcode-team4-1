@@ -22,16 +22,25 @@ class CinemaPaymentController extends CinemaBaseController
         $this->loadModel('Seats');
         $this->loadModel('Taxes');
         $this->loadModel('Users');
+        $this->loadComponent('BaseFunction');
     }
+
 
     // 決済方法、ポイント選択
     public function index()
     {
+        $session = $this->request->getSession();
+
         if (
             $creditcard = $this->Creditcards->find('all', [
                 'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0], ['expiration_date >=' => Time::now()->year . '-' . Time::now()->month . '-1']]]
             ])->first()
         ) {
+            if ($this->request->is('post')) {
+                $usePoint = 0;
+                $session->write(['usePoint' => $usePoint]);
+                return $this->redirect(['action' => 'details']);
+            }
             // セッターによりもとのプロパティにいれると暗号化＆日付がymdになってしまう。
             $cardNumber = $creditcard->decryptCreditcard_number($creditcard->creditcard_number);
             $cardNumLast4 = substr($cardNumber, -4);
@@ -39,8 +48,8 @@ class CinemaPaymentController extends CinemaBaseController
             $cardDate = $creditcard->changeCardDate($creditcard->expiration_date);
             $cardOwner = $creditcard->owner_name;
 
-            $point = 0;
-            $this->set(compact('cardNumLast4', 'cardBrand', 'cardDate', 'cardOwner', 'point'));
+            $havePoint = 0;
+            $this->set(compact('cardNumLast4', 'cardBrand', 'cardDate', 'cardOwner', 'havePoint'));
         } else {
             $session = $this->request->getSession();
             $session->write('creditcard', 'registration');
@@ -48,20 +57,41 @@ class CinemaPaymentController extends CinemaBaseController
         }
     }
 
+
     public function details()
     {
+        $session = $this->request->getSession();
+        if (!($session->check('usePoint'))) {
+            return $this->redirect(['controller' => 'CinemaSchedules']);
+        }
 
-        $ticketFee = 1800;
         $point = 0;
-        $discountType = 'レディースデー';
-        $discountPrice = 300;
-        $totalPayment = $ticketFee - $discountPrice;
 
-        $this->set(compact('ticketFee', 'point', 'discountType', 'discountPrice', 'totalPayment'));
+        $basicRate = $this->BasicRates->get($session->read('profile')['type']);
+        $basicRatePrice = $basicRate->basic_rate;
+
+        $discount = $this->DiscountTypes->get($session->read('discountTypeId'));
+        $discountType = $discount->discount_type;
+        if (0 < $discount->discount_price) {
+            // 一定額になる割引の場合の処理（雨の日、複数人など）
+            // $discountPrice =
+        } else {
+            $discountPrice = abs($discount->discount_price);
+            $totalPayment = $basicRatePrice + $discount->discount_price;
+        }
+        $totalPayment -= $point;
+        $session->write(['totalPayment' => $totalPayment]);
+
+        $this->set(compact('basicRatePrice', 'point', 'discountType', 'discountPrice', 'totalPayment'));
     }
+
+
     public function save()
     {
-
+        $session = $this->request->getSession();
+        if (!($session->check('totalPayment'))) {
+            return $this->redirect(['controller' => 'CinemaSchedules']);
+        }
 
         $payment = $this->Payments->newEntity();
         $reservation = $this->Reservations->newEntity();
@@ -79,42 +109,41 @@ class CinemaPaymentController extends CinemaBaseController
             'order' => ['start_date' => 'DESC']
         ])->first();
         $payment->tax_id = $tax->id;
-        // $payment->total_payment =
+        $payment->total_payment = $session->read('totalPayment');
         $payment->is_deleted = 0;
 
-        $connection = ConnectionManager::get('default');
-        // dd($connection);
-        $connection->begin();
+        // $connection = ConnectionManager::get('default');
+        // $connection->begin();
         if (($this->Payments->save($payment))) {
 
             // 予約情報を取得し保存
             $reservation->user_id = $this->Auth->user('id');
             // $reservation->seat_id =
-            // $reservation->schedule_id =
-            // $reservation->movie_id =
+            $reservation->schedule_id = $session->read('schedule')['id'];
+            $reservation->movie_id = $session->read('schedule')['movie_id'];
             $reservation->payment_id = $this->Payments->getLastInsertID();
-            // $reservation->basic_rate_id =
+            $reservation->basic_rate_id = $session->read('profile')['type'];
             $reservation->is_deleted = 0;
 
             if ($this->Reservations->save($reservation)) {
 
                 // 割引情報を取得し保存
-                if (!empty($discountLog)) {
+                if ($session->check('discountTypeId')) {
                     $discountLog->payment_id = $this->Reservations->getLastInsertID();
-                    // $discountLog->discount_type_id =
+                    $discountLog->discount_type_id = $session->read('discountTypeId');
                     $discountLog->is_deleted = 0;
                     if ($this->DiscountLogs->save($discountLog)) {
                     } else {
-                        $connection->rollback();
+                        // $connection->rollback();
                         return $this->redirect(['action' => 'details']);
                     }
                 }
                 $this->Flash->success(__('The payment has been saved.'));
-                $connection->commit();
+                // $connection->commit();
                 return $this->redirect(['action' => 'completed']);
             }
         }
-        $connection->rollback();
+        // $connection->rollback();
         $this->redirect(['action' => 'details']);
     }
     public function cancel()
