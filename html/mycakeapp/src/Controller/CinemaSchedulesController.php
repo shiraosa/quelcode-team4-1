@@ -13,7 +13,7 @@ class CinemaSchedulesController extends CinemaBaseController
     {
         parent::initialize();
         $this->loadModel('Schedules');
-        $this->viewBuilder()->setLayout('quel_cinemas');
+        $this->viewBuilder()->setLayout('toppage');
     }
 
     public function beforeFilter(Event $event)

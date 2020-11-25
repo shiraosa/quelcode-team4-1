@@ -13,7 +13,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $this->loadModel('BasicRates');
         $this->loadModel('Schedules');
         $this->loadModel('DiscountTypes');
-        $this->viewBuilder()->setLayout('quel_cinemas');
+        $this->viewBuilder()->setLayout('toppage');
         $this->loadComponent('Days');
     }
 
