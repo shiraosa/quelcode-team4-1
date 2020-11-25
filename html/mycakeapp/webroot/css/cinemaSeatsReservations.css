@@ -10,13 +10,25 @@ body {
     font: normal normal 600 25px/34px sans-serif;
     letter-spacing: 0.89px;
 }
+.schedule p {
+    text-align: center;
+    font: normal normal bold 19px/26px sans-serif;
+    letter-spacing: 1.52px;
+    color: #707070;
+    opacity: 0.6;
+    line-height: 37px;
+}
 
 .innerWindow {
     width: 736px;
-    padding-top: 92px;
-    padding-bottom: 88px;
+    padding-top: 62px;
+    padding-bottom: 62px;
     margin: 36px auto 27px;
     background-color: #ffffff;
 }
-
-
+.screen{
+    width: 70%;
+    margin: 0 auto 30px auto;
+    color: #ffffff;
+    background-color:#626573;
+}

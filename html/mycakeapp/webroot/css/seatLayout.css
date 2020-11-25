@@ -75,7 +75,6 @@
   .seat-selection .seat-proccess-panel{
     display: flex;
     justify-content: space-around;
-    padding: 10px;
     text-align: right;
   }
   .seat-selection .layout-action-btn{
