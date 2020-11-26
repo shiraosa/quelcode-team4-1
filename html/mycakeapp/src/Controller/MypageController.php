@@ -28,7 +28,7 @@ class MypageController extends CinemaBaseController
             ->select('creditcard_number');
 
         $cardNum = $query->first();
-
+        
         $cardNumLast4 = 0;
         if (!empty($cardNum)) {
             // 有効期限が切れたクレジットカードの処理

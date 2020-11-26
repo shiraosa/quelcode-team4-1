@@ -32,15 +32,15 @@ class CinemaPaymentController extends CinemaBaseController
         $session = $this->request->getSession();
 
         if (
-            $creditcard = $this->Creditcards->find('all', [
-                'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0], ['expiration_date >=' => Time::now()->year . '-' . Time::now()->month . '-1']]]
-            ])->first()
+            $creditcard = $this->BaseFunction->aliveCreditcard($this->Auth->user('id'))
         ) {
             if ($this->request->is('post')) {
+
                 $usePoint = 0;
                 $session->write(['usePoint' => $usePoint]);
                 return $this->redirect(['action' => 'details']);
             }
+
             // セッターによりもとのプロパティにいれると暗号化＆日付がymdになってしまう。
             $cardNumber = $creditcard->decryptCreditcard_number($creditcard->creditcard_number);
             $cardNumLast4 = substr($cardNumber, -4);
@@ -51,8 +51,9 @@ class CinemaPaymentController extends CinemaBaseController
             $havePoint = 0;
             $this->set(compact('cardNumLast4', 'cardBrand', 'cardDate', 'cardOwner', 'havePoint'));
         } else {
-            $session = $this->request->getSession();
-            $session->write('creditcard', 'registration');
+
+            // クレジットカード未登録の場合クレジット登録画面へ遷移
+            $session->write(['creditcard' => 'registration']);
             return $this->redirect(['controller' => 'CinemaCreditcard', 'action' => 'add']);
         }
     }
@@ -61,7 +62,10 @@ class CinemaPaymentController extends CinemaBaseController
     public function details()
     {
         $session = $this->request->getSession();
+
         if (!($session->check('usePoint'))) {
+
+            $this->BaseFunction->deleteSessionReservation($session);
             return $this->redirect(['controller' => 'CinemaSchedules']);
         }
 
@@ -97,7 +101,10 @@ class CinemaPaymentController extends CinemaBaseController
     public function save()
     {
         $session = $this->request->getSession();
+
         if (!($session->check('totalPayment'))) {
+
+            $this->BaseFunction->deleteSessionReservation($session);
             return $this->redirect(['controller' => 'CinemaSchedules']);
         }
 
@@ -156,9 +163,14 @@ class CinemaPaymentController extends CinemaBaseController
     }
     public function cancel()
     {
+        $session = $this->request->getSession();
+        $this->BaseFunction->deleteSessionReservation($session);
         $this->redirect(['controller' => 'CinemaSchedules']);
     }
     public function completed()
     {
+        $session = $this->request->getSession();
+        $session->write(['completed' => true]);
+        $this->BaseFunction->deleteSessionReservation($session);
     }
 }

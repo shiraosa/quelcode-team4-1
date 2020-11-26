@@ -11,6 +11,7 @@ class CinemaCreditcardController extends CinemaBaseController
     {
         parent::initialize();
         $this->loadModel('Creditcards');
+        $this->loadComponent('BaseFunction');
         $this->viewBuilder()->setLayout('quel_cinemas');
     }
 
@@ -18,9 +19,7 @@ class CinemaCreditcardController extends CinemaBaseController
     {
         // クレジットカード情報をDBから取得
         if (
-            $creditcard = $this->Creditcards->find('all', [
-                'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0], ['expiration_date >=' => Time::now()->year . '-' . Time::now()->month . '-1']]]
-            ])->first()
+            $creditcard = $this->BaseFunction->aliveCreditcard($this->Auth->user('id'))
         ) {
             // クレジットカード登録済みのユーザーを決済情報確認画面へリダイレクト
             return $this->redirect(['action' => 'index']);
