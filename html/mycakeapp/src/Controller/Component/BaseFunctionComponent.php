@@ -5,7 +5,7 @@ namespace App\Controller\Component;
 use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
 
-class BaseFunction extends Component
+class BaseFunctionComponent extends Component
 {
     public function destroySessionReservation($session)
     {
