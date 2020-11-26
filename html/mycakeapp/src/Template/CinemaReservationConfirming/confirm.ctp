@@ -4,7 +4,7 @@
     <?= $this->Form->create() ?>
     <div class="beingConfirmed-confirm">
         <p class="title"><?= $schedule['movie']['title'] ?></p>
-        <p class="date"><?= $schedule['start'] ?>~<span class="endTime"><?= $schedule['end'] ?></span></p>
+        <p class="date"><?= $schedule['start'] ?>〜<span class="endTime"><?= $schedule['end'] ?></span></p>
         <p class="seat">座席：<?= $schedule['seatNo'] ?></p>
         <p class="price"><?= $price ?></p>
         <p class="discount"><?= $discountType ?></p>

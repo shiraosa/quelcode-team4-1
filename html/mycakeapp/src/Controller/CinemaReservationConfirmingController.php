@@ -169,7 +169,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
                         $y = $context['data']['year'];
                         $m = $context['data']['month'];
 
-                        if (ctype_digit($y) && ctype_digit($m)) {
+                        if (ctype_digit($y) && ctype_digit($m) && ($y >= 1000 && $y <= 9999 && $m >= 1 && $m <= 12)) {
                             if (checkdate($m, $d, $y)) {
                                 return true;
                             }
