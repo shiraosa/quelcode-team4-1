@@ -15,13 +15,13 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
 <div class="main">
     <h2 class="innerHeading">決済情報</h2>
     <div class="innerWindow">
-        <?= $this->Form->create($creditcard, ['type' => 'post']) ?>
+        <?= $this->Form->create($creditcard, ['type' => 'post', 'name' => 'form']) ?>
         <fieldset>
             <div class="oneLine">
                 <div class="box">
                     <?= $this->Form->input('creditcard_number', [
                         'type' => 'integer', 'class' => 'cardNum', 'id' => 'cardNumber', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false, 'value' => $cardNumber, 'maxlength' => 19,
-                        'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,' ');"
+                        'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,' ');", 'onkeyup' => 'setNextFocus(this)'
                     ]); ?>
                     <?= ($this->Form->isFieldError('creditcard_number')) ? $this->Form->error('creditcard_number') : '' ?>
                 </div>
@@ -40,13 +40,16 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
                 <div class="box">
                     <?= $this->Form->input('expiration_date', [
                         'class' => 'limit', 'id' => 'cardDate', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false, 'value' => $cardDate, 'maxlength' => 5,
-                        'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'/');"
+                        'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'/');", 'onkeyup' => 'setNextFocus(this)'
                     ]); ?>
                     <?= ($this->Form->isFieldError('expiration_date')) ? $this->Form->error('expiration_date') : '' ?>
                 </div>
                 <!-- セキュリティコード -->
                 <div class="box">
-                    <?= $this->Form->input('code', ['class' => 'code', 'type' => 'password', 'placeholder' => 'セキュリティコード', 'label' => false, 'error' => false, 'required' => 'required', 'maxlength' => 4]); ?>
+                    <?= $this->Form->input('code', [
+                        'class' => 'code', 'type' => 'password', 'placeholder' => 'セキュリティコード', 'label' => false, 'error' => false, 'required' => 'required', 'maxlength' => 4,
+                        'onkeyup' => 'setNextFocus(this)'
+                    ]); ?>
                     <?= ($this->Form->isFieldError('code')) ? $this->Form->error('code') : '' ?>
                 </div>
             </div>
@@ -65,3 +68,4 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
 <?= $this->Html->script('modal.js') ?>
 <?= $this->Html->script('cardNumberHelp.js') ?>
 <?= $this->Html->script('cardDateHelp.js') ?>
+<?= $this->Html->script('nextFocus.js') ?>

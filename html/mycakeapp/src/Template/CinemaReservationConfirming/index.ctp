@@ -6,7 +6,7 @@
     <p class="seat">座席：<?= $schedule['seatNo'] ?></p>
 </div>
 <div class="innerWindow">
-    <?= $this->Form->create() ?>
+    <?= $this->Form->create('', ['name' => 'form']) ?>
     <fieldset>
         <div class="inner-box">
             <p class="input-p">性別</p>
@@ -25,11 +25,11 @@
         <div class="inner-box">
             <p class="input-p">生年月日</p>
             <div class="input-text">
-                <?= $this->Form->text('year', ['required']); ?>
+                <?= $this->Form->text('year', ['required', 'maxlength' => 4, 'onkeyup' => 'setNextFocus(this)']); ?>
                 <p class="text-by">年</p>
-                <?= $this->Form->text('month', ['required']); ?>
+                <?= $this->Form->text('month', ['required', 'maxlength' => 2, 'onkeyup' => 'setNextFocus(this)']); ?>
                 <p class="text-by">月</p>
-                <?= $this->Form->text('day', ['required']); ?>
+                <?= $this->Form->text('day', ['required', 'maxlength' => 2]); ?>
                 <p class="text-by">日</p>
             </div>
             <p class="error-message"><?= isset($errors['year']) ? array_pop($errors['year']) : '' ?></p>
@@ -43,3 +43,4 @@
         <?= $this->Form->end() ?>
     </div>
 </div>
+<?= $this->Html->script('nextFocus.js') ?>
