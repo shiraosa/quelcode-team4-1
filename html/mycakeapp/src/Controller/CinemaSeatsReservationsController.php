@@ -17,7 +17,6 @@ class CinemaSeatsReservationsController extends CinemaBaseController
         $this->loadModel('Movies');
         $this->loadModel('Reservations');
         $this->viewBuilder()->setLayout('quel_cinemas');
-        $this->loadComponent('RequestHandler');
         $this->loadComponent('Days');
     }
 
