@@ -17,10 +17,10 @@ $this->Html->css('paymentDetails', ['block' => true]);
                         <td><?= $point . 'pt' ?></td>
                     </tr>
                 <?php endif; ?>
-                <?php if (!($discountPrice === 0)) : ?>
+                <?php if (!empty($discount)) : ?>
                     <tr class="orange">
-                        <th><?= $discountType ?></th>
-                        <td><?= '￥' . $discountPrice ?></td>
+                        <th><?= $discount['type'] ?></th>
+                        <td><?= '￥' . $discount['price'] ?></td>
                     </tr>
                 <?php endif; ?>
                 <tr class="totalPayment">

@@ -70,19 +70,27 @@ class CinemaPaymentController extends CinemaBaseController
         $basicRate = $this->BasicRates->get($session->read('profile')['type']);
         $basicRatePrice = $basicRate->basic_rate;
 
-        $discount = $this->DiscountTypes->get($session->read('discountTypeId'));
-        $discountType = $discount->discount_type;
-        if (0 < $discount->discount_price) {
-            // 一定額になる割引の場合の処理（雨の日、複数人など）
-            // $discountPrice =
+        $discount = [];
+
+        if ($session->read('discountTypeId')) {
+
+            $discount = $this->DiscountTypes->get($session->read('discountTypeId'));
+            $discount['type'] = $discount->discount_type;
+
+            if (0 < $discount->discount_price) {
+                // 一定額になる割引の場合の処理（雨の日、複数人など）
+                // $discountPrice =
+            } else {
+                $discount['price'] = abs($discount->discount_price);
+                $totalPayment = $basicRatePrice + $discount->discount_price;
+            }
         } else {
-            $discountPrice = abs($discount->discount_price);
-            $totalPayment = $basicRatePrice + $discount->discount_price;
+            $totalPayment = $basicRatePrice;
         }
         $totalPayment -= $point;
         $session->write(['totalPayment' => $totalPayment]);
 
-        $this->set(compact('basicRatePrice', 'point', 'discountType', 'discountPrice', 'totalPayment'));
+        $this->set(compact('basicRatePrice', 'point', 'discount', 'totalPayment'));
     }
 
 
@@ -118,10 +126,10 @@ class CinemaPaymentController extends CinemaBaseController
 
             // 予約情報を取得し保存
             $reservation->user_id = $this->Auth->user('id');
-            // $reservation->seat_id =
+            $reservation->seat_id = $session->read('seat_id');
             $reservation->schedule_id = $session->read('schedule')['id'];
             $reservation->movie_id = $session->read('schedule')['movie_id'];
-            $reservation->payment_id = $this->Payments->getLastInsertID();
+            $reservation->payment_id = $payment->id;
             $reservation->basic_rate_id = $session->read('profile')['type'];
             $reservation->is_deleted = 0;
 
@@ -129,7 +137,7 @@ class CinemaPaymentController extends CinemaBaseController
 
                 // 割引情報を取得し保存
                 if ($session->check('discountTypeId')) {
-                    $discountLog->payment_id = $this->Reservations->getLastInsertID();
+                    $discountLog->reservation_id = $reservation->id;
                     $discountLog->discount_type_id = $session->read('discountTypeId');
                     $discountLog->is_deleted = 0;
                     if ($this->DiscountLogs->save($discountLog)) {
