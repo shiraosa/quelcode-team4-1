@@ -51,13 +51,13 @@
   }
 
   .seat-selection .seat-row-seat.current-selected.can-select span{
-    background-color:#41db41;
+    background-color:#FFB100;
   }
   .seat-selection .seat-row-seat.current-selected.can-select:hover span{
-    background-color:#41db41;
+    background-color:#FFB100;
   }
   .seat-selection .seat-row-seat.can-select:hover span{
-    background-color:#c2ffbb;
+    background-color:#ffdf95;
   }
   .seat-selection .row-indicator{
     margin-right: 10px;

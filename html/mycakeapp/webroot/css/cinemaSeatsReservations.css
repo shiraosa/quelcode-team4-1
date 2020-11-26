@@ -6,6 +6,7 @@ body {
     text-align: center;
 }
 .innerHeading {
+    padding-bottom: 10px;
     color: #707070;
     font: normal normal 600 25px/34px sans-serif;
     letter-spacing: 0.89px;
