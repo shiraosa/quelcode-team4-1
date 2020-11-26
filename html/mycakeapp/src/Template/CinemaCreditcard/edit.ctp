@@ -19,7 +19,10 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
         <fieldset>
             <div class="oneLine">
                 <div class="box">
-                    <?= $this->Form->input('creditcard_number', ['type' => 'integer', 'class' => 'cardNum', 'id' => 'cardNumber', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false, 'value' => $cardNumber, 'maxlength' => '19']); ?>
+                    <?= $this->Form->input('creditcard_number', [
+                        'type' => 'integer', 'class' => 'cardNum', 'id' => 'cardNumber', 'placeholder' => 'クレジットカード番号', 'label' => false, 'error' => false, 'value' => $cardNumber, 'maxlength' => 19,
+                        'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,' ');"
+                    ]); ?>
                     <?= ($this->Form->isFieldError('creditcard_number')) ? $this->Form->error('creditcard_number') : '' ?>
                 </div>
                 <!-- クレジットカードアイコン -->
@@ -35,12 +38,15 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
             <div class="oneLine">
                 <!-- 有効期限 -->
                 <div class="box">
-                    <?= $this->Form->input('expiration_date', ['class' => 'limit', 'id' => 'cardDate', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false, 'value' => $cardDate, 'maxlength' => '5']); ?>
+                    <?= $this->Form->input('expiration_date', [
+                        'class' => 'limit', 'id' => 'cardDate', 'type' => 'text', 'placeholder' => '有効期限', 'label' => false, 'error' => false, 'value' => $cardDate, 'maxlength' => 5,
+                        'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'/');"
+                    ]); ?>
                     <?= ($this->Form->isFieldError('expiration_date')) ? $this->Form->error('expiration_date') : '' ?>
                 </div>
                 <!-- セキュリティコード -->
                 <div class="box">
-                    <?= $this->Form->input('code', ['class' => 'code', 'type' => 'password', 'placeholder' => 'セキュリティコード', 'label' => false, 'error' => false, 'required' => 'required', 'maxlength' => '4']); ?>
+                    <?= $this->Form->input('code', ['class' => 'code', 'type' => 'password', 'placeholder' => 'セキュリティコード', 'label' => false, 'error' => false, 'required' => 'required', 'maxlength' => 4]); ?>
                     <?= ($this->Form->isFieldError('code')) ? $this->Form->error('code') : '' ?>
                 </div>
             </div>
@@ -48,7 +54,7 @@ $this->Html->css('cinemaCreditcard', ['block' => true]);
             <?= $this->Form->input('agree', ['class' => 'checkBox', 'type' => 'checkbox', 'label' => '利用規約・プライバシーポリシーに同意の上、ご確認ください。', 'required' => 'required']); ?>
         </fieldset>
         <div class="oneLine">
-            <?= $this->Form->button(__('削除'), ['class' => 'modalOpen button delete','type' => 'button']) ?>
+            <?= $this->Form->button(__('削除'), ['class' => 'modalOpen button delete', 'type' => 'button']) ?>
             <?= $this->Form->button(__('編集'), ['class' => 'button edit', 'type' => 'submit']) ?>
         </div>
         <?= $this->Form->end() ?>

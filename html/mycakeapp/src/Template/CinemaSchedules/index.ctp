@@ -35,7 +35,7 @@
                     <?php foreach ($startAndEnd as $start => $end) : ?>
                         <li class="schedules-list-time">
                             <p>
-                                <?= $start . '~' . '<span class="end-time">' . $end . '</span>' ?>
+                                <?= $start . '〜' . '<span class="end-time">' . $end . '</span>' ?>
                             </p>
                             <?= $this->Html->link('予約購入', ['controller' => 'CinemaSeatsReservations', 'action' => 'index', $id]); ?>
                         </li>

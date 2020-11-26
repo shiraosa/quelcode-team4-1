@@ -51,8 +51,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     </div>
                     <div class="log-box">
                         <div class="login-logout">
-                            <?php if (!empty($auth)) : ?>
+                            <?php if ($this->request->controller === 'Mypage') : ?>
                                 <a href=<?= $this->Url->build(['controller' => 'Login', 'action' => 'logout']) ?>>ログアウト</a>
+                            <?php elseif (!empty($auth)) : ?>
+                                <a href=<?= $this->Url->build(['controller' => 'Mypage', 'action' => 'index']) ?>>マイページ</a>
                             <?php else : ?>
                                 <a href="/Login">ログイン・新規会員登録</a>
                             <?php endif; ?>

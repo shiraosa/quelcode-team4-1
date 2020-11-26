@@ -26,7 +26,7 @@ class ReservationDetailsController extends CinemabaseController
         // DBよりデータを取得
         $todayDatetime = date('Y-m-d H:i:s');
         $reservations = $this->Reservations->find('all', [
-            'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['Reservations.is_deleted' => 0], ['Schedules.end_datetime >' => $todayDatetime]]],
+            'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['Reservations.is_deleted' => 0], ['Schedules.end_datetime >' => $todayDatetime], ['Schedules.is_deleted' => '0']]],
             'contain' => ['Seats', 'Movies', 'DiscountLogs', 'DiscountLogs.DiscountTypes', 'Schedules', 'Payments'],
             'order' => (['Schedules.start_datetime' => 'DESC', 'Movies.title' => 'DESC', 'Seats.seat_number' => 'DESC'])
         ])

@@ -73,7 +73,7 @@ body {
 
 .innerWindow-done {
     width: 736px;
-    margin: 144px auto 0;
+    margin: 144px auto 100px;
     background-color: #ffffff;
     text-align: center;
     padding: 121px 0 120px 0;

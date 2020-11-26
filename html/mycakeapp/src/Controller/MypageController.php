@@ -45,9 +45,20 @@ class MypageController extends CinemaBaseController
                 $cardNumLast4 = '有効期限が切れています';
             }
         }
+        
+        $todayDatetime = date('Y-m-d H:i:s');
+        if (
+            $this->Reservations->find('all', [
+                'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['Reservations.is_deleted' => 0], ['Schedules.end_datetime >' => $todayDatetime]]],
+                'contain' => ['Schedules']
+            ])->first()
+        ) {
+            $haveReservation = true;
+        } else {
+            $haveReservation = false;
+        }
 
-        $this->set(compact('cardNumLast4'));
-        $this->set(compact('point'));
+        $this->set(compact('cardNumLast4', 'point', 'haveReservation'));
     }
 
     // アカウント削除
