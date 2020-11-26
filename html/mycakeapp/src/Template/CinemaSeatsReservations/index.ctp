@@ -10,7 +10,7 @@ $reservedSeatsJson = json_encode($reservedSeatsLayout);
     <h2 class="innerHeading">座席予約</h2>
     <div class="schedule">
         <p><?= $schedule['movie']['title'] ?></p>
-        <p><?= $schedule['start'] ?>~<span class="endTime"><?= $schedule['end'] ?></span></p>
+        <p><?= $schedule['start'] ?>〜<span class="endTime"><?= $schedule['end'] ?></span></p>
     </div>
     <div class="innerWindow">
         <p class="screen">SCREEN</p>
