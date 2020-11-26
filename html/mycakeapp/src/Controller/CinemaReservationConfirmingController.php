@@ -15,6 +15,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $this->loadModel('DiscountTypes');
         $this->viewBuilder()->setLayout('quel_cinemas');
         $this->loadComponent('Days');
+        $this->loadComponent('BaseFunction');
     }
 
     public function index()
@@ -22,6 +23,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         // Sessionから値を取得する. ない場合はスケジュールへリダイレクトする
         $session = $this->request->getSession();
         if (!($session->check('schedule'))) {
+            $this->BaseFunction->deleteSessionReservation($session);
             return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
         }
         $schedule = $session->read('schedule');
@@ -59,6 +61,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $session = $this->request->getSession();
 
         if (!($session->check('profile')) || !($session->check('schedule'))) {
+            $this->BaseFunction->deleteSessionReservation($session);
             return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
         }
 
@@ -84,7 +87,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
             $discountType = null;
             $discountTypeId = null;
         }
-        
+
         $session->write(['discountTypeId' => $discountTypeId]);
 
         if (!is_null($discountTypeId)) {
@@ -95,13 +98,19 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         if ($this->request->is('post')) {
             $session->write(['price' => $price]);
 
-            // TODO:遷移先の変更
             return $this->redirect(['controller' => 'CinemaPayment', 'action' => 'index']);
         }
 
         $price = '&yen;' . number_format($price);
 
         $this->set(compact('schedule', 'price', 'discountType'));
+    }
+
+    public function cancel()
+    {
+        $session = $this->request->getSession();
+        $this->BaseFunction->deleteSessionReservation($session);
+        return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
     }
 
     private function __validateProfile($data)
