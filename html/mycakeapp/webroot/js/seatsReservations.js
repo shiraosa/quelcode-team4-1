@@ -19,9 +19,9 @@ $(document).ready(function () {
                 return Obj;
             },
             callOnSeatSelect: function (_event, _data, _selected, _element) {
-                console.log(_event);
-                console.log(_data);
-                console.log(_selected);
+                // console.log(_event);
+                // console.log(_data);
+                // console.log(_selected);
             },
             selectionDone: function (_array) {
                 var csrf = $('input[name=_csrfToken]').val();
@@ -31,6 +31,7 @@ $(document).ready(function () {
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('X-CSRF-Token', csrf);
                     },
+                    async: false,
                     data: _array,
                     dataType: 'json'
                 }).then(
@@ -39,9 +40,9 @@ $(document).ready(function () {
                     ,
                     // 2つめは通信失敗時のコールバック
                     function () {
-                        alert("読み込みに失敗しました");
+                        window.location.href = '/CinemaReservationConfirming/index'
                     });
-                console.log(_array);
+                // console.log(_array);
             },
             cancel: function () {
                 return false;

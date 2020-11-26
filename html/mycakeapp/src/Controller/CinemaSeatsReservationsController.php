@@ -24,6 +24,10 @@ class CinemaSeatsReservationsController extends CinemaBaseController
     public function index($scheduleId = null)
     {
 
+        //前回の座席情報がある場合は破棄する(仮置き)
+        $session = $this->request->getSession();
+        $session->delete('schedule');
+        $session->delete('seat_id');
         try {
             $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
         } catch (Exception $e) {
@@ -40,9 +44,11 @@ class CinemaSeatsReservationsController extends CinemaBaseController
 
 
         //映画の開始時間が過ぎていないか
-        $startDatetime = new DateTime($start);
+        $endDatetime = new DateTime($end);
         $now = new DateTime();
-        if ($startDatetime < $now) {
+        if ($endDatetime < $now) {
+            //sessionが保存されないのでCinemaReservationConfirmingでリダイレクトされる
+            $this->Flash->error('終了時刻が過ぎています');
             return $this->redirect([
                 'controller' => 'CinemaSchedules', 'action' => 'index'
             ]);
@@ -84,15 +90,11 @@ class CinemaSeatsReservationsController extends CinemaBaseController
             ]);
         }
 
-        //映画の開始時間が過ぎていないか
-        $startDatetime = new DateTime($schedule['start_datetime']);
+        //映画の終了時間
+        $endDatetime = new DateTime($schedule['end_datetime']);
         $now = new DateTime();
-        if ($startDatetime < $now) {
-            return $this->redirect([
-                'controller' => 'CinemaSchedules', 'action' => 'index'
-            ]);
-        }
 
+        //ajaxでpost
         if ($this->request->is('post')) {
             $selectedSeat = $this->request->getData();
             //数値をアルファベット化
@@ -110,16 +112,23 @@ class CinemaSeatsReservationsController extends CinemaBaseController
                 ->where(['schedule_id' => $scheduleId, 'seat_number' => $seat_number, 'is_deleted' => false])
                 ->first()
             ) {
+                //sessionが保存されないのでCinemaReservationConfirmingでリダイレクトされる
                 $this->Flash->error('その座席はすでに予約されています');
-                return $this->redirect(['action' => 'index', $scheduleId]);
-            }
-            if ($this->Seats->save($seats)) {
-                //セッションにscheduleを保存
-                $schedule['seatNo'] = $seat_number;
-                $session = $this->request->getSession();
-                $session->write(['schedule' => $schedule, 'seat_id' => $seats['id']]);
+
+                //終呂時間が過ぎていないか確認
+            } elseif ($endDatetime < $now) {
+                //sessionが保存されないのでCinemaReservationConfirmingでリダイレクトされる
+                $this->Flash->error('終了時刻が過ぎています');
+            } else {
+                if ($this->Seats->save($seats)) {
+                    //セッションにscheduleを保存
+                    $schedule['seatNo'] = $seat_number;
+                    $session = $this->request->getSession();
+                    $session->write(['schedule' => $schedule, 'seat_id' => $seats['id']]);
+                }
             }
         }
+
         //不正なアクセスがあった場合
         return $this->redirect([
             'controller' => 'CinemaSchedules', 'action' => 'index'

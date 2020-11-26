@@ -30,7 +30,6 @@ $reservedSeatsJson = json_encode($reservedSeatsLayout);
         <form method="POST">
             <div class="selectMove">
             </div>
-
             <script type="text/javascript">
                 var scheduleId = '<?php echo $scheduleId ?>';
                 var seatData = JSON.parse('<?php echo $reservedSeatsJson; ?>'); //jsonをparseしてJavaScriptの変数に代入
