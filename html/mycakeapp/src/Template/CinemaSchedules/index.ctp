@@ -1,4 +1,5 @@
 <?php $this->Html->css('cinema_schedules.css', ['block' => true]) ?>
+<?= $this->Flash->render() ?>
 <h2 class="innerHeading">上映スケジュール</h2>
 <ul class="days">
     <?php foreach ($days as $date => $schedule) : ?>
@@ -36,7 +37,7 @@
                             <p>
                                 <?= $start . '~' . '<span class="end-time">' . $end . '</span>' ?>
                             </p>
-                            <?= $this->Html->link('予約購入', ['controller' => 'CinemaSchedules', 'action' => 'index', '?' => ['schedule-id' => $id]]); ?>
+                            <?= $this->Html->link('予約購入', ['controller' => 'CinemaSeatsReservations', 'action' => 'index', $id]); ?>
                         </li>
                     <?php endforeach; ?>
                 <?php endforeach; ?>
