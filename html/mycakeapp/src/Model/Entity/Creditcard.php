@@ -77,4 +77,36 @@ class Creditcard extends Entity
         $myDate = date('m/y', strtotime($ymd));
         return $myDate;
     }
+
+    public function takeCardBland($cardNumber) {
+
+        if (1 === preg_match('/^4[0-9]{12}(?:[0-9]{3})?$/', $cardNumber)) {
+            //VISA
+            //4で始まる13桁か16桁の数値
+            $cardBrand = 'VISA';
+        } elseif (1 === preg_match('/^5[1-5][0-9]{14}$/', $cardNumber)) {
+            //MasterCard
+            //51～55で始まる16桁の数値
+            $cardBrand = 'MasterCard';
+        } elseif (1 === preg_match('/^6011[0-9]{12}$/', $cardNumber)) {
+            //Discover Card
+            //6011から始まる16桁の数値
+            $cardBrand = 'Discover Card';
+        } elseif (1 === preg_match('/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/', $cardNumber)) {
+            //Diners Club
+            //300-305、360-369、380-389で始まる14桁の数値
+            $cardBrand = 'Diners Club';
+        } elseif (1 === preg_match('/^3[47][0-9]{13}$/', $cardNumber)) {
+            //American Express
+            //34か37で始まる15桁の数値
+            $cardBrand = 'American Express';
+        } elseif (1 === preg_match('/^(?:2131|1800|35[0-9]{3})[0-9]{11}$/', $cardNumber)) {
+            //JCB Card
+            //2131か1800で始まる15桁の数値 或いは 35で始まる16桁の数値
+            $cardBrand = 'JCB Card';
+        } else {
+            $cardBrand = 'another';
+        }
+        return $cardBrand;
+    }
 }

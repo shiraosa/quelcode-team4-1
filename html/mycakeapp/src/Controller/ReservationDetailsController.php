@@ -17,6 +17,7 @@ class ReservationDetailsController extends CinemabaseController
         $this->loadModel('DiscountTypes');
         $this->loadModel('Schedules');
         $this->loadModel('Payments');
+        $this->loadComponent('Days');
     }
 
     public function index()
@@ -37,7 +38,7 @@ class ReservationDetailsController extends CinemabaseController
             $tickets[$i]['id'] = $reservation['id'];
             $tickets[$i]['thumbnail_path'] = $reservation['movie']['thumbnail_path'];
             $tickets[$i]['title'] = $reservation['movie']['title'];
-            $tickets[$i]['start_date'] = $this->__getDayOfTheWeek($reservation['schedule']['start_datetime']);
+            $tickets[$i]['start_date'] = $this->Days->__getDayOfTheWeek($reservation['schedule']['start_datetime']);
             $tickets[$i]['start_time'] = $reservation['schedule']['start_datetime']->format('H:i');
             $tickets[$i]['end_time'] = $reservation['schedule']['end_datetime']->format('H:i');
             $tickets[$i]['seat'] = $reservation['seat']['seat_number'];
@@ -94,12 +95,4 @@ class ReservationDetailsController extends CinemabaseController
     {
     }
 
-    private function __getDayOfTheWeek($day)
-    {
-        $weekday = ['日', '月', '火', '水', '木', '金', '土'];
-        $w = $weekday[$day->format('w')];
-        $day = $day->format("m月d日($w)");
-
-        return $day;
-    }
 }

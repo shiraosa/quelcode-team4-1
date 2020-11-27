@@ -11,6 +11,7 @@ class CinemaCreditcardController extends CinemaBaseController
     {
         parent::initialize();
         $this->loadModel('Creditcards');
+        $this->loadComponent('BaseFunction');
         $this->viewBuilder()->setLayout('quel_cinemas');
     }
 
@@ -18,9 +19,7 @@ class CinemaCreditcardController extends CinemaBaseController
     {
         // クレジットカード情報をDBから取得
         if (
-            $creditcard = $this->Creditcards->find('all', [
-                'conditions' => ['AND' => [['user_id' => $this->Auth->user('id')], ['is_deleted' => 0], ['expiration_date >=' => Time::now()->year . '-' . Time::now()->month . '-1']]]
-            ])->first()
+            $creditcard = $this->BaseFunction->aliveCreditcard($this->Auth->user('id'))
         ) {
             // クレジットカード登録済みのユーザーを決済情報確認画面へリダイレクト
             return $this->redirect(['action' => 'index']);
@@ -35,6 +34,11 @@ class CinemaCreditcardController extends CinemaBaseController
 
             if ($this->Creditcards->save(($creditcard))) {
                 $this->Flash->success(__('The creditcard has been saved.'));
+
+                $session = $this->request->getSession();
+                if (!empty($session->consume('creditcard'))) {
+                    return $this->redirect(['controller' => 'CinemaPayment', 'action' => 'index']);
+                }
 
                 return $this->redirect(['action' => 'completed']);
             }
@@ -83,38 +87,9 @@ class CinemaCreditcardController extends CinemaBaseController
         ) {
             // セッターによりもとのプロパティにいれると暗号化＆日付がymdになってしまう。
             $cardNumber = $creditcard->decryptCreditcard_number($creditcard->creditcard_number);
-            $cardBrand = 'visa';
+            $cardBrand = $creditcard->takeCardBland($cardNumber);
             $cardNumLast4 = substr($cardNumber, -4);
-            $cardDate = $creditcard->changeCardDate($creditcard->expiration_date);
             $creditcard->creditcard_number = 0;
-
-            if (1 === preg_match('/^4[0-9]{12}(?:[0-9]{3})?$/', $cardNumber)) {
-                //VISA
-                //4で始まる13桁か16桁の数値
-                $cardBrand = 'VISA';
-            } elseif (1 === preg_match('/^5[1-5][0-9]{14}$/', $cardNumber)) {
-                //MasterCard
-                //51～55で始まる16桁の数値
-                $cardBrand = 'MasterCard';
-            } elseif (1 === preg_match('/^6011[0-9]{12}$/', $cardNumber)) {
-                //Discover Card
-                //6011から始まる16桁の数値
-                $cardBrand = 'Discover Card';
-            } elseif (1 === preg_match('/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/', $cardNumber)) {
-                //Diners Club
-                //300-305、360-369、380-389で始まる14桁の数値
-                $cardBrand = 'Diners Club';
-            } elseif (1 === preg_match('/^3[47][0-9]{13}$/', $cardNumber)) {
-                //American Express
-                //34か37で始まる15桁の数値
-                $cardBrand = 'American Express';
-            } elseif (1 === preg_match('/^(?:2131|1800|35[0-9]{3})[0-9]{11}$/', $cardNumber)) {
-                //JCB Card
-                //2131か1800で始まる15桁の数値 或いは 35で始まる16桁の数値
-                $cardBrand = 'JCB Card';
-            } else {
-                $cardBrand = 'another';
-            }
 
             $this->set(compact('cardBrand'));
             $this->set(compact('creditcard'));

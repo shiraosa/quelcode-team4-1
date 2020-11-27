@@ -116,6 +116,7 @@ body {
     padding-left: 24px;
 }
 .oneTicket .title {
+    width: 245px;
     padding-bottom: 4px;
     color: #707070;
     font-size: 20px;
