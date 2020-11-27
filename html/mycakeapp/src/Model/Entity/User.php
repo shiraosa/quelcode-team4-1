@@ -40,6 +40,7 @@ class User extends Entity
         'modified' => true,
         'creditcards' => true,
         'reservations' => true,
+        'points' => true,
     ];
 
     /**

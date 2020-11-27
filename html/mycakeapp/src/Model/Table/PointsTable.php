@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -41,7 +42,7 @@ class PointsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Payments', [
+        $this->hasOne('Payments', [
             'foreignKey' => 'payment_id',
             'joinType' => 'INNER',
         ]);
