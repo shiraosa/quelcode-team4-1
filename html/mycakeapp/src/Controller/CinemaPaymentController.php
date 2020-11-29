@@ -58,7 +58,6 @@ class CinemaPaymentController extends CinemaBaseController
                     } else {
                         $point['use'] = 0;
                     }
-                    dd('ifOut');
 
                     $session->write(['point' => $point]);
                     return $this->redirect(['action' => 'details']);
