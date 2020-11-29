@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\I18n\Time;
-use Cake\Datasource\ConnectionManager;
+use Cake\Validation\Validator;
 
 class CinemaPaymentController extends CinemaBaseController
 {
@@ -18,6 +18,7 @@ class CinemaPaymentController extends CinemaBaseController
         $this->loadModel('DiscountTypes');
         $this->loadModel('Movies');
         $this->loadModel('Payments');
+        $this->loadModel('Points');
         $this->loadModel('Reservations');
         $this->loadModel('Seats');
         $this->loadModel('Taxes');
@@ -34,13 +35,6 @@ class CinemaPaymentController extends CinemaBaseController
         if (
             $creditcard = $this->BaseFunction->aliveCreditcard($this->Auth->user('id'))
         ) {
-            if ($this->request->is('post')) {
-
-                $usePoint = 0;
-                $session->write(['usePoint' => $usePoint]);
-                return $this->redirect(['action' => 'details']);
-            }
-
             // セッターによりもとのプロパティにいれると暗号化＆日付がymdになってしまう。
             $cardNumber = $creditcard->decryptCreditcard_number($creditcard->creditcard_number);
             $cardNumLast4 = substr($cardNumber, -4);
@@ -48,8 +42,32 @@ class CinemaPaymentController extends CinemaBaseController
             $cardDate = $creditcard->changeCardDate($creditcard->expiration_date);
             $cardOwner = $creditcard->owner_name;
 
-            $havePoint = 0;
-            $this->set(compact('cardNumLast4', 'cardBrand', 'cardDate', 'cardOwner', 'havePoint'));
+            // ポイント情報取得
+            $point = $this->BaseFunction->pointInfo($this->Auth->user('id'));
+            $point['have'] = $point['havePoint'];
+
+            if ($this->request->is('post')) {
+                $usePoint = $this->request->getData();
+                $errors = $this->validatePoint($usePoint, $point['have']);
+
+                if (empty($errors)) {
+                    if (($usePoint['useTypes'] === '1') && ($usePoint['usePoint'] >= 1)) {
+                        $point['use'] = $usePoint['usePoint'];
+                    } elseif ($usePoint['useTypes'] === '2') {
+                        $point['use'] = $point['have'];
+                    } else {
+                        $point['use'] = 0;
+                    }
+                    dd('ifOut');
+
+                    $session->write(['point' => $point]);
+                    return $this->redirect(['action' => 'details']);
+                } else {
+                    $this->set(compact('errors'));
+                }
+            }
+
+            $this->set(compact('cardNumLast4', 'cardBrand', 'cardDate', 'cardOwner', 'point'));
         } else {
 
             // クレジットカード未登録の場合クレジット登録画面へ遷移
@@ -63,13 +81,13 @@ class CinemaPaymentController extends CinemaBaseController
     {
         $session = $this->request->getSession();
 
-        if (!($session->check('usePoint'))) {
+        if (!($session->check('point'))) {
 
             $this->BaseFunction->deleteSessionReservation($session);
             return $this->redirect(['controller' => 'CinemaSchedules']);
         }
 
-        $point = 0;
+        $point = $session->read('point');
 
         $basicRate = $this->BasicRates->get($session->read('profile')['type']);
         $basicRatePrice = $basicRate->basic_rate;
@@ -91,7 +109,13 @@ class CinemaPaymentController extends CinemaBaseController
         } else {
             $totalPayment = $basicRatePrice;
         }
-        $totalPayment -= $point;
+
+        // ポイントタイプで全部使うを選択して、保有ポイントが支払金額よりも多い場合の処理
+        if ($totalPayment < $point['use']) {
+            $point['use'] = $totalPayment;
+        }
+
+        $totalPayment -= $point['use'];
         $session->write(['totalPayment' => $totalPayment]);
 
         $this->set(compact('basicRatePrice', 'point', 'discount', 'totalPayment'));
@@ -125,10 +149,7 @@ class CinemaPaymentController extends CinemaBaseController
         ])->first();
         $payment->tax_id = $tax->id;
         $payment->total_payment = $session->read('totalPayment');
-        $payment->is_deleted = 0;
 
-        // $connection = ConnectionManager::get('default');
-        // $connection->begin();
         if (($this->Payments->save($payment))) {
 
             // 予約情報を取得し保存
@@ -138,18 +159,58 @@ class CinemaPaymentController extends CinemaBaseController
             $reservation->movie_id = $session->read('schedule')['movie_id'];
             $reservation->payment_id = $payment->id;
             $reservation->basic_rate_id = $session->read('profile')['type'];
-            $reservation->is_deleted = 0;
 
-            if ($this->Reservations->save($reservation)) {
+            // getPoint
+            $getPoint = $this->Points->newEntity();
+            $getPoint->payment_id = $payment->id;
+            $getPoint->user_id = $this->Auth->user('id');
+            // 10%のポイント加算
+            $getPoint->get_point = round($payment->total_payment * 0.1);
+
+            // usePoint
+            $point = $session->read('point');
+            $payPoint = $point['use'];
+
+            if (!($payPoint === 0)) {
+                $point = $this->BaseFunction->pointInfo($this->Auth->user('id'));
+                $pointArray = $point['info'];
+
+                // 古いポイントから使うのでASCにソート
+                foreach ($pointArray as $value) {
+                    $created[] = $value['created'];
+                }
+                array_multisort($created, SORT_ASC, $pointArray);
+
+                // use_pointを設定
+                foreach ($pointArray as $point) {
+                    // 使い切ったポイントカラムはスキップ
+                    if ($point['get_point'] === $point['use_point']) {
+                        continue;
+                    }
+                    if (!($point['use_point'] === 0)) {
+                        $payPoint += $point['use_point'];
+                    }
+                    $payPoint -= $point['get_point'];
+                    $point['use_point'] = $point['get_point'];
+                    if ($payPoint <= 0) {
+                        $point['use_point'] = $point['get_point'] + $payPoint;
+                        $this->Points->save($point);
+                        break;
+                    }
+                    $this->Points->save($point);
+                }
+            }
+
+            if ($this->Reservations->save($reservation) && $this->Points->save($getPoint)) {
+
 
                 // 割引情報を取得し保存
                 if ($session->check('discountTypeId')) {
                     $discountLog->reservation_id = $reservation->id;
                     $discountLog->discount_type_id = $session->read('discountTypeId');
-                    $discountLog->is_deleted = 0;
+
                     if ($this->DiscountLogs->save($discountLog)) {
                     } else {
-                        // $connection->rollback();
                         return $this->redirect(['action' => 'details']);
                     }
                 }
@@ -158,7 +219,6 @@ class CinemaPaymentController extends CinemaBaseController
                 return $this->redirect(['action' => 'completed']);
             }
         }
-        // $connection->rollback();
         $this->redirect(['action' => 'details']);
     }
     public function cancel()
@@ -172,5 +232,18 @@ class CinemaPaymentController extends CinemaBaseController
         $session = $this->request->getSession();
         $session->write(['completed' => true]);
         $this->BaseFunction->deleteSessionReservation($session);
+    }
+
+    private function validatePoint($usePoint, $havePoint)
+    {
+        $validator = new Validator();
+
+        $validator
+            ->notEmptyString('usePoint', 'ポイントを入力してください')
+            ->integer('usePoint', '数字を入力してください')
+            ->lessThanOrEqual('usePoint', $havePoint, '保有ポイント内の値を入力してください');
+
+        $errors = $validator->errors($usePoint);
+        return $errors;
     }
 }

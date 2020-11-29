@@ -1,0 +1,68 @@
+body {
+    background-color: #ebebeb;
+}
+.main {
+    margin: 83px auto 266px;
+    text-align: center;
+}
+.innerHeading {
+    font: normal normal 600 25px/34px sans-serif;
+    letter-spacing: 0.89px;
+    color: #707070;
+}
+
+.innerWindow {
+    width: 736px;
+    margin: 36px auto 27px;
+    background-color: #ffffff;
+    padding-top: 110px;
+    padding-bottom: 115px;
+}
+
+.innerContent {
+    padding: 0 200px;
+}
+
+.button {
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    box-shadow: 0px 2px 2px #00000015;
+    border: #f5ae0b;
+    color: #ffffff;
+}
+
+.button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.bigBtn {
+    display: block;
+    margin: 0 auto;
+    width: 336px;
+    height: 48px;
+    line-height: 48px;
+}
+
+.oneLine {
+    display: flex;
+    justify-content: center;
+}
+
+.innerContent p {
+    display: flex;
+    justify-content: space-between;
+    color: #707070;
+}
+
+.innerContent span {
+    padding: 8px 30px;
+}
+.havePoint span {
+    padding-bottom: 22px;
+}
+.havePoint {
+    font-weight: 600;
+}
+.innerContent .month {
+    display: block;
+    padding: 30px 0;
+}

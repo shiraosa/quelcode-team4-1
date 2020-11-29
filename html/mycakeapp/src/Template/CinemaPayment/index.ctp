@@ -15,18 +15,22 @@ $this->Html->css('paymentDetails', ['block' => true]);
                 </div>
             </div>
             <p>ご利用ポイント</p>
-            <?= $this->Form->create(null, ['url' => ['action' => 'index']]) ?>
+            <p class="error-message"><?= isset($errors['usePoint']) ? array_pop($errors['usePoint']) : '' ?></p>
+            <?= $this->Form->create() ?>
             <div class="point oneLine">
-            <?php if ($havePoint === 0) : ?>
-                <?= $this->Form->select('useTypes', ['利用しない'], ['id' => 'useTypes', 'onChange' => 'checkUseInput()', 'required' => true]) ?>
-            <?php else : ?>
-                <?= $this->Form->select('useTypes', ['利用しない', '一部使う', '全部使う'], ['empty' => '選択してください', 'id' => 'useTypes', 'onChange' => 'checkUseInput()']) ?>
-            <?php endif; ?>
-                <?= $this->Form->input('usePoint', ['class' => 'usePoint', 'maxlength' => '5', 'type' => 'tel', 'label' => false]) ?><div class="pt"><span>pt</span></div>
+                <?php if ($point['have'] === 0) : ?>
+                    <?= $this->Form->select('useTypes', ['利用しない'], ['id' => 'useTypes', 'onChange' => 'checkUseInput()', 'required']) ?>
+                <?php else : ?>
+                    <?= $this->Form->select('useTypes', ['利用しない', '一部使う', '全部使う'], ['empty' => '選択してください', 'id' => 'useTypes', 'required', 'onChange' => 'checkUseInput()']) ?>
+                    <?= $this->Form->input('usePoint', [
+                        'class' => 'usePoint', 'type' => 'integer', 'label' => false, 'value' => 0,
+                        'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'');"
+                    ]) ?><div class="pt"><span>pt</span></div>
+                <?php endif; ?>
             </div>
             <div class="oneLine">
                 <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">キャンセル</a>
-                <button type="submit" class="button submit" href="<?= $this->Url->build(['action' => 'index']) ?>">決定</a>
+                <?= $this->Form->button('決定', ['class' => 'submit button']) ?>
             </div>
         </div>
     </div>

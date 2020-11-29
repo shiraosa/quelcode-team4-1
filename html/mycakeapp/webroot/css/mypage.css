@@ -48,12 +48,12 @@ body {
     border: #f5ae0b;
     color: #ffffff;
 }
-.reservationCheckBtn, .cardInputBtn, .cardChangeBtn {
+.miniBtn {
     font: normal normal 600 15px/20px sans-serif;
     letter-spacing: 0.25px;
     padding: 8px 18px;
 }
-.cardNumLast4 {
+.userUnique {
     padding-right: 20px;
 }
 .button:hover {
@@ -135,4 +135,9 @@ body {
     padding-bottom: 60px;
     color: #707070;
     text-align: center;
+}
+
+.error-message {
+    color: #F46161;
+    font: normal normal 600 11px/15px sans-serif;
 }
