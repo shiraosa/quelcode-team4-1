@@ -164,7 +164,7 @@ class CinemaPaymentController extends CinemaBaseController
             $getPoint->payment_id = $payment->id;
             $getPoint->user_id = $this->Auth->user('id');
             // 10%のポイント加算
-            $getPoint->get_point = round($payment->total_payment * 0.1);
+            $getPoint->get_point = floor($payment->total_payment * 0.1);
 
             // usePoint
             $point = $session->read('point');
