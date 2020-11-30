@@ -19,6 +19,10 @@ class MypageController extends CinemaBaseController
 
     public function index()
     {
+        // 予約、決済処理中にマイページリンクを押下した場合の処理
+        $session = $this->request->getSession();
+        $this->BaseFunction->deleteSessionReservation($session);
+
         // ポイント機能は任意課題のため、仮定0pt
         $point = $this->BaseFunction->pointInfo($this->Auth->user('id'));
 
@@ -98,7 +102,7 @@ class MypageController extends CinemaBaseController
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
     // アカウント削除完了
     public function deleted()
     {
