@@ -9,5 +9,6 @@ function checkUseInput() {
     } else {
         $('.usePoint').css({ 'display': 'none' });
         $('.pt').css({ 'display': 'none' });
+        $('.usePoint').val(['0']);
     }
 }
