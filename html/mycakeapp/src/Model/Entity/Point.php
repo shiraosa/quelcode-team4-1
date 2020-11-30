@@ -1,25 +1,24 @@
 <?php
-
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
 /**
- * Payment Entity
+ * Point Entity
  *
  * @property int $id
- * @property int $creditcard_id
- * @property int $tax_id
- * @property int $total_payment
+ * @property int $payment_id
+ * @property int $user_id
+ * @property int $get_point
+ * @property int $use_point
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
- * @property \App\Model\Entity\Creditcard $creditcard
- * @property \App\Model\Entity\Tax $tax
- * @property \App\Model\Entity\Reservation[] $reservations
+ * @property \App\Model\Entity\Payment $payment
+ * @property \App\Model\Entity\User $user
  */
-class Payment extends Entity
+class Point extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,15 +30,14 @@ class Payment extends Entity
      * @var array
      */
     protected $_accessible = [
-        'creditcard_id' => true,
-        'tax_id' => true,
-        'total_payment' => true,
+        'payment_id' => true,
+        'user_id' => true,
+        'get_point' => true,
+        'use_point' => true,
         'is_deleted' => true,
         'created' => true,
         'modified' => true,
-        'creditcard' => true,
-        'tax' => true,
-        'reservations' => true,
-        'points' => true,
+        'payment' => true,
+        'user' => true,
     ];
 }

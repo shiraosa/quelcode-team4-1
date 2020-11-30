@@ -22,7 +22,7 @@ class BaseFunctionComponent extends Component
         $session->delete('discountTypeId');
         $session->delete('price');
         $session->delete('creditcard');
-        $session->delete('usePoint');
+        $session->delete('point');
         $session->delete('totalPayment');
 
         // 座席テーブルに削除フラグを立てる
@@ -31,10 +31,9 @@ class BaseFunctionComponent extends Component
             $seat = $seatsTable->get($session->read('seat_id'));
             $seat->is_deleted = 1;
             $seatsTable->save($seat);
-
-            $session->delete('completed');
-            $session->delete('seat_id');
         }
+        $session->delete('completed');
+        $session->delete('seat_id');
     }
 
     /**
@@ -44,11 +43,46 @@ class BaseFunctionComponent extends Component
      * @param [type] $userId 認証ユーザーIDを引数とする
      * @return void 使用可能なクレジットカード情報 || null
      */
-    public function aliveCreditcard($userId) {
+    public function aliveCreditcard($userId)
+    {
         $creditcards = TableRegistry::getTableLocator()->get('Creditcards');
         $aliveCredit = $creditcards->find('all', [
             'conditions' => ['AND' => [['user_id' => $userId], ['is_deleted' => 0], ['expiration_date >=' => Time::now()->year . '-' . Time::now()->month . '-1']]]
         ])->first();
         return $aliveCredit;
+    }
+
+    /**
+     * Undocumented function
+     * 認証ユーザーのポイント情報を検索します。
+     *
+     * @param [type] $userId 認証ユーザーを引数とする
+     * @return void ポイントの使用、獲得情報 || null
+     */
+    public function pointInfo($userId)
+    {
+        $points = TableRegistry::getTableLocator()->get('Points');
+        $point['info'] = $points->find('all', [
+            'conditions' => ['AND' => [['user_id' => $userId], ['is_deleted' => 0]]],
+            'order' => ['created' => 'DESC']
+        ])->toArray();
+
+        if (!empty($point['info'])) {
+            // 現在の保有ポイントの計算
+            $getPoint = 0;
+            $usePoint = 0;
+            foreach ($point['info'] as $info) {
+                $getPoint += $info->get_point;
+                $usePoint += $info->use_point;
+            }
+
+            $point['havePoint'] = $getPoint - $usePoint;
+
+        } else {
+            $point['havePoint'] = 0;
+
+        }
+
+        return $point;
     }
 }

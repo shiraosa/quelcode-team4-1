@@ -11,10 +11,10 @@ $this->Html->css('paymentDetails', ['block' => true]);
                     <th>チケット金額</th>
                     <td><?= '￥' . $basicRatePrice ?></td>
                 </tr>
-                <?php if (!($point === 0)) : ?>
+                <?php if (!($point['use'] === 0)) : ?>
                     <tr class="orange">
                         <th>ご利用ポイント</th>
-                        <td><?= $point . 'pt' ?></td>
+                        <td><?= $point['use'] . 'pt' ?></td>
                     </tr>
                 <?php endif; ?>
                 <?php if (!empty($discount)) : ?>

@@ -5,11 +5,11 @@ $('#cardDate').keyup(function () {
         return false;
     }
 
-    var cardValue = $(this).val();
-    var cardLength = cardValue.length + 1;
+    var value = $(this).val();
+    var length = value.length + 1;
 
-    if ((cardLength === 3)) {
-        return $(this).val(cardValue += "/");
+    if ((length === 3)) {
+        return $(this).val(value += "/");
     }
 
 });

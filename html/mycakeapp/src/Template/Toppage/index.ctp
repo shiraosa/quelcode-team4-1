@@ -26,7 +26,7 @@ for ($i = 4; $i >= 1; $i--) {
         <li><?php echo $this->Html->image('screening/' . $screenings[1]); ?></li>
         <li><?php echo $this->Html->image('screening/' . $screenings[2]); ?></li>
     </ul>
-    <button onclick="" class="btn-sea-details">詳しく見る</button>
+    <button onclick="location.href = 'CinemaSchedules'" class="btn-sea-details">詳しく見る</button>
 
     <h2>お得な割引</h2>
     <ul class="discount-banners">
@@ -35,5 +35,5 @@ for ($i = 4; $i >= 1; $i--) {
         <li><?php echo $this->Html->image('banner/' . $discountsBanner[3]); ?></li>
         <li><?php echo $this->Html->image('banner/' . $discountsBanner[4]); ?></li>
     </ul>
-    <button onclick="" class="btn-sea-details">詳しく見る</button>
+    <button onclick="location.href = 'BasicRateDiscountPage'" class="btn-sea-details">詳しく見る</button>
 </div>

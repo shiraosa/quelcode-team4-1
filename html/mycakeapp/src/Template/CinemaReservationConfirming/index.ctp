@@ -25,11 +25,20 @@
         <div class="inner-box">
             <p class="input-p">生年月日</p>
             <div class="input-text">
-                <?= $this->Form->text('year', ['required', 'maxlength' => 4, 'onkeyup' => 'setNextFocus(this)']); ?>
+                <?= $this->Form->text('year', [
+                    'required', 'maxlength' => 4, 'onkeyup' => 'setNextFocus(this)',
+                    'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'');"
+                ]); ?>
                 <p class="text-by">年</p>
-                <?= $this->Form->text('month', ['required', 'maxlength' => 2, 'onkeyup' => 'setNextFocus(this)']); ?>
+                <?= $this->Form->text('month', [
+                    'required', 'maxlength' => 2, 'onkeyup' => 'setNextFocus(this)',
+                    'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'');"
+                ]); ?>
                 <p class="text-by">月</p>
-                <?= $this->Form->text('day', ['required', 'maxlength' => 2]); ?>
+                <?= $this->Form->text('day', [
+                    'required', 'maxlength' => 2,
+                    'oninput' => "value = value.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'');"
+                ]); ?>
                 <p class="text-by">日</p>
             </div>
             <p class="error-message"><?= isset($errors['year']) ? array_pop($errors['year']) : '' ?></p>

@@ -14,12 +14,17 @@ class MypageController extends CinemaBaseController
         $this->loadModel('Creditcards');
         $this->loadModel('Users');
         $this->loadModel('Reservations');
+        $this->loadComponent('BaseFunction');
     }
 
     public function index()
     {
+        // 予約、決済処理中にマイページリンクを押下した場合の処理
+        $session = $this->request->getSession();
+        $this->BaseFunction->deleteSessionReservation($session);
+
         // ポイント機能は任意課題のため、仮定0pt
-        $point = 0;
+        $point = $this->BaseFunction->pointInfo($this->Auth->user('id'));
 
         // 削除されていない認証ユーザーのクレジットカード情報をDBより取得
         $query = $this->Creditcards->find('all', [
@@ -28,7 +33,7 @@ class MypageController extends CinemaBaseController
             ->select('creditcard_number');
 
         $cardNum = $query->first();
-        
+
         $cardNumLast4 = 0;
         if (!empty($cardNum)) {
             // 有効期限が切れたクレジットカードの処理
@@ -45,7 +50,7 @@ class MypageController extends CinemaBaseController
                 $cardNumLast4 = '有効期限が切れています';
             }
         }
-        
+
         $todayDatetime = date('Y-m-d H:i:s');
         if (
             $this->Reservations->find('all', [
@@ -97,6 +102,7 @@ class MypageController extends CinemaBaseController
 
         return $this->redirect(['action' => 'index']);
     }
+
     // アカウント削除完了
     public function deleted()
     {

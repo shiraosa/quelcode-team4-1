@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -51,6 +52,9 @@ class PaymentsTable extends Table
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Reservations', [
+            'foreignKey' => 'payment_id',
+        ]);
+        $this->hasOne('Points', [
             'foreignKey' => 'payment_id',
         ]);
     }
