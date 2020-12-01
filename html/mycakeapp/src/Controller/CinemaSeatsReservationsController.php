@@ -126,11 +126,12 @@ class CinemaSeatsReservationsController extends CinemaBaseController
                     $session->write(['schedule' => $schedule, 'seat_id' => $seats['id']]);
                 }
             }
-        }
+        } else {
 
-        //不正なアクセスがあった場合
-        return $this->redirect([
-            'controller' => 'CinemaSchedules', 'action' => 'index'
-        ]);
+            //不正なアクセスがあった場合
+            return $this->redirect([
+                'controller' => 'CinemaSchedules', 'action' => 'index'
+            ]);
+        }
     }
 }
