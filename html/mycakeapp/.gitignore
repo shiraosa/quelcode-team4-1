@@ -5,6 +5,10 @@
 /logs/*
 /tmp/*
 /vendor/*
+# phpDocumentorの本体ファイル
+!/vendor/bin
+/vendor/bin/*
+!/vendor/bin/phpDocumentor.phar
 
 # OS generated files #
 ######################
