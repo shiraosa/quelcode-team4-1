@@ -69,7 +69,10 @@ body {
 .innerContent .usePoint {
     width: 60px;
     padding: 8px 0;
+}
+.innerContent .red {
     color: #F46161;
+
 }
 .innerContent .month {
     display: block;
