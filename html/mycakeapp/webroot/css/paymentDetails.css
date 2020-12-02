@@ -77,7 +77,7 @@ body {
     height: 48px;
     margin: 0 8px;
     font-size: 16px;
-    line-height: 48px;
+    line-height: 47px;
 }
 
 .creditcard {
@@ -182,4 +182,9 @@ body {
 .innerWindow .error-message {
     color: #F46161;
     font: normal normal 600 11px/15px sans-serif;
+}
+
+.innerWindow .pointTitle {
+    display: flex;
+    justify-content: space-between;
 }

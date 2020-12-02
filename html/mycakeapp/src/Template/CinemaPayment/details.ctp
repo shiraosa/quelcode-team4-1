@@ -24,7 +24,7 @@ $this->Html->css('paymentDetails', ['block' => true]);
                     </tr>
                 <?php endif; ?>
                 <tr class="totalPayment">
-                    <th>小計</th>
+                    <th>合計</th>
                     <td><?= '￥' . $totalPayment ?></td>
                 </tr>
             </table>
