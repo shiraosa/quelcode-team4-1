@@ -42,11 +42,6 @@ body {
     line-height: 48px;
 }
 
-.oneLine {
-    display: flex;
-    justify-content: center;
-}
-
 .innerContent p {
     display: flex;
     justify-content: space-between;
@@ -61,6 +56,20 @@ body {
 }
 .havePoint {
     font-weight: 600;
+}
+.innerContent .explanation {
+    padding-top: 20px;
+}
+.innerContent .getDay {
+    width: 100px;
+}
+.innerContent span {
+    padding: 8px 10px;
+}
+.innerContent .usePoint {
+    width: 60px;
+    padding: 8px 0;
+    color: #F46161;
 }
 .innerContent .month {
     display: block;
