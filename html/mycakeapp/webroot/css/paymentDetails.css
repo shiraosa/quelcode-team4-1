@@ -146,6 +146,7 @@ body {
 
 .details {
     width: 368px;
+    border-collapse: collapse;
 }
 .details tr {
     padding-bottom: 16px;
