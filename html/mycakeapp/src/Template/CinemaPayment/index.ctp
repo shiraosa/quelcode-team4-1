@@ -29,7 +29,8 @@ $this->Html->css('paymentDetails', ['block' => true]);
                 <?php endif; ?>
             </div>
             <div class="oneLine">
-                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">キャンセル</a>
+                <!-- コンフリクト用 -->
+                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">もどる</a>
                 <?= $this->Form->button('決定', ['class' => 'submit button']) ?>
             </div>
         </div>
