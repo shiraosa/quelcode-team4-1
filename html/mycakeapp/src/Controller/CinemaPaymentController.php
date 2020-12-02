@@ -98,13 +98,11 @@ class CinemaPaymentController extends CinemaBaseController
             $discount = $this->DiscountTypes->get($session->read('discountTypeId'));
             $discount['type'] = $discount->discount_type;
 
-            if (0 < $discount->discount_price) {
-                // 一定額になる割引の場合の処理（雨の日、複数人など）
-                // $discountPrice =
-            } else {
-                $discount['price'] = abs($discount->discount_price);
-                $totalPayment = $basicRatePrice + $discount->discount_price;
-            }
+
+            // コンフリクトしましたか？
+
+            $discount['price'] = abs($discount->discount_price);
+            $totalPayment = $basicRatePrice + $discount->discount_price;
         } else {
             $totalPayment = $basicRatePrice;
         }
