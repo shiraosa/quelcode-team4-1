@@ -33,6 +33,14 @@
             <td><?= $this->Number->format($seat->id) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Created') ?></th>
+            <td><?= h($seat->created) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Modified') ?></th>
+            <td><?= h($seat->modified) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Is Deleted') ?></th>
             <td><?= $seat->is_deleted ? __('Yes') : __('No'); ?></td>
         </tr>
