@@ -18,6 +18,7 @@
 <h2 class="innerHeading-date">
     <?= array_key_first($days[$nowYmd] ?? array_values($days)[0]) ?>
 </h2>
+<!-- ぴえんヶ丘どすこい之助 -->
 <p class="no-schedules"><?= empty($movies) ? 'スケジュールがありません' : '' ?></p>
 <?php foreach ($movies as $value) : ?>
     <ul class="schedules">
