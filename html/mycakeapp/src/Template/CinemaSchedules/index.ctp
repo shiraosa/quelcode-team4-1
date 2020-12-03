@@ -1,5 +1,17 @@
-<?php $this->Html->css('cinema_schedules.css', ['block' => true]) ?>
+<?= $this->Html->css('cinema_schedules.css', ['block' => true]) ?>
 <?= $this->Flash->render() ?>
+<?= $this->Html->meta(['link' => 'https://unpkg.com/swiper/swiper-bundle.min.css', 'rel' => 'stylesheet', 'block' => true]) ?>
+<?= $this->Html->script('https://unpkg.com/swiper/swiper-bundle.min.js', ['block' => true]) ?>
+<h2 class="innerHeading">上映スケジュール</h2>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
 <h2 class="innerHeading">上映スケジュール</h2>
 <ul class="days">
     <?php foreach ($days as $date => $schedule) : ?>
@@ -46,3 +58,4 @@
     </ul>
 <?php endforeach; ?>
 </div>
+<?= $this->Html->script('scheduleSwipe') ?>

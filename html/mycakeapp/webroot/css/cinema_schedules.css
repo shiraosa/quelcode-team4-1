@@ -131,3 +131,8 @@ body {
     font: normal normal bold 23px/32px Noto Sans;
     letter-spacing: 1.84px;
 }
+
+.swiper-container {
+    width: 1088px;
+    height: 80px;
+}
