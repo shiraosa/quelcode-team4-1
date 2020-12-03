@@ -32,7 +32,7 @@ $this->Html->css('paymentDetails', ['block' => true]);
                 <?php endif; ?>
             </div>
             <div class="oneLine">
-                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">キャンセル</a>
+                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">戻る</a>
                 <?= $this->Form->button('決定', ['class' => 'submit button']) ?>
             </div>
         </div>
