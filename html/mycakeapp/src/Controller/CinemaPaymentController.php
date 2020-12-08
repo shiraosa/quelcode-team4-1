@@ -117,7 +117,15 @@ class CinemaPaymentController extends CinemaBaseController
             $discount['type'] = $discount->discount_type;
             $discount['price'] = abs($discount->discount_price);
 
+<<<<<<< HEAD
             $totalPayment = $price + $discount->discount_price;
+=======
+
+            // コンフリクトしましたか？
+
+            $discount['price'] = abs($discount->discount_price);
+            $totalPayment = $basicRatePrice + $discount->discount_price;
+>>>>>>> 9bc3af90d09a998f4e3ca16f1468904bfe4d0770
         } else {
             $totalPayment = $price;
         }
