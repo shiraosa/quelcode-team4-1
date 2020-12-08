@@ -14,7 +14,10 @@ $this->Html->css('paymentDetails', ['block' => true]);
                     <p class="cardDetails"><?= $cardBrand . ' ' . $cardNumLast4 . ' ' . '有効期限' . $cardDate ?></p>
                 </div>
             </div>
-            <p>ご利用ポイント</p>
+            <p class="oneLine pointTitle">
+                <span>ご利用ポイント</span>
+                <span>ご利用可能ポイント <?= $point['have'] ?>pt</span>
+            </p>
             <p class="error-message"><?= isset($errors['usePoint']) ? array_pop($errors['usePoint']) : '' ?></p>
             <?= $this->Form->create() ?>
             <div class="point oneLine">
@@ -29,7 +32,7 @@ $this->Html->css('paymentDetails', ['block' => true]);
                 <?php endif; ?>
             </div>
             <div class="oneLine">
-                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">キャンセル</a>
+                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">戻る</a>
                 <?= $this->Form->button('決定', ['class' => 'submit button']) ?>
             </div>
         </div>
