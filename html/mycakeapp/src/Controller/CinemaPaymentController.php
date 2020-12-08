@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Chronos\Chronos;
 use Cake\I18n\Time;
 use Cake\Validation\Validator;
 
@@ -91,22 +92,34 @@ class CinemaPaymentController extends CinemaBaseController
         $basicRate = $this->BasicRates->get($session->read('profile')['type']);
         $basicRatePrice = $basicRate->basic_rate;
 
+        $price = $session->read('price');
+
+        // 雨の日割引など特殊な割引の判定
+        $schedule = $session->read('schedule');
+        $day = $schedule['start_datetime'];
+        $now = Chronos::now();
+        $now = $now->format("Y-m-d");
+        $date = $day->format("Y-m-d");
+        $specialDiscount = [];
+        if ($basicRatePrice > $price) {
+            if ($session->read('todayWeather') == 'Rain' && $date == $now) {
+                $specialDiscount = $this->DiscountTypes->get(4);
+                $specialDiscount['type'] = $specialDiscount->discount_type;
+                $specialDiscount['discount_details'] = $specialDiscount->discount_details;
+            }
+        }
+
         $discount = [];
 
         if ($session->read('discountTypeId')) {
 
             $discount = $this->DiscountTypes->get($session->read('discountTypeId'));
             $discount['type'] = $discount->discount_type;
+            $discount['price'] = abs($discount->discount_price);
 
-            if (0 < $discount->discount_price) {
-                // 一定額になる割引の場合の処理（雨の日、複数人など）
-                // $discountPrice =
-            } else {
-                $discount['price'] = abs($discount->discount_price);
-                $totalPayment = $basicRatePrice + $discount->discount_price;
-            }
+            $totalPayment = $price + $discount->discount_price;
         } else {
-            $totalPayment = $basicRatePrice;
+            $totalPayment = $price;
         }
 
         // ポイントタイプで全部使うを選択して、保有ポイントが支払金額よりも多い場合の処理
@@ -117,7 +130,7 @@ class CinemaPaymentController extends CinemaBaseController
         $totalPayment -= $point['use'];
         $session->write(['totalPayment' => $totalPayment]);
 
-        $this->set(compact('basicRatePrice', 'point', 'discount', 'totalPayment'));
+        $this->set(compact('price', 'point', 'discount', 'specialDiscount', 'totalPayment'));
     }
 
 

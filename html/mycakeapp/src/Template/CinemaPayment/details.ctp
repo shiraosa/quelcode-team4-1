@@ -9,12 +9,18 @@ $this->Html->css('paymentDetails', ['block' => true]);
             <table class="details">
                 <tr class="ticketFeeTr">
                     <th>チケット金額</th>
-                    <td><?= '￥' . $basicRatePrice ?></td>
+                    <td><?= '￥' . $price ?></td>
                 </tr>
                 <?php if (!($point['use'] === 0)) : ?>
                     <tr class="orange">
                         <th>ご利用ポイント</th>
                         <td><?= $point['use'] . 'pt' ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if (!empty($specialDiscount)) : ?>
+                    <tr class="orange">
+                        <th><?= $specialDiscount['type'] ?></th>
+                        <td class="special-details"><?= $specialDiscount['discount_details'] ?></td>
                     </tr>
                 <?php endif; ?>
                 <?php if (!empty($discount)) : ?>

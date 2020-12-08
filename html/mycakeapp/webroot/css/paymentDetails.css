@@ -171,6 +171,9 @@ body {
 .orange td {
     font-weight: 600;
 }
+.orange .special-details{
+    font: normal normal 600 13px sans-serif;
+}
 .totalPayment th, .totalPayment td {
     padding-top: 19px;
     padding-bottom: 54px;
