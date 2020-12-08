@@ -68,14 +68,28 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $profile = $session->read('profile');
         $schedule = $session->read('schedule');
 
+
+
         // 基本料金を取得する
         $price = $this->BasicRates->get($profile['type'])['basic_rate'];
+
 
         // 割引種類を取得して計算する
         $day = $schedule['start_datetime'];
         $born = Chronos::createFromDate($profile['year'], $profile['month'], $profile['day'])->startOfDay();
         $current = Chronos::parse($schedule['start_datetime']);
         $age = $born->diffInYears($current);
+
+        // 雨の日割引の判定
+        $now = Chronos::now();
+        $now = $now->format("Y-m-d");
+        $date = $day->format("Y-m-d");
+        if ($session->read('todayWeather') == 'Rain' && $date == $now && $profile['type'] == 1 || $profile['type'] == 2 || $profile['type'] == 3) {
+            $rainyDiscount = '雨の日割引';
+            $price = 1000;
+        } else {
+            $rainyDiscount = null;
+        }
 
         if ($day->day === 1) {
             $discountType = 'ファーストデイ割引';
@@ -103,7 +117,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
 
         $price = '&yen;' . number_format($price);
 
-        $this->set(compact('schedule', 'price', 'discountType'));
+        $this->set(compact('schedule', 'price', 'discountType', 'rainyDiscount'));
     }
 
     public function cancel()
