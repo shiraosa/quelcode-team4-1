@@ -68,8 +68,6 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $profile = $session->read('profile');
         $schedule = $session->read('schedule');
 
-
-
         // 基本料金を取得する
         $price = $this->BasicRates->get($profile['type'])['basic_rate'];
 
@@ -123,8 +121,10 @@ class CinemaReservationConfirmingController extends CinemaBaseController
     public function cancel()
     {
         $session = $this->request->getSession();
+        $schedule = $session->read('schedule');
+        $schedule_id = $schedule['id'];
         $this->BaseFunction->deleteSessionReservation($session);
-        return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
+        return $this->redirect(['controller' => 'CinemaSeatsReservations', 'action' => 'index', $schedule_id]);
     }
 
     private function __validateProfile($data)
