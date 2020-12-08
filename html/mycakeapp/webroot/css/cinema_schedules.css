@@ -1,7 +1,8 @@
 .days {
     display: flex;
     justify-content: space-between;
-    height: 80px;
+    min-height: 80px;
+    max-height: 105px;
     margin: 0 0 25px;
 }
 
