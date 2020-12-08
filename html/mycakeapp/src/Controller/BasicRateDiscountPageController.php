@@ -11,14 +11,17 @@ class BasicRateDiscountPageController extends CinemaBaseController
 {
     public function initialize()
     {
-        // baseControllerで読み込んでたら削除
         parent::initialize();
         $this->loadModel('Basic_rates');
         $this->loadModel('Discount_types');
+        $this->loadComponent('BaseFunction');
     }
 
     public function index()
     {
+        $session = $this->request->getSession();
+        $this->BaseFunction->deleteSessionReservation($session);
+        
         // Basic_ratesテーブルから種類と基本料金を取得
         $rateInfos = $this->Basic_rates->find('all', [
             'conditions' => ['AND' => [['is_deleted' => 0], ['start_date <=' => Time::now()]]],

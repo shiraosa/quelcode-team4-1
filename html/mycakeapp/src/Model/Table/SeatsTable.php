@@ -20,6 +20,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Seat patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Seat[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Seat findOrCreate($search, callable $callback = null, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class SeatsTable extends Table
 {
@@ -36,6 +38,8 @@ class SeatsTable extends Table
         $this->setTable('seats');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Schedules', [
             'foreignKey' => 'schedule_id',

@@ -12,8 +12,17 @@ $this->Html->css('point', ['block' => true])
                 <p class="month">一ヶ月以内に獲得したポイントはありません。</p>
             <?php else : ?>
 
+                <p class="explanation"><span class="getDay">獲得日</span><span>獲得pt</span><span>使用可能pt</span></p>
                 <?php foreach ($point['info'] as $info) : ?>
-                    <p class="getPoint"><span class="left"><?= date("Y/m/d", strtotime($info->created)) ?></span><span class="right"><?= $info->get_point ?>pt</span></p>
+                    <p class="getPoint">
+                        <span class="left"><?= date("Y/m/d", strtotime($info->created)) ?></span>
+                        <span class="right"><?= $info->get_point ?>pt</span>
+                        <?php if ($info->get_point === $info->use_point) : ?>
+                            <span class="usePoint red">0pt</span>
+                        <?php else : ?>
+                            <span class="usePoint"><?= $info->get_point - $info->use_point ?>pt</span>
+                        <?php endif; ?>
+                    </p>
                 <?php endforeach; ?>
 
                 <p class="month">過去１ヶ月に獲得した<br>ポイントを表示しています。</p>

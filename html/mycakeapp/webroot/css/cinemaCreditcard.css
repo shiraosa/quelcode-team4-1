@@ -79,7 +79,7 @@ label {
 }
 
 .error-message {
-    color: red;
+    color: #F46161;
     font: normal 10px sans-serif;
     text-align: left;
 }
