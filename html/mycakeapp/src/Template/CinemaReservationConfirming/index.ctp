@@ -47,12 +47,7 @@
         </div>
     </fieldset>
     <div class="buttons">
-<<<<<<< HEAD
         <?= $this->Html->link('戻る', ['controller' => $this->request->getParam('controller'), 'action' => 'cancel'], ['class' => 'cancel']); ?>
-=======
-        <!-- コンフリクト用 -->
-        <?= $this->Html->link('もどる', ['controller' => $this->request->getParam('controller'), 'action' => 'cancel'], ['class' => 'cancel']); ?>
->>>>>>> 9bc3af90d09a998f4e3ca16f1468904bfe4d0770
         <?= $this->Form->button('決定', ['class' => 'submit']) ?>
         <?= $this->Form->end() ?>
     </div>
