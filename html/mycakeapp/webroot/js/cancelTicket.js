@@ -4,7 +4,6 @@ $('.takeId').on('click', function () {
     cancelTicket = $(this).data('id');
 
     $('#delete').on('click', function () {
-        // console.log(cancelTicket);
-        $('#delete').attr("href", "ReservationDetails/delete?id=" + cancelTicket)
+        $('#delete').attr("href", "deleteReservation?id=" + cancelTicket)
     });
 })

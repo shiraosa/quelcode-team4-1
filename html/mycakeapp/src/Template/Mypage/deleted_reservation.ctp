@@ -6,6 +6,6 @@ $this->Html->css('reservationDetails', ['block' => true])
     <h2 class="innerHeading">予約詳細</h2>
     <div class="innerWindow">
         <p class="completed">予約をキャンセルしました。</p>
-        <a class="button bigBtn" href="<?= $this->Url->build(['controller' => 'Mypage']) ?>">マイページへ戻る</a>
+        <a class="button bigBtn" href="<?= $this->Url->build(['action' => 'index']) ?>">マイページへ戻る</a>
     </div>
 </div>

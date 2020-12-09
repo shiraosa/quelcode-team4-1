@@ -31,7 +31,7 @@ $this->Html->css('mypage', ['block' => true]);
             </tr>
             <tr>
                 <th class="tableFont">予約確認</th>
-                <td><a href="<?= $this->Url->build(['controller' => 'ReservationDetails']) ?>" class="miniBtn button">詳細</a></td>
+                <td><a href="<?= $this->Url->build(['action' => 'checkReservation']) ?>" class="miniBtn button">詳細</a></td>
             </tr>
             <?php if (0 === $cardNumLast4) : ?>
                 <tr>
