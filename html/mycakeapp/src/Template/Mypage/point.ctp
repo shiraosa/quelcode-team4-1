@@ -28,7 +28,7 @@ $this->Html->css('point', ['block' => true])
                 <p class="month">過去１ヶ月に獲得した<br>ポイントを表示しています。</p>
 
             <?php endif; ?>
-            <a class="button bigBtn" href="<?= $this->Url->build(['controller' => 'Mypage']) ?>">戻る</a>
+            <a class="button bigBtn" href="<?= $this->Url->build(['action' => 'index']) ?>">戻る</a>
         </div>
     </div>
 </div>

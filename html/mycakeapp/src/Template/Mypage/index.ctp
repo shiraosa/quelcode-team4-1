@@ -26,7 +26,7 @@ $this->Html->css('mypage', ['block' => true]);
                 <th class="tableFont">ポイント</th>
                 <td class="tableFont">
                     <span class="userUnique"><?= $point['havePoint'] . 'pt' ?></span>
-                    <a href="<?= $this->Url->build(['controller' => 'CinemaPoint', 'action' => 'index']) ?>" class="miniBtn button">詳細</a>
+                    <a href="<?= $this->Url->build(['action' => 'point']) ?>" class="miniBtn button">詳細</a>
                 </td>
             </tr>
             <tr>

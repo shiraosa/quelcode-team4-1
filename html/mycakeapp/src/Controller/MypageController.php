@@ -62,6 +62,14 @@ class MypageController extends CinemaBaseController
         $this->set(compact('cardNumLast4', 'point', 'haveReservation'));
     }
 
+    // ポイント獲得履歴
+    public function point()
+    {
+        $point = $this->BaseFunction->pointInfo($this->Auth->user('id'));
+
+        $this->set(compact('point'));
+    }
+
     // アカウント削除
     public function delete()
     {
