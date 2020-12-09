@@ -125,6 +125,7 @@ class CinemaPaymentController extends CinemaBaseController
         // ポイントタイプで全部使うを選択して、保有ポイントが支払金額よりも多い場合の処理
         if ($totalPayment < $point['use']) {
             $point['use'] = $totalPayment;
+            $session->write(['point' => $point]);
         }
 
         $totalPayment -= $point['use'];
