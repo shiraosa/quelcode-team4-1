@@ -11,8 +11,6 @@ class CinemaPointController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Points');
-        $this->loadComponent('BaseFunction');
     }
 
     // ポイント獲得履歴

@@ -12,12 +12,6 @@ class CinemaSeatsReservationsController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Schedules');
-        $this->loadModel('Seats');
-        $this->loadModel('Movies');
-        $this->loadModel('Reservations');
-        $this->viewBuilder()->setLayout('quel_cinemas');
-        $this->loadComponent('Days');
     }
 
     public function index($scheduleId = null)
@@ -37,7 +31,7 @@ class CinemaSeatsReservationsController extends CinemaBaseController
 
         // scheduleにまとめる
         $start = $schedule['start_datetime'];
-        $schedule['start'] = $this->Days->__getDayOfTheWeek($start) . $start->format('H:i');
+        $schedule['start'] = $this->BaseFunction->__getDayOfTheWeek($start) . $start->format('H:i');
         $end = $schedule['end_datetime'];
         $schedule['end'] = $end->format('H:i');
 

@@ -23,13 +23,8 @@ class CinemaBaseController extends AppController
     {
         parent::initialize();
 
-        $this->loadComponent('RequestHandler', [
-            'enableBeforeRedirect' => false,
-        ]);
         // レイアウトの変更.
         $this->viewBuilder()->setLayout('quel_cinemas');
-
-        $this->loadComponent('Flash');
 
         $this->loadComponent('Auth', [
             'authenticate' => [
@@ -62,6 +57,20 @@ class CinemaBaseController extends AppController
             'unauthorizedRedirect' => $this->referer()
         ]);
         $this->set('auth', $this->Auth->user());
+
+        $this->loadModel('BasicRates');
+        $this->loadModel('Creditcards');
+        $this->loadModel('DiscountLogs');
+        $this->loadModel('DiscountTypes');
+        $this->loadModel('Movies');
+        $this->loadModel('Payments');
+        $this->loadModel('Points');
+        $this->loadModel('Reservations');
+        $this->loadModel('Schedules');
+        $this->loadModel('Seats');
+        $this->loadModel('Taxes');
+        $this->loadModel('Users');
+        $this->loadComponent('BaseFunction');
     }
 
     public function logout()

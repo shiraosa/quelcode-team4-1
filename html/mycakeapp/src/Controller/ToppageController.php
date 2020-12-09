@@ -12,7 +12,6 @@ class ToppageController extends CinemabaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('BaseFunction');
     }
 
     public function index()
@@ -20,7 +19,7 @@ class ToppageController extends CinemabaseController
 
         $session = $this->request->getSession();
         $this->BaseFunction->deleteSessionReservation($session);
-        
+
         // 上映映画画像をDBより取得
         $moviesTable = TableRegistry::getTableLocator()->get('Movies');
         $todayDate = date('Y-m-d');

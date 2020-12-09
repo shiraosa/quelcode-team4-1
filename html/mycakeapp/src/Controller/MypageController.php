@@ -11,10 +11,6 @@ class MypageController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Creditcards');
-        $this->loadModel('Users');
-        $this->loadModel('Reservations');
-        $this->loadComponent('BaseFunction');
     }
 
     public function index()

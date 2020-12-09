@@ -9,6 +9,23 @@ use Cake\I18n\Time;
 class BaseFunctionComponent extends Component
 {
     /**
+     * dateObjectをstrに変換する
+     *
+     * m月d日(曜日)を出力する
+     *
+     * @param obj $day
+     * @return str $day
+     */
+    public function __getDayOfTheWeek($day)
+    {
+        $weekday = ['日', '月', '火', '水', '木', '金', '土'];
+        $w = $weekday[$day->format('w')];
+        $day = $day->format("m月d日($w)");
+
+        return $day;
+    }
+    
+    /**
      * Undocumented function
      * 一連の予約処理で使われる各セッションの削除
      *

@@ -10,14 +10,6 @@ class ReservationDetailsController extends CinemabaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Reservations');
-        $this->loadModel('Seats');
-        $this->loadModel('Movies');
-        $this->loadModel('DiscountLogs');
-        $this->loadModel('DiscountTypes');
-        $this->loadModel('Schedules');
-        $this->loadModel('Payments');
-        $this->loadComponent('Days');
     }
 
     public function index()
@@ -38,7 +30,7 @@ class ReservationDetailsController extends CinemabaseController
             $tickets[$i]['id'] = $reservation['id'];
             $tickets[$i]['thumbnail_path'] = $reservation['movie']['thumbnail_path'];
             $tickets[$i]['title'] = $reservation['movie']['title'];
-            $tickets[$i]['start_date'] = $this->Days->__getDayOfTheWeek($reservation['schedule']['start_datetime']);
+            $tickets[$i]['start_date'] = $this->BaseFunction->__getDayOfTheWeek($reservation['schedule']['start_datetime']);
             $tickets[$i]['start_time'] = $reservation['schedule']['start_datetime']->format('H:i');
             $tickets[$i]['end_time'] = $reservation['schedule']['end_datetime']->format('H:i');
             $tickets[$i]['seat'] = $reservation['seat']['seat_number'];
