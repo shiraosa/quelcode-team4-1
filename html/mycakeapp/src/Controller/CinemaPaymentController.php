@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Chronos\Chronos;
 use Cake\I18n\Time;
 use Cake\Validation\Validator;
 
@@ -81,7 +82,6 @@ class CinemaPaymentController extends CinemaBaseController
         $session = $this->request->getSession();
 
         if (!($session->check('point'))) {
-
             $this->BaseFunction->deleteSessionReservation($session);
             return $this->redirect(['controller' => 'CinemaSchedules']);
         }
@@ -91,33 +91,34 @@ class CinemaPaymentController extends CinemaBaseController
         $basicRate = $this->BasicRates->get($session->read('profile')['type']);
         $basicRatePrice = $basicRate->basic_rate;
 
+        $totalPayment = $session->read('price');
+
         $discount = [];
+        $specialDiscount = [];
 
         if ($session->read('discountTypeId')) {
-
-            $discount = $this->DiscountTypes->get($session->read('discountTypeId'));
-            $discount['type'] = $discount->discount_type;
-
-            if (0 < $discount->discount_price) {
-                // 一定額になる割引の場合の処理（雨の日、複数人など）
-                // $discountPrice =
+            $discountType = $this->DiscountTypes->get($session->read('discountTypeId'));
+            //特殊な割引は基本料金を上書きしてdiscount_detailsを表示する
+            if (0 <= $discountType->discount_price) {
+                $specialDiscount['type'] = $discountType->discount_type;
+                $specialDiscount['discount_details'] = $discountType->discount_details;
+                $basicRatePrice = $discountType->discount_price;
             } else {
-                $discount['price'] = abs($discount->discount_price);
-                $totalPayment = $basicRatePrice + $discount->discount_price;
+                $discount['type'] = $discountType->discount_type;
+                $discount['price'] = abs($discountType->discount_price);
             }
-        } else {
-            $totalPayment = $basicRatePrice;
         }
 
         // ポイントタイプで全部使うを選択して、保有ポイントが支払金額よりも多い場合の処理
         if ($totalPayment < $point['use']) {
             $point['use'] = $totalPayment;
+            $session->write(['point' => $point]);
         }
 
         $totalPayment -= $point['use'];
         $session->write(['totalPayment' => $totalPayment]);
 
-        $this->set(compact('basicRatePrice', 'point', 'discount', 'totalPayment'));
+        $this->set(compact('basicRatePrice', 'point', 'discount', 'specialDiscount', 'totalPayment'));
     }
 
 
