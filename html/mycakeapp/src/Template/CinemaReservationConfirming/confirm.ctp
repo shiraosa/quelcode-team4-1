@@ -10,7 +10,6 @@
             <p class="seat">座席：<?= $schedule['seatNo'] ?></p>
             <p class="price"><?= $price ?></p>
             <p class="discount"><?= $discountType ?></p>
-            <p class="discount"><?= $rainyDiscount ?></p>
         </div>
         <div class="buttons">
             <?= $this->Html->link('戻る', ['controller' => $this->request->getParam('controller'), 'action' => 'index'], ['class' => 'cancel']); ?>
