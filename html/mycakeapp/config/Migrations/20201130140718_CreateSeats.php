@@ -27,6 +27,14 @@ class CreateSeats extends AbstractMigration
             'default' => 0,
             'null' => false,
         ]);
+        $table->addColumn('created', 'datetime', [
+            'default' => null,
+            'null' => false,
+        ]);
+        $table->addColumn('modified', 'datetime', [
+            'default' => null,
+            'null' => false,
+        ]);
         $table->create();
     }
 }

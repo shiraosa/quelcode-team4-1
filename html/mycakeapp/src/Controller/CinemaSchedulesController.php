@@ -14,6 +14,7 @@ class CinemaSchedulesController extends CinemaBaseController
         parent::initialize();
         $this->loadModel('Schedules');
         $this->viewBuilder()->setLayout('quel_cinemas');
+        $this->loadComponent('BaseFunction');
     }
 
     public function beforeFilter(Event $event)
@@ -23,6 +24,10 @@ class CinemaSchedulesController extends CinemaBaseController
 
     public function index()
     {
+
+        $session = $this->request->getSession();
+        $this->BaseFunction->deleteSessionReservation($session);
+
         // 日付の取得
         $now = Chronos::now();
         $length = 7;

@@ -23,6 +23,8 @@
                 <th scope="col"><?= $this->Paginator->sort('schedule_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('seat_number') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('is_deleted') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -33,6 +35,8 @@
                 <td><?= $seat->has('schedule') ? $this->Html->link($seat->schedule->id, ['controller' => 'Schedules', 'action' => 'view', $seat->schedule->id]) : '' ?></td>
                 <td><?= h($seat->seat_number) ?></td>
                 <td><?= h($seat->is_deleted) ?></td>
+                <td><?= h($seat->created) ?></td>
+                <td><?= h($seat->modified) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $seat->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $seat->id]) ?>

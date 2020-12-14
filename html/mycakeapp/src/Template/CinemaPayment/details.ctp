@@ -24,12 +24,12 @@ $this->Html->css('paymentDetails', ['block' => true]);
                     </tr>
                 <?php endif; ?>
                 <tr class="totalPayment">
-                    <th>小計</th>
+                    <th>合計</th>
                     <td><?= '￥' . $totalPayment ?></td>
                 </tr>
             </table>
             <div class="oneLine">
-                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">キャンセル</a>
+                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">戻る</a>
                 <a class="button submit" href="<?= $this->Url->build(['action' => 'save']) ?>">決済</a>
             </div>
         </div>

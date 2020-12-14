@@ -20,6 +20,7 @@ class CinemaPointController extends CinemaBaseController
     {
         $point = $this->BaseFunction->pointInfo($this->Auth->user('id'));
 
+        // dd($point);
         $this->set(compact('point'));
     }
 }

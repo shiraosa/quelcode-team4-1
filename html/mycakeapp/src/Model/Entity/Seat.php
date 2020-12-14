@@ -10,6 +10,8 @@ use Cake\ORM\Entity;
  * @property int $schedule_id
  * @property string $seat_number
  * @property bool $is_deleted
+ * @property \Cake\I18n\Time $created
+ * @property \Cake\I18n\Time $modified
  *
  * @property \App\Model\Entity\Schedule $schedule
  * @property \App\Model\Entity\Reservation[] $reservations
@@ -29,6 +31,8 @@ class Seat extends Entity
         'schedule_id' => true,
         'seat_number' => true,
         'is_deleted' => true,
+        'created' => true,
+        'modified' => true,
         'schedule' => true,
         'reservations' => true,
     ];
