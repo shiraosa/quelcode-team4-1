@@ -82,7 +82,6 @@ class CinemaPaymentController extends CinemaBaseController
         $session = $this->request->getSession();
 
         if (!($session->check('point'))) {
-
             $this->BaseFunction->deleteSessionReservation($session);
             return $this->redirect(['controller' => 'CinemaSchedules']);
         }
@@ -92,34 +91,22 @@ class CinemaPaymentController extends CinemaBaseController
         $basicRate = $this->BasicRates->get($session->read('profile')['type']);
         $basicRatePrice = $basicRate->basic_rate;
 
-        $price = $session->read('price');
-
-        // 雨の日割引など特殊な割引の判定
-        $schedule = $session->read('schedule');
-        $day = $schedule['start_datetime'];
-        $now = Chronos::now();
-        $now = $now->format("Y-m-d");
-        $date = $day->format("Y-m-d");
-        $specialDiscount = [];
-        if ($basicRatePrice > $price) {
-            if ($session->read('todayWeather') == 'Rain' && $date == $now) {
-                $specialDiscount = $this->DiscountTypes->get(4);
-                $specialDiscount['type'] = $specialDiscount->discount_type;
-                $specialDiscount['discount_details'] = $specialDiscount->discount_details;
-            }
-        }
+        $totalPayment = $session->read('price');
 
         $discount = [];
+        $specialDiscount = [];
 
         if ($session->read('discountTypeId')) {
-
-            $discount = $this->DiscountTypes->get($session->read('discountTypeId'));
-            $discount['type'] = $discount->discount_type;
-            $discount['price'] = abs($discount->discount_price);
-
-            $totalPayment = $price + $discount->discount_price;
-        } else {
-            $totalPayment = $price;
+            $discountType = $this->DiscountTypes->get($session->read('discountTypeId'));
+            //特殊な割引は基本料金を上書きしてdiscount_detailsを表示する
+            if (0 <= $discountType->discount_price) {
+                $specialDiscount['type'] = $discountType->discount_type;
+                $specialDiscount['discount_details'] = $discountType->discount_details;
+                $basicRatePrice = $discountType->discount_price;
+            } else {
+                $discount['type'] = $discountType->discount_type;
+                $discount['price'] = abs($discountType->discount_price);
+            }
         }
 
         // ポイントタイプで全部使うを選択して、保有ポイントが支払金額よりも多い場合の処理
@@ -131,7 +118,7 @@ class CinemaPaymentController extends CinemaBaseController
         $totalPayment -= $point['use'];
         $session->write(['totalPayment' => $totalPayment]);
 
-        $this->set(compact('price', 'point', 'discount', 'specialDiscount', 'totalPayment'));
+        $this->set(compact('basicRatePrice', 'point', 'discount', 'specialDiscount', 'totalPayment'));
     }
 
 

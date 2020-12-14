@@ -9,7 +9,7 @@ $this->Html->css('paymentDetails', ['block' => true]);
             <table class="details">
                 <tr class="ticketFeeTr">
                     <th>チケット金額</th>
-                    <td><?= '￥' . $price ?></td>
+                    <td><?= '￥' . $basicRatePrice ?></td>
                 </tr>
                 <?php if (!($point['use'] === 0)) : ?>
                     <tr class="orange">
