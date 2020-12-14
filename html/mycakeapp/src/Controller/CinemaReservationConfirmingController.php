@@ -80,8 +80,10 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $age = $born->diffInYears($current);
 
         if ($day->day === 1) {
+            //ファーストデイ割引
             $discountTypeId = 3;
         } elseif ($day->isWednesday() && (($profile['sex'] === 'female') || ($age <= 15) || ($age >= 70))) {
+            //女性子供シニア割引
             $discountTypeId = 2;
         } else {
             $discountTypeId = null;
