@@ -225,11 +225,17 @@ class CinemaPaymentController extends CinemaBaseController
     }
 
 
-    public function cancel()
+    public function cancelIndex()
     {
         $session = $this->request->getSession();
-        $this->BaseFunction->deleteSessionReservation($session);
-        $this->redirect(['controller' => 'CinemaSchedules']);
+        $session->delete('point');
+        $this->redirect(['controller' => 'CinemaReservationConfirming', 'action' => 'confirm']);
+    }
+    public function cancelDetails()
+    {
+        $session = $this->request->getSession();
+        $session->delete('totalPayment');
+        $this->redirect(['action' => 'index']);
     }
     public function completed()
     {
