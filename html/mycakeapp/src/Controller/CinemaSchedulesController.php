@@ -103,10 +103,29 @@ class CinemaSchedulesController extends CinemaBaseController
                 ?: (($day->day === 1) ? 'ファーストデイ割引' : '');
             $date = $day->format("Y-m-d");
             $schedule = $this->__getDayOfTheWeek($day);
-            $days[$date][$schedule] = $discountType;
+            //本日の天気情報を取得。東京はTokyo
+            if ($i === 0 && $this->__getRain('Tokyo')) {
+                $days[$date][$schedule] = $discountType . "雨の日割引";
+            } else {
+                $days[$date][$schedule] = $discountType;
+            }
             $day = $day->addDay();
         }
 
         return $days;
+    }
+
+    function __getRain($cityName)
+    {
+        $api_url = 'https://api.openweathermap.org/data/2.5/weather?q=' . $cityName . '&units=metric&appid=4b5774e9f3d2a07b84f0f2f88e486224';
+        $weather = json_decode(file_get_contents($api_url), true);
+        //雨をRain,ThunderStorm,Drizzleと定義。雪は適用外
+        if ($weather['weather'][0]['id'] >= 200 && $weather['weather'][0]['id'] <= 599) {
+            //雨ならセッションに保存
+            $session = $this->request->getSession();
+            $session->write(['todayWeather' => 'Rain']);
+
+            return true;
+        }
     }
 }

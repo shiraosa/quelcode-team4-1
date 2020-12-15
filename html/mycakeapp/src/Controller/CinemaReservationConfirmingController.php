@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Cake\Validation\Validator;
 use Cake\Chronos\Chronos;
+use Exception;
 
 class CinemaReservationConfirmingController extends CinemaBaseController
 {
@@ -71,6 +72,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         // 基本料金を取得する
         $price = $this->BasicRates->get($profile['type'])['basic_rate'];
 
+
         // 割引種類を取得して計算する
         $day = $schedule['start_datetime'];
         $born = Chronos::createFromDate($profile['year'], $profile['month'], $profile['day'])->startOfDay();
@@ -78,21 +80,39 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         $age = $born->diffInYears($current);
 
         if ($day->day === 1) {
-            $discountType = 'ファーストデイ割引';
+            //ファーストデイ割引
             $discountTypeId = 3;
         } elseif ($day->isWednesday() && (($profile['sex'] === 'female') || ($age <= 15) || ($age >= 70))) {
-            $discountType = '子供女性シニア割引';
+            //女性子供シニア割引
             $discountTypeId = 2;
         } else {
-            $discountType = null;
             $discountTypeId = null;
         }
-
-        $session->write(['discountTypeId' => $discountTypeId]);
 
         if (!is_null($discountTypeId)) {
             $price += $this->DiscountTypes->get($discountTypeId)['discount_price'];
         }
+
+        // 雨の日割引の判定
+        $now = Chronos::now();
+        $now = $now->format("Y-m-d");
+        $date = $day->format("Y-m-d");
+        if ($session->read('todayWeather') == 'Rain' && $date == $now) {
+            $rainyDiscount = $this->DiscountTypes->get(4);
+            if ($price > $rainyDiscount['discount_price']) {
+                $discountTypeId = 4;
+                $price = $rainyDiscount['discount_price'];
+            }
+        }
+
+        //discount_typeをdiscountTypeIdから取得
+        try {
+            $discountType = $this->DiscountTypes->get($discountTypeId)['discount_type'];
+        } catch (Exception $e) {
+            $discountType = null;
+        }
+
+        $session->write(['discountTypeId' => $discountTypeId]);
 
         // 決済方法へ遷移する
         if ($this->request->is('post')) {
@@ -109,8 +129,10 @@ class CinemaReservationConfirmingController extends CinemaBaseController
     public function cancel()
     {
         $session = $this->request->getSession();
+        $schedule = $session->read('schedule');
+        $schedule_id = $schedule['id'];
         $this->BaseFunction->deleteSessionReservation($session);
-        return $this->redirect(['controller' => 'CinemaSchedules', 'action' => 'index']);
+        return $this->redirect(['controller' => 'CinemaSeatsReservations', 'action' => 'index', $schedule_id]);
     }
 
     private function __validateProfile($data)
