@@ -46,9 +46,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <nav class="right-container">
                     <div class="menu-box">
                         <ul class="link-menu">
-                            <li><a href="/Toppage">トップ</a></li>
+                            <li><a href="/QuelCinemas">トップ</a></li>
                             <li><a href="/CinemaSchedules">上映スケジュール</a></li>
-                            <li><a href="/BasicRateDiscountPage">料金・割引</a></li>
+                            <li><a href="/QuelCinemas/price">料金・割引</a></li>
                         </ul>
                     </div>
                     <div class="log-box">
@@ -78,9 +78,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <nav>
                     <div>
                         <ul class="footer-right-container">
-                            <li><a href="/Toppage">トップ</a></li>
+                            <li><a href="/QuelCinemas">トップ</a></li>
                             <li><a href="/CinemaSchedules">上映スケジュール</a></li>
-                            <li><a href="/BasicRateDiscountPage">料金・割引</a></li>
+                            <li><a href="/QuelCinemas/price">料金・割引</a></li>
                         </ul>
                     </div>
                 </nav>
