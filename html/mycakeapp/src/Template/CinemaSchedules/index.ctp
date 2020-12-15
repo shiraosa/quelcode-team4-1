@@ -1,5 +1,4 @@
 <?php $this->Html->css('cinema_schedules.css', ['block' => true]) ?>
-<?= $this->Flash->render() ?>
 <h2 class="innerHeading">上映スケジュール</h2>
 <ul class="days">
     <?php foreach ($days as $date => $schedule) : ?>
