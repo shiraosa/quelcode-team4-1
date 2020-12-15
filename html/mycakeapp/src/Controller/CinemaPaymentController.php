@@ -164,7 +164,7 @@ class CinemaPaymentController extends CinemaBaseController
             $getPoint->payment_id = $payment->id;
             $getPoint->user_id = $this->Auth->user('id');
             // 10%のポイント加算
-            $getPoint->get_point = floor($payment->total_payment * 0.1);
+            $getPoint->get_point = intval(floor($payment->total_payment * 0.1));
 
             // usePoint
             $point = $session->read('point');
@@ -200,8 +200,12 @@ class CinemaPaymentController extends CinemaBaseController
                 }
             }
 
-            if ($this->Reservations->save($reservation) && $this->Points->save($getPoint)) {
+            if ($this->Reservations->save($reservation)) {
 
+                // 獲得ポイントが0のときは保存しない
+                if (!($getPoint->get_point === 0)) {
+                    $this->Points->save($getPoint);
+                }
 
                 // 割引情報を取得し保存
                 if ($session->check('discountTypeId')) {
@@ -214,17 +218,24 @@ class CinemaPaymentController extends CinemaBaseController
                     }
                 }
                 $this->Flash->success(__('The payment has been saved.'));
-                // $connection->commit();
                 return $this->redirect(['action' => 'completed']);
             }
         }
         $this->redirect(['action' => 'details']);
     }
-    public function cancel()
+
+
+    public function cancelIndex()
     {
         $session = $this->request->getSession();
-        $this->BaseFunction->deleteSessionReservation($session);
-        $this->redirect(['controller' => 'CinemaSchedules']);
+        $session->delete('point');
+        $this->redirect(['controller' => 'CinemaReservationConfirming', 'action' => 'confirm']);
+    }
+    public function cancelDetails()
+    {
+        $session = $this->request->getSession();
+        $session->delete('totalPayment');
+        $this->redirect(['action' => 'index']);
     }
     public function completed()
     {
