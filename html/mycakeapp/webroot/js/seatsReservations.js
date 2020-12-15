@@ -24,7 +24,9 @@ $(document).ready(function () {
                 // console.log(_selected);
             },
             selectionDone: function (_array) {
+                $('button').addClass('loading');
                 var csrf = $('input[name=_csrfToken]').val();
+                $('.layout-btn-done').prop('disabled', true);
                 $.ajax({
                     url: "/cinema-seats-reservations/done/" + scheduleId,
                     type: 'POST',
