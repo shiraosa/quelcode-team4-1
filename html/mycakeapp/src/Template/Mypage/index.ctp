@@ -12,7 +12,7 @@ $this->Html->css('mypage', ['block' => true]);
                 <a class="button deleteCancel" href="ReservationDetails">確認</a>
             <?php else : ?>
                 <button id="modalClose" class="button deleteCancel">戻る</button>
-                <a class="button delete" href="<?= $this->Url->build(['action' => 'delete']) ?>">削除</a>
+                <a class="button delete" href="<?= $this->Url->build(['action' => 'deleteAccount']) ?>">削除</a>
             <?php endif; ?>
         </div>
     </div>

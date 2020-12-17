@@ -49,7 +49,7 @@ class CinemaBaseController extends AppController
                 'action' => 'index'
             ],
             'logoutRedirect' => [
-                'controller' => 'Toppage',
+                'controller' => 'QuelCinemas',
                 'action' => 'index'
             ],
             'authorize' => ['Controller'],

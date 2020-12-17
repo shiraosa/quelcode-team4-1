@@ -37,7 +37,7 @@ class LoginController extends CinemaBaseController
             ],
             //ログアウト先をトップページに固定
             'logoutRedirect' => [
-                'controller' => 'Toppage',
+                'controller' => 'QuelCinemas',
                 'action' => 'index',
             ],
             'authorize' => ['Controller'],

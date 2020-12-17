@@ -190,6 +190,6 @@ class MypageController extends CinemaBaseController
 
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['deleted']);
+        $this->Auth->allow(['deletedAccount']);
     }
 }
