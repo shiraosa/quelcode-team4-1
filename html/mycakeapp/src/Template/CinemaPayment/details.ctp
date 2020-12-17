@@ -17,6 +17,12 @@ $this->Html->css('paymentDetails', ['block' => true]);
                         <td><?= $point['use'] . 'pt' ?></td>
                     </tr>
                 <?php endif; ?>
+                <?php if (!empty($specialDiscount)) : ?>
+                    <tr class="orange">
+                        <th><?= $specialDiscount['type'] ?></th>
+                        <td class="special-details"><?= $specialDiscount['discount_details'] ?></td>
+                    </tr>
+                <?php endif; ?>
                 <?php if (!empty($discount)) : ?>
                     <tr class="orange">
                         <th><?= $discount['type'] ?></th>

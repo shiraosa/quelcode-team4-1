@@ -41,6 +41,7 @@ class BaseFunctionComponent extends Component
         $session->delete('creditcard');
         $session->delete('point');
         $session->delete('totalPayment');
+        $session->delete('todayWeather');
 
         // 座席テーブルに削除フラグを立てる
         if (($session->check('seat_id')) && (($session->read('completed') === null))) {
@@ -94,10 +95,8 @@ class BaseFunctionComponent extends Component
             }
 
             $point['havePoint'] = $getPoint - $usePoint;
-
         } else {
             $point['havePoint'] = 0;
-
         }
 
         return $point;
