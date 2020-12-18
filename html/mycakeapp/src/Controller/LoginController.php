@@ -15,8 +15,6 @@ class LoginController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('Paginator');
-        $this->loadModel('Users');
 
         $this->loadComponent('Auth', [
             'authenticate' => [
@@ -39,7 +37,7 @@ class LoginController extends CinemaBaseController
             ],
             //ログアウト先をトップページに固定
             'logoutRedirect' => [
-                'controller' => 'Toppage',
+                'controller' => 'QuelCinemas',
                 'action' => 'index',
             ],
             'authorize' => ['Controller'],
@@ -47,8 +45,6 @@ class LoginController extends CinemaBaseController
             'unauthorizedRedirect' => $this->referer()
         ]);
 
-
-        $this->viewBuilder()->setLayout('quel_cinemas');
 
         //未定義エラー対策
         $errorMailaddress = null;

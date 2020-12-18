@@ -10,9 +10,6 @@ class CinemaCreditcardController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Creditcards');
-        $this->loadComponent('BaseFunction');
-        $this->viewBuilder()->setLayout('quel_cinemas');
     }
 
     public function add()

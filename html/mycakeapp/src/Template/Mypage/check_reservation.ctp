@@ -47,7 +47,7 @@ $this->Html->css('reservationDetails', ['block' => true]);
                 <? endforeach; ?>
             </div>
             <? endif; ?>
-            <a class="button bigBtn" href="<?= $this->Url->build(['controller' => 'Mypage']) ?>">マイページへ戻る</a>
+            <a class="button bigBtn" href="<?= $this->Url->build(['action' => 'index']) ?>">マイページへ戻る</a>
         </div>
 
     </div>

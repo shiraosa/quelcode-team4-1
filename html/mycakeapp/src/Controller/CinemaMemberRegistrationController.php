@@ -14,9 +14,6 @@ class CinemaMemberRegistrationController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('Paginator');
-        $this->loadModel('Users');
-        $this->viewBuilder()->setLayout('quel_cinemas');
     }
 
     public function index()
