@@ -13,18 +13,6 @@ class CinemaPaymentController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('BasicRates');
-        $this->loadModel('Creditcards');
-        $this->loadModel('DiscountLogs');
-        $this->loadModel('DiscountTypes');
-        $this->loadModel('Movies');
-        $this->loadModel('Payments');
-        $this->loadModel('Points');
-        $this->loadModel('Reservations');
-        $this->loadModel('Seats');
-        $this->loadModel('Taxes');
-        $this->loadModel('Users');
-        $this->loadComponent('BaseFunction');
     }
 
 

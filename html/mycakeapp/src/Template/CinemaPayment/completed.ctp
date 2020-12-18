@@ -1,5 +1,5 @@
 <?php
-$this->Html->css('paymentDetails', ['block' => true]);
+$this->Html->css('completed', ['block' => true]);
 ?>
 
 <div class="main">

@@ -5,5 +5,5 @@
         <p class="innerParagraph">ご登録ありがとうございました。</p>
         <p class="innerParagraph">メールアドレスに登録完了メールを送信いたしました。</p>
     </div>
-    <?= $this->Html->link(__('トップへ戻る'), ['controller' => 'Toppage', 'action' => 'index']); ?>
+    <?= $this->Html->link(__('トップへ戻る'), ['controller' => 'QuelCinemas', 'action' => 'index']); ?>
 </div>

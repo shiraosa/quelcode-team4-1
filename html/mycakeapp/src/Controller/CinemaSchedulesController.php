@@ -12,9 +12,6 @@ class CinemaSchedulesController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Schedules');
-        $this->viewBuilder()->setLayout('quel_cinemas');
-        $this->loadComponent('BaseFunction');
     }
 
     public function beforeFilter(Event $event)
@@ -70,7 +67,7 @@ class CinemaSchedulesController extends CinemaBaseController
         foreach ($movies as $value) {
             $value['movie']['running_time'] = '[ 上映時間：' . $value['movie']['running_time'] . '分 ]';
             $value['movie']['end_date'] = $value['movie']['end_date']
-                ? $this->__getDayOfTheWeek(Chronos::parse($value['movie']['end_date'])) . '終了予定' : '';
+                ? $this->BaseFunction->__getDayOfTheWeek(Chronos::parse($value['movie']['end_date'])) . '終了予定' : '';
             $scheduleSet = [];
             foreach ($schedules as $schedulesValue) {
                 if ($value['movie']['id'] === $schedulesValue['movie_id']) {
@@ -87,14 +84,6 @@ class CinemaSchedulesController extends CinemaBaseController
         $this->set(compact('days', 'nowYmd', 'movies'));
     }
 
-    private function __getDayOfTheWeek($day)
-    {
-        $weekday = ['日', '月', '火', '水', '木', '金', '土'];
-        $w = $weekday[$day->format('w')];
-        $day = $day->format("m月d日($w)");
-
-        return $day;
-    }
 
     private function __getDays($day, int $length)
     {
@@ -102,7 +91,7 @@ class CinemaSchedulesController extends CinemaBaseController
             $discountType = (($day->isWednesday()) ? '子供女性シニア割引' : '')
                 ?: (($day->day === 1) ? 'ファーストデイ割引' : '');
             $date = $day->format("Y-m-d");
-            $schedule = $this->__getDayOfTheWeek($day);
+            $schedule = $this->BaseFunction->__getDayOfTheWeek($day);
             //本日の天気情報を取得。東京はTokyo
             if ($i === 0 && $this->__getRain('Tokyo')) {
                 $days[$date][$schedule] = $discountType . "雨の日割引";

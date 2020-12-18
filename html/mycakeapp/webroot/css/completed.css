@@ -1,0 +1,49 @@
+body {
+    background-color: #ebebeb;
+}
+.main {
+    margin: 78px auto 266px;
+    text-align: center;
+}
+.innerHeading {
+    color: #707070;
+    font: normal normal 600 25px/34px sans-serif;
+    letter-spacing: 0.89px;
+}
+.innerWindow {
+    width: 736px;
+    margin: 36px auto 27px;
+    background-color: #ffffff;
+}
+.windowContent {
+    padding: 92px 184px 88px;
+}
+.innerWindow p {
+    padding-bottom: 11px;
+    color: #707070;
+    font-size: 13px;
+    text-align: left;
+}
+.innerWindow .completed {
+    padding-bottom: 40px;
+    color: #707070;
+    font-size: 16px;
+    text-align: center;
+}
+.button {
+    display: block;
+    margin: 0 auto;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    border: #f5ae0b;
+    box-shadow: 0px 2px 2px #00000015;
+    color: #ffffff;
+}
+.button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+.bigBtn {
+    width: 336px;
+    height: 48px;
+    line-height: 47px;
+}
+

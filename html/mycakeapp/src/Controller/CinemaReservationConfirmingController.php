@@ -11,12 +11,6 @@ class CinemaReservationConfirmingController extends CinemaBaseController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('BasicRates');
-        $this->loadModel('Schedules');
-        $this->loadModel('DiscountTypes');
-        $this->viewBuilder()->setLayout('quel_cinemas');
-        $this->loadComponent('Days');
-        $this->loadComponent('BaseFunction');
     }
 
     public function index()
@@ -34,7 +28,7 @@ class CinemaReservationConfirmingController extends CinemaBaseController
         // scheduleにまとめる
         $schedule = $this->Schedules->get($scheduleId, ['contain' => ['Movies']]);
         $start = $schedule['start_datetime'];
-        $schedule['start'] = $this->Days->__getDayOfTheWeek($start) . $start->format('H:i');
+        $schedule['start'] = $this->BaseFunction->__getDayOfTheWeek($start) . $start->format('H:i');
         $end = $schedule['end_datetime'];
         $schedule['end'] = $end->format('H:i');
         $schedule['seatNo'] = $seatNo;

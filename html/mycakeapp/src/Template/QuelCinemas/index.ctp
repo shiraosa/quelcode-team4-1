@@ -35,5 +35,5 @@ for ($i = 4; $i >= 1; $i--) {
         <li><?php echo $this->Html->image('banner/' . $discountsBanner[3]); ?></li>
         <li><?php echo $this->Html->image('banner/' . $discountsBanner[4]); ?></li>
     </ul>
-    <button onclick="location.href = 'BasicRateDiscountPage'" class="btn-sea-details">詳しく見る</button>
+    <button onclick="location.href = 'QuelCinemas/price'" class="btn-sea-details">詳しく見る</button>
 </div>

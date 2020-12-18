@@ -12,7 +12,7 @@ $this->Html->css('mypage', ['block' => true]);
                 <a class="button deleteCancel" href="ReservationDetails">確認</a>
             <?php else : ?>
                 <button id="modalClose" class="button deleteCancel">戻る</button>
-                <a class="button delete" href="<?= $this->Url->build(['action' => 'delete']) ?>">削除</a>
+                <a class="button delete" href="<?= $this->Url->build(['action' => 'deleteAccount']) ?>">削除</a>
             <?php endif; ?>
         </div>
     </div>
@@ -26,12 +26,12 @@ $this->Html->css('mypage', ['block' => true]);
                 <th class="tableFont">ポイント</th>
                 <td class="tableFont">
                     <span class="userUnique"><?= $point['havePoint'] . 'pt' ?></span>
-                    <a href="<?= $this->Url->build(['controller' => 'CinemaPoint', 'action' => 'index']) ?>" class="miniBtn button">詳細</a>
+                    <a href="<?= $this->Url->build(['action' => 'point']) ?>" class="miniBtn button">詳細</a>
                 </td>
             </tr>
             <tr>
                 <th class="tableFont">予約確認</th>
-                <td><a href="<?= $this->Url->build(['controller' => 'ReservationDetails']) ?>" class="miniBtn button">詳細</a></td>
+                <td><a href="<?= $this->Url->build(['action' => 'checkReservation']) ?>" class="miniBtn button">詳細</a></td>
             </tr>
             <?php if (0 === $cardNumLast4) : ?>
                 <tr>
