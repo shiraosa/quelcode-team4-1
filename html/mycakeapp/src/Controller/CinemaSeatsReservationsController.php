@@ -90,9 +90,18 @@ class CinemaSeatsReservationsController extends CinemaBaseController
         //ajaxでpost
         if ($this->request->is('post')) {
             $selectedSeat = $this->request->getData();
+            //適切な値かチェック
+            if ($selectedSeat['selected'][0]['GridSeatNum'] < 1 ||  $selectedSeat['selected'][0]['GridSeatNum'] > 11) {
+                return;
+            }
+            if ($selectedSeat['selected'][0]['GridRowId'] < 0 || $selectedSeat['selected'][0]['GridRowId'] > 8) {
+                return;
+            }
+
             //数値をアルファベット化
             $gridSeatChr = chr($selectedSeat['selected'][0]['GridSeatNum'] + 64);
             $gridRowId = $selectedSeat['selected'][0]['GridRowId'];
+
             //アルファベット-数値に結合
             $seat_number = $gridSeatChr . "-" . $gridRowId;
 

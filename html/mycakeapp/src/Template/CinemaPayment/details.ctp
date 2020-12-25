@@ -35,7 +35,7 @@ $this->Html->css('paymentDetails', ['block' => true]);
                 </tr>
             </table>
             <div class="oneLine">
-                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancel']) ?>">戻る</a>
+                <a class="button delete" href="<?= $this->Url->build(['action' => 'cancelDetails']) ?>">戻る</a>
                 <a class="button submit" href="<?= $this->Url->build(['action' => 'save']) ?>">決済</a>
             </div>
         </div>

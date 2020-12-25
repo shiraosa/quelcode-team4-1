@@ -98,3 +98,7 @@
     border-color: #F5AE0B;
     background-color: #F5AE0B;
   }
+  .seat-selection .layout-action-btn.layout-btn-done.loading {
+    border-color: #F5AE0B !important;
+    background-color: #F5AE0B !important;
+  }
