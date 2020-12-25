@@ -91,7 +91,7 @@ class CinemaSeatsReservationsController extends CinemaBaseController
         if ($this->request->is('post')) {
             $selectedSeat = $this->request->getData();
             //適切な値かチェック
-            if ($selectedSeat['selected'][0]['GridSeatNum'] < 65 ||  $selectedSeat['selected'][0]['GridSeatNum'] > 75) {
+            if ($selectedSeat['selected'][0]['GridSeatNum'] < 1 ||  $selectedSeat['selected'][0]['GridSeatNum'] > 11) {
                 return;
             }
             if ($selectedSeat['selected'][0]['GridRowId'] < 0 || $selectedSeat['selected'][0]['GridRowId'] > 8) {
