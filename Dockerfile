@@ -20,6 +20,10 @@ RUN apt-get update \
   && apt-get install -y libicu-dev \
   && docker-php-ext-install pdo_mysql intl mbstring
 
+# htmlをcopyしてcomposer install用に権限変更
+COPY html/ /var/www/html
+RUN chmod -R 777 mycakeapp/
+
 # ユーザを作成する
 RUN useradd -m ${DOCKER_USER} -u ${DOCKER_UID}
 RUN echo "${DOCKER_USER}:${DOCKER_PASSWORD}" | chpasswd
@@ -30,5 +34,6 @@ RUN usermod -aG sudo ${DOCKER_USER}
 # 作成したユーザに切り替える
 USER ${DOCKER_USER}
 
-# 作業ディレクトリを変更する
-WORKDIR /var/www/html
+# composer install
+WORKDIR /var/www/html/mycakeapp
+RUN composer install
