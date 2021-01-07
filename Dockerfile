@@ -4,7 +4,7 @@ EXPOSE 80
 
 # 本番環境であることを示す環境変数
 ENV CURRENT_ENVIRONMENT=production
-ENV CAKEPHP_DEBUG=0
+ENV DEBUG=0
 
 # 鍵の環境変数（AWS上での操作による設定に切り替える可能性）
 ENV DEV_KEY=HOGEhogeHOGEhogeHOGEhogeHOGEhoge
