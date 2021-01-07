@@ -1,0 +1,193 @@
+body {
+    background-color: #ebebeb;
+}
+.main {
+    margin: 78px auto 266px;
+    text-align: center;
+}
+.innerHeading {
+    color: #707070;
+    font: normal normal 600 25px/34px sans-serif;
+    letter-spacing: 0.89px;
+}
+
+.innerWindow {
+    width: 736px;
+    margin: 36px auto 27px;
+    background-color: #ffffff;
+}
+.windowContent {
+    padding: 92px 184px 88px;
+}
+.innerWindow p {
+    padding-bottom: 11px;
+    color: #707070;
+    font-size: 13px;
+    text-align: left;
+}
+.cardOwner {
+    padding: 20px 0px 3px;
+    font: normal normal bold 18px/24px sans-serif;
+    letter-spacing: 0.3px;
+}
+.detail {
+    padding-bottom: 70px;
+}
+.oneLine {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    display: block;
+    margin: 0 auto;
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    border: #f5ae0b;
+    box-shadow: 0px 2px 2px #00000015;
+    color: #ffffff;
+}
+.button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+.bigBtn {
+    width: 336px;
+    height: 48px;
+    line-height: 47px;
+}
+
+.innerWindow .completed {
+    padding-bottom: 40px;
+    color: #707070;
+    font-size: 16px;
+    text-align: center;
+}
+
+.delete {
+    width: 128px;
+    height: 48px;
+    color: #707070;
+    background-color: #EFEFEF;
+    font-size: 16px;
+    line-height: 48px;
+    margin: 0 8px;
+    text-align: center;
+}
+.submit, .deleteCancel {
+    width: 192px;
+    height: 48px;
+    margin: 0 8px;
+    font-size: 16px;
+    line-height: 47px;
+}
+
+.creditcard {
+    display: flex;
+    width: 368px;
+    height: 88px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+    border: 0.5px solid #ADADAD;
+    border-radius: 5px;
+}
+.dot {
+    width: 72px;
+    height: 88px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dot img {
+    width: 24px;
+    height: 24px;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.point {
+    margin-bottom: 48px;
+    justify-content: start;
+}
+.point select {
+    width: 200px;
+    height: 48px;
+    margin-right: 24px;
+    /* color: #ADADAD; */
+    border: 0.5px solid #ADADAD;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.usePoint {
+    display: none;
+    width: 100px;
+    height: 45px;
+    border-left: 0.5px solid #ADADAD;
+    border-top: 0.5px solid #ADADAD;
+    border-bottom: 0.5px solid #ADADAD;
+    border-right: none;
+    border-radius: 5px 0px 0px 5px;
+    font-size: 16px;
+}
+.pt {
+    display: none;
+    width: 44px;
+    height: 47px;
+    border-right: 0.5px solid #ADADAD;
+    border-top: 0.5px solid #ADADAD;
+    border-bottom: 0.5px solid #ADADAD;
+    color: #707070;
+    border-radius: 0px 5px 5px 0px;
+}
+.pt span {
+    line-height: 44px;
+}
+
+.details {
+    width: 368px;
+    border-collapse: collapse;
+}
+.details tr {
+    padding-bottom: 16px;
+}
+.details th, .details td {
+    padding: 0 8px 32px;
+}
+.details th {
+    font: normal normal 600 13px/18px sans-serif;
+    text-align: left;
+}
+.details td {
+    font: normal normal normal 18px/24px sans-serif;
+    letter-spacing: 1.44px;
+    text-align: right;
+}
+.ticketFeeTr {
+    color: #707070;
+}
+.details .orange {
+    color: #f5ae0b;
+}
+.orange td {
+    font-weight: 600;
+}
+.orange .special-details{
+    font: normal normal 600 13px sans-serif;
+}
+.totalPayment th, .totalPayment td {
+    padding-top: 19px;
+    padding-bottom: 54px;
+    border-top: 1px solid #ADADAD;
+    color: #707070;
+}
+
+.innerWindow .error-message {
+    color: #F46161;
+    font: normal normal 600 11px/15px sans-serif;
+}
+
+.innerWindow .pointTitle {
+    display: flex;
+    justify-content: space-between;
+}

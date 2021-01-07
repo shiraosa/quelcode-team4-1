@@ -1,0 +1,139 @@
+
+body {
+    background-color: #ebebeb;
+}
+.main {
+    margin: 83px auto 266px;
+    text-align: center;
+}
+.innerHeading {
+    font: normal normal 600 25px/34px sans-serif;
+    letter-spacing: 0.89px;
+    color: #707070;
+}
+
+.innerWindow {
+    width: 736px;
+    margin: 36px auto 27px;
+    background-color: #ffffff;
+    padding-top: 110px;
+    padding-bottom: 115px;
+}
+
+.tableFont {
+    color: #707070;
+    font-size: 16px;
+    font-weight: normal;
+
+}
+.mypageTable {
+    width: 356px;
+    margin: 0 auto;
+}
+.mypageTable tr {
+    height: 64px;
+    margin: 14px 0;
+}
+.mypageTable th {
+    text-align: left;
+    letter-spacing: 0.27px;
+}
+.mypageTable td {
+    text-align: right;
+}
+
+.button {
+    background: #f5ae0b 0% 0% no-repeat padding-box;
+    box-shadow: 0px 2px 2px #00000015;
+    border: #f5ae0b;
+    color: #ffffff;
+}
+.miniBtn {
+    font: normal normal 600 15px/20px sans-serif;
+    letter-spacing: 0.25px;
+    padding: 8px 18px;
+}
+.userUnique {
+    padding-right: 20px;
+}
+.button:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.deleteLink {
+    text-decoration: underline;
+    color: #707070;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.bigBtn {
+    display: block;
+    margin: 0 auto;
+    width: 336px;
+    height: 48px;
+    line-height: 47px;
+}
+.completed {
+    padding-bottom: 40px;
+    color: #707070;
+    font-size: 16px;
+}
+
+.oneLine {
+    display: flex;
+    justify-content: center;
+}
+
+.delete {
+    width: 128px;
+    height: 48px;
+    color: #707070;
+    background-color: #EFEFEF;
+    font-size: 16px;
+    line-height: 48px;
+    margin: 0 8px;
+    text-align: center;
+}
+.return {
+    width: 336px;
+    height: 40px;
+    margin-top: 32px;
+    background-color: #EFEFEF;
+    color: #707070;
+    font-size: 16px;
+    line-height: 40px;
+}
+.deleteCancel {
+    width: 192px;
+    height: 48px;
+    margin: 0 8px;
+    font-size: 16px;
+    line-height: 48px;
+    text-align: center;
+}
+
+/* モーダルウィンドウ */
+#modalContent {
+    display: none;
+    margin: 200px auto;
+    z-index: 10;
+}
+#modalOverlay {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba( 0,0,0, 0.75 ) ;
+    position: fixed;
+    z-index: 5;
+}
+#modalContent p {
+    padding-bottom: 60px;
+    color: #707070;
+    text-align: center;
+}
+

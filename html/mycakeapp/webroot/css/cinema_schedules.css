@@ -1,0 +1,134 @@
+.days {
+    display: flex;
+    justify-content: space-between;
+    min-height: 80px;
+    max-height: 105px;
+    margin: 0 0 25px;
+}
+
+.days a {
+    background-color: #7b7b7b;
+}
+
+.days a.isSelected {
+    background-color: #efa600;
+}
+
+.days li {
+    display: block;
+    width: 153.5px;
+    padding: 12px 0 0;
+    color: #ffffff;
+    font: normal normal bold 15px/20px sans-serif;
+    letter-spacing: 1.2px;
+    line-height: 27px;
+    text-align: center;
+}
+
+.schedules {
+    margin: 0 0 24px 0;
+}
+
+.schedules-list {
+    overflow: hidden;
+}
+
+.schedules .schedules-list-title {
+    height: 48px;
+    padding: 0 0 0 16px;
+    background: #7b7b7b;
+    color: #ffffff;
+    font: normal normal bold 15px/17px sans-serif;
+    letter-spacing: 1.2px;
+    line-height: 48px;
+}
+
+.schedules-list-title .running-time {
+    margin: 0 0 0 15px;
+}
+
+.schedules-list-title .end-date {
+    margin: 0 0 0 15px;
+    color: #d1d1d1;
+    font: normal normal bold 12px/17px sans-serif;
+    letter-spacing: 0.96px;
+}
+
+.schedules-list-detail {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 2000px;
+    height: 168px;
+    background-color: #d5d5d5;
+    overflow: hidden;
+}
+
+.schedules-list-thumbnail {
+    width: 120px;
+    height: 144px;
+    margin: 0 16px;
+    object-fit: cover;
+}
+
+.schedules-list-time {
+    width: 216px;
+    height: 144px;
+    margin: 0 19px 0 0;
+    background: #ffffff;
+    color: #707070;
+    font: normal normal bold 17px/23px sans-serif;
+    letter-spacing: 1.36px;
+    text-align: center;
+}
+
+.schedules-list-time span.end-time {
+    font: normal normal bold 13px/15px sans-serif;
+}
+
+.schedules-list-time p,
+.schedules-list-time a {
+    color: #707070;
+}
+
+.schedules-list-time p {
+    margin: 24px 0 38px 0;
+}
+
+.schedules-list-time a {
+    background-color: #d0cece;
+    width: 146px;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+    line-height: 40px;
+}
+
+p.no-schedules {
+    color: #242424;
+    font: normal normal bold 16px/22px sans-serif;
+    letter-spacing: 1.28px;
+}
+
+body {
+    background-color: #ebebeb;
+}
+
+.container {
+    width: 1088px;
+    margin: 0 auto 100px;
+}
+
+.innerHeading {
+    margin: 88px 0 16px 0;
+    color: #242424;
+    font: normal normal bold 16px/22px sans-serif;
+    letter-spacing: 1.28px;
+}
+
+.innerHeading-date {
+    margin: 0 0 8px;
+    color: #242424;
+    font: normal normal bold 23px/32px Noto Sans;
+    letter-spacing: 1.84px;
+}
