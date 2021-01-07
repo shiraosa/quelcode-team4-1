@@ -7,6 +7,13 @@ use Cake\Error\ExceptionRenderer;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
 
+if (!defined('RDS_HOSTNAME')) {
+    define('RDS_HOSTNAME', $_SERVER['RDS_HOSTNAME']);
+    define('RDS_USERNAME', $_SERVER['RDS_USERNAME']);
+    define('RDS_PASSWORD', $_SERVER['RDS_PASSWORD']);
+    define('RDS_DB_NAME', $_SERVER['RDS_DB_NAME']);
+  }
+
 return [
 	/**
 	 * Debug Level:
@@ -263,7 +270,7 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'docker_db_user',
+            'username' => 'root',
             'password' => 'docker_db_user_pass',
             'database' => 'docker_db',
             /*
