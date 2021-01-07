@@ -34,6 +34,9 @@ RUN apt-get update \
 # Apache2のModuleを有効化する
 RUN a2enmod rewrite
 
+# 作業ディレクトリを変更する
+WORKDIR /var/www/html/mycakeapp
+
 # アプリケーションファイルを追加
 ADD html/ /var/www/html
 
@@ -58,5 +61,4 @@ RUN usermod -aG sudo ${DOCKER_USER}
 USER ${DOCKER_USER}
 
 # ComposerをInstallする
-WORKDIR /var/www/html/mycakeapp
 RUN composer install
