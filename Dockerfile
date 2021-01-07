@@ -1,4 +1,15 @@
-FROM php:7.3-fpm
+FROM php:7.3-apache
+
+# ContainerのPortを開放する
+EXPOSE 80
+
+# 環境変数を宣言する
+ENV MYSQL_DATABASE=docker_db
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_USER=docker_db_user
+ENV MYSQL_PASSWORD=docker_db_user_pass
+ENV TZ=Asia/Tokyo
+ENV DEBUG=0
 
 # 変数を宣言する
 ARG DOCKER_UID=${DOCKER_UID}
@@ -20,6 +31,18 @@ RUN apt-get update \
   && apt-get install -y libicu-dev \
   && docker-php-ext-install pdo_mysql intl mbstring
 
+# Apache2のModuleを有効化する
+RUN a2enmod rewrite
+
+# アプリケーションファイルを追加
+ADD html/ /var/www/html
+
+# 設定ファイルを追加
+ADD docker/php/php.ini /var/www/docker/php/php.ini
+ENV APACHE_DOCUMENT_ROOT /var/www/html/mycakeapp/webroot
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
 # htmlをcopyしてcomposer install用に権限変更
 COPY html/ /var/www/html
 RUN chmod -R 777 mycakeapp/
@@ -34,6 +57,6 @@ RUN usermod -aG sudo ${DOCKER_USER}
 # 作成したユーザに切り替える
 USER ${DOCKER_USER}
 
-# composer install
+# ComposerをInstallする
 WORKDIR /var/www/html/mycakeapp
 RUN composer install
