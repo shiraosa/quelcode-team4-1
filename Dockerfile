@@ -12,7 +12,7 @@ ENV DEV_KEY=HOGEhogeHOGEhogeHOGEhogeHOGEhoge
 # MySQL用の環境変数
 ENV MYSQL_DATABASE=docker_db
 ENV MYSQL_ROOT_PASSWORD=root
-ENV MYSQL_USER=docker_db_user
+ENV MYSQL_USER=root
 ENV MYSQL_PASSWORD=docker_db_user_pass
 ENV TZ=Asia/Tokyo
 
