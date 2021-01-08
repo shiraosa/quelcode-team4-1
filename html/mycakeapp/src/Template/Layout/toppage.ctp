@@ -52,7 +52,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <a href="/cinema-schedules">
                                 <li>上映スケジュール</li>
                             </a>
-                            <a href="/basic-rate-discount-page">
+                            <a href="/QuelCinemas/price">
                                 <li>料金・割引</li>
                             </a>
                         </ul>
