@@ -1,6 +1,9 @@
 # quelcode-team4-1
 チーム ゴースト・プロトコル
 
+アプリケーション
+http://codegym-isa-team-4-1.eba-wu5xj37f.ap-northeast-1.elasticbeanstalk.com/QuelCinemas
+
 ドキュメント
 - 基本設計書　https://docs.google.com/presentation/d/1OKQ1Ugwr726bUHO6eZ_eljyP5Hrl0UiRytRF7WDL-9k/edit#slide=id.p
 - ドキュメント　https://docs.google.com/document/d/1I0GWjLoWSVDA0OHvQxLrpPRYHHj0oaqmUnxIZwweMW8/edit
